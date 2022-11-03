@@ -1,0 +1,35 @@
+.about-container {
+  background-color: var(--background);
+  display: flex;
+  padding-right: 2rem;
+}
+
+.about-pic__image {
+  bottom: 100px;
+  width: 30rem;
+  border-radius: 100%;
+  padding: 1rem;
+  position: relative;
+}
+.about-text__title {
+  position: relative;
+  bottom: 100px;
+}
+
+.about-text__title h1 {
+  color: var(--font_title);
+  font-family: "Share Tech Mono", monospace;
+  font-size: 5em;
+  line-height: 1em;
+  padding-right: 20%;
+}
+.about-text__descript {
+  position: relative;
+  bottom: 80px;
+}
+.about-text__descript p {
+  color: var(--font_p);
+  font-style: italic;
+  font-size: 2em;
+  line-height: 1.5em;
+}
