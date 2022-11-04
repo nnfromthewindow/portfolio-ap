@@ -1,0 +1,58 @@
+.cardblob {
+  height: 30rem;
+  margin-bottom: 10rem;
+}
+.example-card {
+  max-width: 400px;
+  margin-bottom: 8px;
+}
+
+.formation {
+  background-color: var(--background);
+}
+.formation-title {
+  color: var(--font_title);
+  font-family: "Share Tech Mono", monospace;
+  font-size: 30px;
+  margin-left: 10%;
+}
+.blob {
+  width: 30rem;
+}
+.blob-text__container {
+  position: relative;
+}
+
+.blob-text__title h2 {
+  color: var(--font_p);
+}
+
+.blob-text__sub {
+  color: var(--font_p);
+}
+
+.blob-text__descript p {
+  color: var(--font_p);
+  width: 50%;
+}
+.blob-text__container {
+  position: relative;
+  bottom: 20rem;
+  left: 10rem;
+  width: 30rem;
+  z-index: 1;
+}
+
+.imgblob__mask {
+  width: fit-content;
+  left: 20rem;
+  position: relative;
+  bottom: 35rem;
+}
+.imgmask {
+  mask-image: url("../../../../assets/img/blob-right.svg");
+  mask-position: center;
+  mask-size: cover;
+  mask-repeat: no-repeat;
+  width: fit-content;
+}

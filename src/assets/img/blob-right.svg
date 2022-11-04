@@ -1,0 +1,20 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+	<title>blob-svg</title>
+	<defs>
+		<clipPath clipPathUnits="userSpaceOnUse" id="cp1">
+			<path d="m194.5 403q38.5-97 148-74 109.5 23 183.5-56.5 74-79.5 186-43.5 112 36 187 153.5 75 117.5-4 232.5-79 115-193.5 134-114.5 19-197.5 6.5-83-12.5-133-69-50-56.5-132.5-121.5-82.5-65-44-162z"/>
+		</clipPath>
+		<radialGradient id="g1" cx="94340.1" cy="56113.3" r="75326.3" gradientUnits="userSpaceOnUse">
+			<stop offset="0" stop-color="#ff3bd1"/>
+			<stop offset="1" stop-color="#2d1c1c"/>
+		</radialGradient>
+	</defs>
+	<style>
+		.s0 { fill: url(#g1) } 
+	</style>
+	<g id="Clip-Path" clip-path="url(#cp1)">
+		<g id="Layer">
+			<path id="Layer" class="s0" d="m194.5 403q38.5-97 148-74 109.5 23 183.5-56.5 74-79.5 186-43.5 112 36 187 153.5 75 117.5-4 232.5-79 115-193.5 134-114.5 19-197.5 6.5-83-12.5-133-69-50-56.5-132.5-121.5-82.5-65-44-162z"/>
+		</g>
+	</g>
+</svg>

@@ -7,6 +7,7 @@ import { AngularMaterialModuleModule } from '../app/angular-material-module.modu
 import { NavbarModule } from './shared/components/navbar/navbar.module';
 import { BannerModule } from './shared/components/banner/banner.module';
 import { AboutmeModule } from './shared/components/aboutme/aboutme.module';
+import { FormationModule } from './shared/components/formation/formation.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { AboutmeModule } from './shared/components/aboutme/aboutme.module';
     NavbarModule,
     BannerModule,
     AboutmeModule,
+    FormationModule,
   ],
   providers: [],
   exports: [AppComponent],
