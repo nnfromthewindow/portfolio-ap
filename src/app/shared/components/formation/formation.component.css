@@ -1,6 +1,10 @@
 .cardblob {
-  height: 30rem;
-  margin-bottom: 10rem;
+  display: flex;
+flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: space-evenly;
+  width: 90%;
+
 }
 .example-card {
   max-width: 400px;
@@ -13,14 +17,14 @@
 .formation-title {
   color: var(--font_title);
   font-family: "Share Tech Mono", monospace;
-  font-size: 30px;
-  margin-left: 10%;
+  font-size: 5em;
+  margin-left: 5%;
 }
 .blob {
-  width: 30rem;
+width: 30rem;
 }
-.blob-text__container {
-  position: relative;
+.blob-left{
+  height: 20rem;
 }
 
 .blob-text__title h2 {
@@ -45,14 +49,17 @@
 
 .imgblob__mask {
   width: fit-content;
-  left: 20rem;
-  position: relative;
-  bottom: 35rem;
+
 }
 .imgmask {
+  margin-top: 3rem;
   mask-image: url("../../../../assets/img/blob-right.svg");
   mask-position: center;
   mask-size: cover;
   mask-repeat: no-repeat;
-  width: fit-content;
+  width: 50rem;
+}
+
+@media only screen and (max-width: 1070px) {
+
 }

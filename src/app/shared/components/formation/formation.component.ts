@@ -14,6 +14,7 @@ export class FormationComponent implements OnInit {
 
   formationSubTitle = `Croupier`;
 
+
   constructor() {}
 
   ngOnInit() {}
