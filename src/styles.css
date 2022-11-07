@@ -2,6 +2,7 @@
 
 html,
 body {
+  background-color: var(--background);
   height: 100%;
 }
 body {
@@ -15,7 +16,7 @@ body {
                           //////////////////////////////////////////*/
 
 :root {
-  --background: #111111f3;
+  --background: #111111;
   --font_title: #c2185b;
   --font_p: #c7c7c7;
 }

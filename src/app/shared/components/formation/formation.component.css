@@ -21,10 +21,10 @@ flex-wrap: wrap;
   margin-left: 5%;
 }
 .blob {
-width: 30rem;
+  transform: scale(0.7);
 }
 .blob-left{
-  height: 20rem;
+width: 30rem;
 }
 
 .blob-text__title h2 {
