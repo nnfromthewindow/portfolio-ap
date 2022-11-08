@@ -1,10 +1,10 @@
 .cardblob {
   display: flex;
-flex-wrap: wrap;
+  flex-wrap: wrap;
   margin: 0 auto;
   justify-content: space-evenly;
+  padding-bottom: 10rem;
   width: 90%;
-
 }
 .example-card {
   max-width: 400px;
@@ -23,8 +23,13 @@ flex-wrap: wrap;
 .blob {
   transform: scale(0.7);
 }
-.blob-left{
-width: 30rem;
+.blob-left {
+  height: 20rem;
+  width: 30rem;
+}
+.blob-right {
+  height: 20rem;
+  width: 30rem;
 }
 
 .blob-text__title h2 {
@@ -49,17 +54,20 @@ width: 30rem;
 
 .imgblob__mask {
   width: fit-content;
-
 }
+
 .imgmask {
-  margin-top: 3rem;
+  position: relative;
+}
+.imgmask image {
+  /*margin-top: 3rem;
   mask-image: url("../../../../assets/img/blob-right.svg");
   mask-position: center;
   mask-size: cover;
-  mask-repeat: no-repeat;
-  width: 50rem;
+  mask-repeat: no-repeat;*/
+
+  transform: scale(0.3);
 }
 
 @media only screen and (max-width: 1070px) {
-
 }

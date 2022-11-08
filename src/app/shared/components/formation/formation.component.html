@@ -4,35 +4,53 @@
   </div>
   <div class="cardblob">
     <div class="blob-left">
-
-      <svg class="blob" id="demo-svg"  width="1000" height="1000">
-
-        <path stroke="none" fill="red" d="M805.5,597Q767,694,657.5,671Q548,648,474,727.5Q400,807,288,771Q176,735,101,617.5Q26,500,105,385Q184,270,298.5,251Q413,232,496,244.5Q579,257,629,313.5Q679,370,761.5,435Q844,500,805.5,597Z"></path>
+      <svg
+        viewBox="0 0 200 200"
+        id="blob-item"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill="#FF0066"
+          d="M35.8,-43.1C44.7,-27,48.8,-13.5,50.9,2.1C52.9,17.6,52.9,35.3,44.1,43.9C35.3,52.5,17.6,52.1,1.8,50.3C-14.1,48.5,-28.1,45.3,-44.8,36.7C-61.4,28.1,-80.7,14.1,-81.2,-0.5C-81.6,-15,-63.3,-30,-46.6,-46.1C-30,-62.2,-15,-79.5,-0.7,-78.8C13.5,-78,27,-59.3,35.8,-43.1Z"
+          transform="translate(100 100)"
+        />
       </svg>
       <div class="blob-text__container">
         <div class="blob-text__title">
           <h2>{{ formationTitle }}</h2>
-        <div class="blob-text__sub">
+          <div class="blob-text__sub">
             <h3>{{ formationSubTitle }}</h3>
-        <div class="blob-text__descript">
-            <p>{{ longText }}</p>
+            <div class="blob-text__descript">
+              <p>{{ longText }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <div class="blob-right" (mouseenter)="enter()" (mouseout)="out()">
+      <svg viewBox="0 0 200 200" class="imgmask" id="blob-img">
+        <defs>
+          <pattern
+            id="img1"
+            patternUnits="objectBoundingBox"
+            width="1"
+            height="1"
+          >
+            <image
+              href="https://www.noticiastornquist.com.ar/adjuntos/2022-04/casino.jpg"
+              x="-200"
+              y="0"
+              width="1000"
+              height="500"
+            />
+          </pattern>
+        </defs>
+        <path
+          d="M47.9,-45.1C63.9,-31.9,80,-16,77.5,-2.5C75,11,54.1,22.1,38.1,31.1C22.1,40.1,11,47.1,-4.2,51.3C-19.5,55.6,-39,57,-47.9,48C-56.8,39,-55.2,19.5,-56.8,-1.6C-58.5,-22.8,-63.4,-45.5,-54.5,-58.7C-45.5,-71.8,-22.8,-75.3,-3.4,-71.9C16,-68.5,31.9,-58.2,47.9,-45.1Z"
+          transform="translate(100 100)"
+          fill="url(#img1)"
+        />
+      </svg>
     </div>
-    </div>
-    <div class="blob-right">
-      <div class="imgblob__mask">
-      <img
-        class="imgmask"
-        src="https://www.noticiastornquist.com.ar/adjuntos/2022-04/casino.jpg"
-        alt=""
-      />
-    </div>
-    </div>
-
-
   </div>
-
-
 </section>
