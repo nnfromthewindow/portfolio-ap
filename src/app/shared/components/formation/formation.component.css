@@ -1,6 +1,7 @@
 .cardblob {
   display: flex;
   flex-wrap: wrap;
+  grid-gap: 2rem;
   margin: 0 auto;
   justify-content: space-evenly;
   padding-bottom: 10rem;
