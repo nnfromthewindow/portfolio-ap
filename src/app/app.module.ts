@@ -8,6 +8,8 @@ import { NavbarModule } from './shared/components/navbar/navbar.module';
 import { BannerModule } from './shared/components/banner/banner.module';
 import { AboutmeModule } from './shared/components/aboutme/aboutme.module';
 import { FormationModule } from './shared/components/formation/formation.module';
+import { SkillsModule } from './shared/components/skills/skills.module';
+import { ProjectsModule } from './shared/components/projects/projects.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +22,8 @@ import { FormationModule } from './shared/components/formation/formation.module'
     BannerModule,
     AboutmeModule,
     FormationModule,
+    SkillsModule,
+    ProjectsModule,
   ],
   providers: [],
   exports: [AppComponent],

@@ -6,8 +6,10 @@
 
 .about-pic__image {
   bottom: 100px;
+  height: 30rem;
   width: 30rem;
   border-radius: 100%;
+  object-fit: cover;
   padding: 1rem;
   position: relative;
 }
