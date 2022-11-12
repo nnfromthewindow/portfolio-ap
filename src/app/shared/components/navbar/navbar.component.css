@@ -39,8 +39,17 @@ section {
   object-fit: contain;
 }
 
+.navbar-networks a:visited{
+color: var(--navbar-font);
+}
+
 .title {
+  color: var(--navbar-font);
   padding: 1rem;
+}
+
+.fa-brands, .fab {
+  margin: auto 1rem;
 }
 
 @media only screen and (max-width: 390px) {
