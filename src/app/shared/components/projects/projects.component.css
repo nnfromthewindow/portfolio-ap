@@ -11,7 +11,6 @@
 }
 
 .project {
-
   margin-top: 5rem;
   position: relative;
 }
@@ -20,16 +19,14 @@
   height: 40rem;
   object-fit: cover;
   opacity: 0.7;
-  transition: 1s;
+  transition: 0.5s;
   width: 100%;
-
 }
-.project-image:hover{
+.project-image:hover {
   filter: blur(4px);
-  transform: scale(1.1);
-  transition: 1s;
+  transform: scale(1.05);
+  transition: 0.5s;
 }
-
 
 .project-text__container {
   position: absolute;
