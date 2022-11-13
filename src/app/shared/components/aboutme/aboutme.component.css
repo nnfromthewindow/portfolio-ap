@@ -1,4 +1,8 @@
-.about-container {
+.about{
+  padding-bottom: 3rem;
+}
+
+.about-head {
   background-color: var(--background);
   display: flex;
   padding-right: 2rem;
@@ -15,23 +19,65 @@
 }
 .about-text__title {
   position: relative;
-  bottom: 100px;
+
 }
 
 .about-text__title h1 {
   color: var(--font_title);
   font-family: "Share Tech Mono", monospace;
-  font-size: 5em;
+  font-size: 7em;
   line-height: 1em;
   padding-right: 20%;
 }
 .about-text__descript {
+  margin-left: 30rem;
+  margin-right: 5rem;
   position: relative;
-  bottom: 80px;
+
 }
 .about-text__descript p {
   color: var(--font_p);
   font-style: italic;
   font-size: 2em;
   line-height: 1.5em;
+}
+
+@media only screen and (max-width: 1500px) {
+
+  .about-text__title h1 {
+
+    font-size: 5em;
+
+  }
+}
+
+@media only screen and (max-width: 1330px) {
+
+  .about-pic__image {
+    height: 18rem;
+    width: 18rem;
+  }
+  .about-text__title h1 {
+    font-size: 5em;
+  }
+  .about-text__descript {
+    margin-left: 15rem;
+  }
+}
+
+@media only screen and (max-width: 985px) {
+
+  .about-text__title h1 {
+    font-size: 3em;
+  }
+  .about-text__descript p {
+    font-size: 1.5em;
+
+  }
+  .about-pic__image {
+
+    height: 15rem;
+    width: 15rem;
+
+  }
 }

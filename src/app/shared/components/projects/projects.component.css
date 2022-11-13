@@ -16,6 +16,7 @@
 }
 
 .project-image {
+  mask-image: linear-gradient( transparent 0%, black 10%,transparent 100%, black 90%);
   height: 40rem;
   object-fit: cover;
   opacity: 0.7;
