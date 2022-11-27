@@ -1,51 +1,44 @@
 <section class="projects">
-  <h2 class="projects-title">Proyectos</h2>
-  <div class="projects-container">
-    <div class="project">
+  <h2 class="projects-title" data-aos="fade-right">Proyectos</h2>
+  <div class="projects-container" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div class="project" data-aos="fade-up" data-aos-duration="3000" *ngFor="let project of projects" cdkDrag>
       <img
-        src="https://github.com/nnfromthewindow/portafolio/blob/main/assets/img/encriptador.jpeg?raw=true"
-        alt=""
+        src={{project.img}}
+        alt={{project.title}}
         class="project-image"
       />
+      <div class="project-image__edit">
+        <app-edit-icon></app-edit-icon>
+      </div>
       <div class="project-text__container">
-        <div class="project-title__bar">
-          <h2 class="project-title">Encriptador de Texto</h2>
+        <div class="project-title__bar" data-aos="fade-right">
+          <div class="proyect-title__container">
+            <h2 class="project-title">{{project.title}}</h2>
+          <app-edit-icon></app-edit-icon>
+          </div>
+
         </div>
-        <div class="project-description__bar">
+        <div class="project-description__bar" data-aos="fade-right">
           <h3 class="project-description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
-            quibusdam velit hic, at debitis voluptas impedit assumenda
-            recusandae nostrum quidem blanditiis eius rerum, totam natus iusto
-            quasi, accusantium nam atque?
+            {{project.description}}
           </h3>
+          <app-edit-icon></app-edit-icon>
         </div>
-        <div class="project-button__bar">
-          <button mat-raised-button color="primary">Proyecto</button>
+        <div class="project-button__bar" data-aos="fade-right">
+          <div class="project-button__container">
+            <a href={{project.link}}><button mat-raised-button color="primary">Proyecto</button></a>
+          <app-edit-icon></app-edit-icon>
+        </div>
         </div>
       </div>
-    </div>
-    <div class="project">
-      <img
-        src="https://github.com/nnfromthewindow/portafolio/blob/main/assets/img/ahorcado.jpeg?raw=true"
-        alt=""
-        class="project-image"
-      />
-      <div class="project-text__container">
-        <div class="project-title__bar">
-          <h2 class="project-title">Juego del Ahorcado</h2>
-        </div>
-        <div class="project-description__bar">
-          <h3 class="project-description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
-            quibusdam velit hic, at debitis voluptas impedit assumenda
-            recusandae nostrum quidem blanditiis eius rerum, totam natus iusto
-            quasi, accusantium nam atque?
-          </h3>
-        </div>
-        <div class="project-button__bar">
-          <button mat-raised-button color="primary">Proyecto</button>
-        </div>
+      <div class="admin-buttons__container">
+        <app-delete-icon ></app-delete-icon>
       </div>
     </div>
   </div>
+  <div class="add-btn__container">
+    <button mat-raised-button color="primary" class="add_btn" (click)="openDialog('3000ms', '1500ms')">Agregar Item</button>
+
+  </div>
+
 </section>

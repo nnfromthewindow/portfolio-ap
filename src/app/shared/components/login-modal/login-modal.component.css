@@ -1,0 +1,62 @@
+.example-container mat-form-field + mat-form-field {
+  margin-left: 8px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.modal-title{
+  font-size: 1.5em;
+  text-align: center;
+}
+.mat-dialog-container{
+background-color: blue;
+}
+.input-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.input-user{
+  width: 90%;
+  margin: 0 auto;
+}
+.input-password{
+  margin: 0 auto;
+  margin-top: 0.8rem;
+  width: 90%;
+}
+.login-btn{
+  margin: 0 auto;
+  margin-top: 1.5rem;
+  width: 80%;
+}
+.register{
+  margin-top: 1.2rem;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+.register:hover{
+ color: var(--title-light);
+}
+@media only screen and (max-width: 370px) {
+  .input-password{
+    margin-top: 1.5rem;
+
+  }
+  .login-btn{
+    margin-top: 3rem;
+
+  }
+}

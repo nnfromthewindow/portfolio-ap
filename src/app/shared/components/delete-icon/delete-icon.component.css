@@ -1,0 +1,16 @@
+
+.edit-circle{
+  background-color: rgb(204, 0, 0);
+  color: var(--font_p);
+  border-radius: 100%;
+  height: 2.5rem;
+  opacity: 0.9;
+  text-align: center;
+  width: 2.5rem;
+}
+
+.edit-icon mat-icon{
+    top: 5px;
+    position: relative;
+
+}

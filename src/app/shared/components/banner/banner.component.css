@@ -1,5 +1,17 @@
+.banner-container{
+  position: relative;
+}
 .banner-img {
   height: 20rem;
   object-fit: cover;
   width: 100%;
+}
+
+app-edit-icon{
+  bottom: 16rem;
+  color: var(--font_p);
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  width: 98%;
 }

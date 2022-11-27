@@ -8,7 +8,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [],
   imports: [CommonModule],
@@ -21,6 +25,11 @@ import { MatSliderModule } from '@angular/material/slider';
     MatRadioModule,
     FormsModule,
     MatSliderModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    DragDropModule,
+    ReactiveFormsModule
   ],
 })
 export class AngularMaterialModuleModule {}

@@ -1,25 +1,34 @@
 .cardblob {
   display: flex;
   flex-wrap: wrap;
-  grid-gap: 2rem;
+  grid-gap: 8rem;
   margin: 0 auto;
   justify-content: space-evenly;
   padding-bottom: 10rem;
-  width: 90%;
+  width: 80%;
+
+}
+.cardblob-container{
+  display: flex;
+  flex-direction: column;
+
 }
 .example-card {
   max-width: 400px;
   margin-bottom: 8px;
 }
 
-.formation {
+.experience {
   background-color: var(--background);
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
-.formation-title {
+.experience-title {
   color: var(--font_title);
   font-family: "Share Tech Mono", monospace;
   font-size: 5em;
   margin-left: 5%;
+  margin-top: 1rem;
 }
 .blob {
   transform: scale(0.7);
@@ -27,6 +36,7 @@
 .blob-left {
   height: 20rem;
   width: 30rem;
+  z-index: 1;
 }
 .blob-right {
   height: 20rem;
@@ -35,22 +45,35 @@
 
 .blob-text__title h2 {
   color: var(--font_p);
+  font-size: 3em;
+  line-height: 3rem;
+  text-shadow: 1px 1px 2px black, 0 0 1em var(--font_title), 0 0 0.2em rgb(0, 0, 0);
+
 }
 
-.blob-text__sub {
+.blob-text__sub h3{
   color: var(--font_p);
+  font-size: 2em;
+  font-style: italic;
+  text-shadow: 1px 1px 2px black, 0 0 1em var(--font_title), 0 0 0.2em rgb(0, 0, 0);
 }
 
 .blob-text__descript p {
   color: var(--font_p);
-  width: 50%;
+  font-size: 1.4em;
+  text-shadow: 1px 1px 2px black, 0 0 1em var(--font_title), 0 0 0.2em rgb(0, 0, 0);
 }
 .blob-text__container {
   position: relative;
-  bottom: 20rem;
+  bottom: 21rem;
   left: 10rem;
   width: 30rem;
   z-index: 1;
+}
+.edit_icon__blobimg{
+  position: relative;
+  bottom: 11rem;
+    left: 11rem;
 }
 
 .imgblob__mask {
@@ -61,14 +84,105 @@
   position: relative;
 }
 .imgmask image {
-  /*margin-top: 3rem;
-  mask-image: url("../../../../assets/img/blob-right.svg");
-  mask-position: center;
-  mask-size: cover;
-  mask-repeat: no-repeat;*/
-
   transform: scale(0.3);
 }
-
-@media only screen and (max-width: 1070px) {
+.admin-buttons__container{
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
+.add-btn__container{
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+.add_btn{
+  height: 5rem;
+  font-size: 1.5em;
+  margin-bottom: 3rem;
+  width: 15rem;
+}
+
+/*    DRAG AND DROP   */
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+@media only screen and (max-width: 985px) {
+  .blob-text__container{
+    width: 16rem;
+  }
+}
+
+@media only screen and (max-width: 664px) {
+  .blob-text__container{
+    left: 4rem;
+    width: 16rem;
+  }
+  .experience-title {
+    font-size: 3em;
+  }
+    .blob-text__title h2 {
+    font-size: 2em;
+  }
+
+}
+@media only screen and (max-width: 480px) {
+  .blob-text__sub h3{
+    font-size: 1.5em;
+  }
+  .blob-text__descript p {
+    font-size: 1.1em;
+  }
+  }
+@media only screen and (max-width: 412px) {
+  .admin-buttons__container{
+    margin-bottom: 2rem;
+  }
+  .blob-text__container{
+    margin-top: 2rem;
+    width: 18rem;
+  }
+  .cardblob{
+    padding-bottom: 0rem;
+    gap: 0;
+  }
+  }
+@media only screen and (max-width: 300px) {
+  .blob-right{
+    height: 15rem;
+  }
+  .blob-text__container{
+    bottom: 11rem;
+    width: 12rem;
+  }
+  .admin-buttons__container{
+    margin-bottom: 2rem;
+  }
+  .cardblob{
+    padding-bottom: 0rem;
+    gap: 4rem;
+  }
+
+  }

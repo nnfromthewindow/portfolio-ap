@@ -1,125 +1,84 @@
-<section class="formation">
-  <div class="formation-type">
-    <h2 class="formation-title">Experiencia</h2>
+<section class="experience" >
+  <div class="experience-type">
+    <h2 class="experience-title" data-aos="fade-right">Experiencia</h2>
   </div>
-  <div class="cardblob">
-    <div class="blob-left">
-      <svg
-        viewBox="0 0 200 200"
-        id="blob-item"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
+<div  cdkDropList (cdkDropListDropped)="drop($event)">
+  <div class="cardblob-container" *ngFor="let experience of experiences" >
+    <div class="cardblob" cdkDrag>
+      <div class="blob-left" data-aos="fade-up"
+      data-aos-duration="3000">
+        <svg
+          viewBox="0 0 200 200"
+          id="blob-item"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            (mouseenter)="overItem()"
+            (mouseleave)="overItem()"
+            [attr.fill]="experience.color"
+            d="M35.8,-43.1C44.7,-27,48.8,-13.5,50.9,2.1C52.9,17.6,52.9,35.3,44.1,43.9C35.3,52.5,17.6,52.1,1.8,50.3C-14.1,48.5,-28.1,45.3,-44.8,36.7C-61.4,28.1,-80.7,14.1,-81.2,-0.5C-81.6,-15,-63.3,-30,-46.6,-46.1C-30,-62.2,-15,-79.5,-0.7,-78.8C13.5,-78,27,-59.3,35.8,-43.1Z"
+            transform="translate(100 100)"
+          />
+        </svg>
+        <div
+          class="blob-text__container"
+          id="text"
           (mouseenter)="overItem()"
           (mouseleave)="overItem()"
-          fill="#FF0066"
-          d="M35.8,-43.1C44.7,-27,48.8,-13.5,50.9,2.1C52.9,17.6,52.9,35.3,44.1,43.9C35.3,52.5,17.6,52.1,1.8,50.3C-14.1,48.5,-28.1,45.3,-44.8,36.7C-61.4,28.1,-80.7,14.1,-81.2,-0.5C-81.6,-15,-63.3,-30,-46.6,-46.1C-30,-62.2,-15,-79.5,-0.7,-78.8C13.5,-78,27,-59.3,35.8,-43.1Z"
-          transform="translate(100 100)"
-        />
-      </svg>
-      <div
-        class="blob-text__container"
-        id="text"
-        (mouseenter)="overItem()"
-        (mouseleave)="overItem()"
-      >
-        <div class="blob-text__title">
-          <h2>{{ formationTitle }}</h2>
-          <div class="blob-text__sub">
-            <h3>{{ formationSubTitle }}</h3>
-            <div class="blob-text__descript">
-              <p>{{ longText }}</p>
+        >
+        <app-edit-icon class="edit_icon__blobtext"></app-edit-icon>
+
+          <div class="blob-text__title">
+            <h2>{{experience.title}}</h2>
+            <div class="blob-text__sub">
+              <h3>{{experience.position}}</h3>
+              <div class="blob-text__descript">
+                <p >{{experience.description}}</p>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
-    </div>
-    <div class="blob-right">
-      <svg viewBox="0 0 200 200" class="imgmask" id="blob-img">
-        <defs>
-          <pattern
-            id="img1"
-            patternUnits="objectBoundingBox"
-            width="1"
-            height="1"
-          >
-            <image
-              href="https://www.noticiastornquist.com.ar/adjuntos/2022-04/casino.jpg"
-              x="-200"
-              y="0"
-              width="1000"
-              height="500"
-            />
-          </pattern>
-        </defs>
-        <path
-          (mousenter)="overImage()"
-          (mouseleave)="overImage()"
-          d="M47.9,-45.1C63.9,-31.9,80,-16,77.5,-2.5C75,11,54.1,22.1,38.1,31.1C22.1,40.1,11,47.1,-4.2,51.3C-19.5,55.6,-39,57,-47.9,48C-56.8,39,-55.2,19.5,-56.8,-1.6C-58.5,-22.8,-63.4,-45.5,-54.5,-58.7C-45.5,-71.8,-22.8,-75.3,-3.4,-71.9C16,-68.5,31.9,-58.2,47.9,-45.1Z"
-          transform="translate(100 100)"
-          fill="url(#img1)"
-        />
-      </svg>
-    </div>
-  </div>
-  <div class="cardblob">
-    <div class="blob-left">
-      <svg
-        viewBox="0 0 200 200"
-        id="blob-item"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          (mouseenter)="overItem()"
-          (mouseleave)="overItem()"
-          fill="#FF0066"
-          d="M35.8,-43.1C44.7,-27,48.8,-13.5,50.9,2.1C52.9,17.6,52.9,35.3,44.1,43.9C35.3,52.5,17.6,52.1,1.8,50.3C-14.1,48.5,-28.1,45.3,-44.8,36.7C-61.4,28.1,-80.7,14.1,-81.2,-0.5C-81.6,-15,-63.3,-30,-46.6,-46.1C-30,-62.2,-15,-79.5,-0.7,-78.8C13.5,-78,27,-59.3,35.8,-43.1Z"
-          transform="translate(100 100)"
-        />
-      </svg>
-      <div
-        class="blob-text__container"
-        id="text"
-        (mouseenter)="overItem()"
-        (mouseleave)="overItem()"
-      >
-        <div class="blob-text__title">
-          <h2>{{ formationTitle }}</h2>
-          <div class="blob-text__sub">
-            <h3>{{ formationSubTitle }}</h3>
-            <div class="blob-text__descript">
-              <p>{{ longText }}</p>
-            </div>
-          </div>
+      <div class="blob-right" data-aos="fade-up"
+      data-aos-duration="3000">
+
+        <svg viewBox="0 0 200 200" class="imgmask" id="blob-img">
+          <defs>
+            <pattern
+              id={{experience.id}}
+              patternUnits="objectBoundingBox"
+              width="1"
+              height="1"
+            >
+              <image
+              [attr.xlink:href]="experience.img"
+                x="-200"
+                y="0"
+                width="1000"
+                height="500"
+              />
+            </pattern>
+          </defs>
+          <path
+            (mousenter)="overImage()"
+            (mouseleave)="overImage()"
+            d="M47.9,-45.1C63.9,-31.9,80,-16,77.5,-2.5C75,11,54.1,22.1,38.1,31.1C22.1,40.1,11,47.1,-4.2,51.3C-19.5,55.6,-39,57,-47.9,48C-56.8,39,-55.2,19.5,-56.8,-1.6C-58.5,-22.8,-63.4,-45.5,-54.5,-58.7C-45.5,-71.8,-22.8,-75.3,-3.4,-71.9C16,-68.5,31.9,-58.2,47.9,-45.1Z"
+            transform="translate(100 100)"
+           [attr.fill]="'url('+'#'+experience.id+')'" />
+        </svg>
+        <app-edit-icon class="edit_icon__blobimg"></app-edit-icon>
+
+      </div>
         </div>
-      </div>
-    </div>
-    <div class="blob-right">
-      <svg viewBox="0 0 200 200" class="imgmask" id="blob-img">
-        <defs>
-          <pattern
-            id="img2"
-            patternUnits="objectBoundingBox"
-            width="1"
-            height="1"
-          >
-            <image
-              href="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/f2/bd/0d/vista-casitas.jpg?w=700&h=-1&s=1"
-              x="-200"
-              y="0"
-              width="1000"
-              height="500"
-            />
-          </pattern>
-        </defs>
-        <path
-          (mousenter)="overImage()"
-          (mouseleave)="overImage()"
-          d="M47.9,-45.1C63.9,-31.9,80,-16,77.5,-2.5C75,11,54.1,22.1,38.1,31.1C22.1,40.1,11,47.1,-4.2,51.3C-19.5,55.6,-39,57,-47.9,48C-56.8,39,-55.2,19.5,-56.8,-1.6C-58.5,-22.8,-63.4,-45.5,-54.5,-58.7C-45.5,-71.8,-22.8,-75.3,-3.4,-71.9C16,-68.5,31.9,-58.2,47.9,-45.1Z"
-          transform="translate(100 100)"
-          fill="url(#img2)"
-        />
-      </svg>
+    <div class="admin-buttons__container">
+      <app-delete-icon ></app-delete-icon>
+
     </div>
   </div>
+</div>
+<div class="add-btn__container">
+  <button mat-raised-button color="primary" class="add_btn" (click)="openDialog('3000ms', '1500ms')">Agregar Item</button>
+</div>
+
 </section>

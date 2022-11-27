@@ -10,7 +10,7 @@ import { AboutmeModule } from './shared/components/aboutme/aboutme.module';
 import { FormationModule } from './shared/components/formation/formation.module';
 import { SkillsModule } from './shared/components/skills/skills.module';
 import { ProjectsModule } from './shared/components/projects/projects.module';
-
+import { EducationModule } from './shared/components/education/education.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -24,6 +24,7 @@ import { ProjectsModule } from './shared/components/projects/projects.module';
     FormationModule,
     SkillsModule,
     ProjectsModule,
+    EducationModule
   ],
   providers: [],
   exports: [AppComponent],

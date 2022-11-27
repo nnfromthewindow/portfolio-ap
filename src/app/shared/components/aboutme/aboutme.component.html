@@ -1,18 +1,34 @@
-<section class="about">
+<section class="about" >
 
-  <div class="about-head">
-    <div class="about-pic">
-      <img src="../../../../assets/img/avatar.jpg" class="about-pic__image" />
+  <div class="about-head" >
+    <div class="about-pic" >
+      <img data-aos="flip-left" src="../../../../assets/img/avatar.jpg" class="about-pic__image" />
+      <app-edit-icon class="edit-icon__avatar"></app-edit-icon>
     </div>
-    <div class="about-text__title">
-      <h1>
-        Hola! me llamo Nicolás Nuccelli y soy desarrollador de páginas y aplicaciones
+
+    <div class="hidden-bar">
+      <span class="hidden-title">#YoProgramo</span>
+      <div data-aos="fade-right" class="hidden-navbar-networks">
+        <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
+          <mat-icon>add</mat-icon>
+        </button>
+        <div class="networks" cdkDropList (cdkDropListDropped)="drop($event)">
+          <a href={{network.link}}  *ngFor="let network of networks" cdkDrag><i class={{network.icon}}></i></a>
+        </div>
+      </div>
+
+    </div>
+    <div class="about-text__title" style="overflow-x: hidden">
+      <h1 data-aos="fade-left" data-aos-duration="3000">
+      {{welcome}}
       </h1>
+      <app-edit-icon class="edit-icon__title"></app-edit-icon>
     </div>
 
   </div>
-  <div class="about-text__descript">
-    <p>
+  <div class="about-text__descript" style="overflow-x: hidden">
+    <div *ngFor="let about of aboutme"></div>
+    <p data-aos="fade-right" data-aos-duration="1000">
       Desde muy chico siempre estuve en contacto con las computadoras desde
       DOS y luego Windows 3.1. Con el tiempo fui adquiriendo conocimientos en
       varios software de diseño con los cuales realizo trabajos de renders
@@ -28,7 +44,13 @@
       Standard English Test.
     </p>
     <br />
-    <p>
+    <div class="admin-buttons__container">
+      <app-edit-icon class="about-text__edit"></app-edit-icon>
+      <app-delete-icon class="about-text__delete"></app-delete-icon>
+
+    </div>
+
+    <p data-aos="fade-left" data-aos-duration="1000">
       Forme parte del primer grupo de Proyecto ONE dictado por Alura Latam +
       Oracle , realizando de manera satisfactoria todas las rutas de
       aprendizaje y logrando tener el reconocimiento de Alura Latam como
@@ -36,5 +58,16 @@
       cosas nuevas sobre todo tecnologías, que sabe trabajar en equipo y a su
       vez me considero emprendedor.
     </p>
+    <br />
+    <div class="admin-buttons__container">
+      <app-edit-icon class="about-text__edit"></app-edit-icon>
+      <app-delete-icon class="about-text__delete"></app-delete-icon>
+
+    </div>
   </div>
+  <div class="add-btn__container">
+    <button mat-raised-button color="primary" class="add_btn" (click)="openDialog('3000ms', '1500ms')">Agregar Item</button>
+  </div>
+
+
 </section>

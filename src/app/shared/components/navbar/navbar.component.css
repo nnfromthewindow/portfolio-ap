@@ -38,8 +38,11 @@ section {
   height: 100px;
   object-fit: contain;
 }
+.navbar-networks{
+  display: flex;
+}
 
-.navbar-networks a:visited{
+.networks a:visited{
 color: var(--navbar-font);
 }
 
@@ -52,7 +55,47 @@ color: var(--navbar-font);
   margin: auto 1rem;
 }
 
-@media only screen and (max-width: 390px) {
+.networks{
+  display: flex;
+}
+.networks a{
+  color: var(--navbar-font);
+}
+.networks a:visited{
+    color: var(--navbar-font);
+}
+/*    DRAG AND DROP   */
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+@media only screen and (max-width: 664px) {
+  .navbar-networks {
+    display: none;
+  }
+}
+@media only screen and (max-width: 370px) {
   .title {
     display: none;
   }

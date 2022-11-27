@@ -1,0 +1,27 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<h1 class="modal-title">Ingrese su nombre de usuario y contraseña</h1>
+<div class="input-container">
+  <mat-form-field appearance="outline" class="input-user">
+    <mat-label>Usuario</mat-label>
+    <input matInput type="text" name="username"  id="username" formControlName="username"  >
+    <mat-icon matSuffix>person</mat-icon>
+    <mat-hint *ngIf="profileForm.controls.username.errors?.['required'] && profileForm.controls.username.touched">El nombre de usuario no puede estar vacio</mat-hint>
+    <mat-hint *ngIf="profileForm.controls.username.errors?.['minlength'] && profileForm.controls.username.touched ">El nombre de usuario debe contener mas de 4 caracteres</mat-hint>
+    <mat-hint *ngIf="profileForm.controls.username.errors?.['maxlength'] && profileForm.controls.username.touched">El nombre de usuario puede contener 15 caracteres maximo</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="input-password">
+    <mat-label>Contraseña</mat-label>
+    <input  matInput [type]="hide ? 'password' : 'text'" id="password" name="password" formControlName="password">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-hint *ngIf="profileForm.controls.password.errors?.['required'] && profileForm.controls.password.touched">La contraseña no puede estar vacia</mat-hint>
+    <mat-hint *ngIf="profileForm.controls.password.errors?.['pattern'] && profileForm.controls.password.touched">La contraseña debe contener una letra mayuscula, una minuscula y un numero entre 8 y 15 caracteres </mat-hint>
+
+  </mat-form-field>
+  <button class="login-btn" mat-raised-button color="primary" type="submit" [disabled]="!profileForm.valid">Login</button>
+  <p class="register" (click)="openDialog('1500ms', '1500ms')">¿Todavia no esta registrado? Registrese aqui</p>
+
+</div>
+</form>

@@ -1,6 +1,8 @@
 .projects {
-  margin-top: 5rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
   padding-bottom: 5rem;
+  padding-top: 1rem;
 }
 
 .projects-title {
@@ -51,6 +53,7 @@
 .project-description__bar {
   background-color: var(--bars);
   width: 90%;
+
 }
 
 .project-description {
@@ -68,10 +71,142 @@
 }
 
 .project-button__bar button {
-  /*border: 0.2rem solid var(--background);*/
   font-size: 1.5em;
   height: 4rem;
   margin-left: 3rem;
   margin-top: 1rem;
   width: 20rem;
 }
+.admin-buttons__container{
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.add-btn__container{
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+.add_btn{
+  height: 5rem;
+  font-size: 1.5em;
+  width: 15rem;
+}
+.proyect-title__container{
+  align-items: center;
+  display: flex;
+}
+.project-button__container{
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+.project-image__edit{
+  margin-right: 1rem;
+  position: relative;
+  text-align: end;
+  bottom: 15rem;
+}
+/*    DRAG AND DROP   */
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+@media only screen and (max-width: 664px) {
+  .projects-title{
+    font-size: 3em;
+  }
+  .project-title {
+    font-size: 2.5em;
+    width: fit-content;
+  }
+  .project-title__bar {
+  width: 25rem;
+  }
+  .project-description {
+    font-size: 1em;
+    width: fit-content;
+  }
+  .project-description__bar {
+
+    width: 20rem;
+  }
+  .project-button__bar {
+
+    width: 18rem;
+  }
+  .project-button__bar button {
+
+    width: 14rem;
+  }
+  .project-text__container {
+    width: fit-content;
+  }
+}
+@media only screen and (max-width: 412px) {
+  .project-button__bar button{
+    margin-left: 0;
+  }
+  .project-button__bar{
+    margin: 0;
+    text-align: center;
+    width: 16rem;
+  }
+  .project-description{
+    margin-left: 1rem;
+  }
+  .project-description__bar{
+    width: 17.5rem;
+  }
+  .project-title {
+    font-size: 2em;
+    margin-left: 0;
+    text-align: center;
+    width: 100%;
+  }
+  .project-title__bar {
+  width: 18rem;
+  }
+
+  }
+  @media only screen and (max-width: 300px) {
+    .project-title {
+      font-size: 1.5em;
+
+    }
+    .project-text__container{
+      width: 100%;
+    }
+    .project-title__bar {
+      margin-bottom: 10rem;
+    width: 100%;
+    }
+    .project-description{
+      display: none;
+    }
+    .project-button__bar {
+
+      width: 100%;
+    }
+    }
