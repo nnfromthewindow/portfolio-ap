@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="admin-buttons__container">
-        <app-delete-icon ></app-delete-icon>
+        <app-delete-icon id="project-{{project.id}}" (click)="deleteProject()"></app-delete-icon>
       </div>
     </div>
   </div>

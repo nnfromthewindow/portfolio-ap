@@ -34,6 +34,7 @@
 .about-text__descript {
   margin-left: 30rem;
   margin-right: 5rem;
+  overflow-y: hidden;
   position: relative;
 
 }

@@ -13,14 +13,15 @@
   margin-top: 1rem;
 }
 .education-container{
+  height: fit-content;
   margin-top: 3rem;
   overflow-x: hidden;
   overflow-y: hidden;
 }
 .education-card{
   display: flex;
+ flex-direction: column;
   height: 25rem;
-  justify-content: space-between;
   margin-top: 3rem;
   width: 100%;
 }
@@ -86,8 +87,23 @@ margin: 1rem;
   width: 15rem;
 }
 .education-flex__edit{
+  bottom: 3rem;
   display: flex;
   justify-content: space-between;
+  position: relative;
+}
+.education-card__container{
+  display: flex;
+  height: inherit;
+  justify-content: space-between;
+}
+.admin-buttons__container{
+  bottom: 5rem;
+  display: flex;
+  position: relative;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
 /*    DRAG AND DROP   */

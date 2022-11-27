@@ -32,4 +32,8 @@ img:"https://github.com/nnfromthewindow/portafolio/blob/main/assets/img/ahorcado
         exitAnimationDuration,
       });
     }
+    deleteProject(): void{
+      console.log(this.projects)
+    }
+  
 }

@@ -4,23 +4,30 @@
   </div>
   <div class="education-container" cdkDropList (cdkDropListDropped)="drop($event)">
     <div class="education-card" *ngFor="let educ of education" cdkDrag >
-      <div class="left-bar" data-aos="fade-right" [ngStyle]="{'background-color':educ.color}">
-        <div class="left-text__container">
-          <h2 class="left-text__title" data-aos="fade-right">{{educ.institution}}</h2>
-          <h3 class="left-text__subtitle" data-aos="fade-right">{{educ.grade}}</h3>
-          <p class="description" data-aos="fade-right"> {{educ.description}}</p>
+      <div class="education-card__container">
+        <div class="left-bar" data-aos="fade-right" [ngStyle]="{'background-color':educ.color}">
+          <div class="left-text__container">
+            <h2 class="left-text__title" data-aos="fade-right">{{educ.institution}}</h2>
+            <h3 class="left-text__subtitle" data-aos="fade-right">{{educ.grade}}</h3>
+            <p class="description" data-aos="fade-right"> {{educ.description}}</p>
+          </div>
+        </div>
+        <div class="right-bar" data-aos="fade-left">
+          <img src={{educ.img}} alt={{educ.institution}} >
+          <div class="right-text__container">
+          </div>
         </div>
       </div>
-      <div class="right-bar" data-aos="fade-left">
-        <img src={{educ.img}} alt={{educ.institution}} >
-        <div class="right-text__container">
-        </div>
+      
+      <div class="education-flex__edit">
+        <app-edit-icon></app-edit-icon>
+        <app-edit-icon></app-edit-icon>
+      </div>
+      <div class="admin-buttons__container">
+        <app-delete-icon ></app-delete-icon>
       </div>
     </div>
-    <div class="education-flex__edit">
-      <app-edit-icon></app-edit-icon>
-      <app-edit-icon></app-edit-icon>
-    </div>
+    
   </div>
   <div class="add-btn__container">
     <button mat-raised-button color="primary" class="add_btn" (click)="openDialog('3000ms', '1500ms')">Agregar Item</button>

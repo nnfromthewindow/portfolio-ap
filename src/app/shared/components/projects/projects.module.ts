@@ -10,4 +10,7 @@ import { ProjectModalModule } from '../project-modal/project-modal.module';
   imports: [CommonModule, AngularMaterialModuleModule,EditIconModule, DeleteIconModule,ProjectModalModule ],
   exports: [ProjectsComponent],
 })
-export class ProjectsModule {}
+export class ProjectsModule {
+
+
+}
