@@ -21,7 +21,7 @@ export class EducationComponent implements OnInit {
     description:"Cursos y challenges desarrollados durante todo el 2022 logrando conocimientos web fullstack, Java y Machine Learning",
     color: "#c2185b",
     img:"https://www.aluracursos.com/assets/img/alura-share.1647533644.png"},
-    {id:1,
+    {id:2,
       institution: "Instituto Fortin Pavon",
       grade:"Bachillerato Comercial",
       description:"Formacion de titulo secundario completo con orientacion a contabilidad y administracion de empresas",

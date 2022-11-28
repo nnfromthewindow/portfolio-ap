@@ -41,5 +41,12 @@ export class NavbarComponent {
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.networks, event.previousIndex, event.currentIndex);
   }
-
+  deleteNetwork(id:number): void{
+    if(this.networks.length ==1){
+      this.networks.pop();
+    }
+    if (id > -1) {
+      this.networks.splice(id-1, 1);
+    }
+  }
 }

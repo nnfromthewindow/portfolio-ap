@@ -32,7 +32,7 @@ export class AboutmeComponent implements OnInit {
     icon:"fa-brands fa-spotify",
     link:"http://spotify.com"}
     ]
-    aboutme = [{text:`Desde muy chico siempre estuve en contacto con las computadoras desde
+    aboutme = [{id:1,text:`Desde muy chico siempre estuve en contacto con las computadoras desde
     DOS y luego Windows 3.1. Con el tiempo fui adquiriendo conocimientos en
     varios software de diseño con los cuales realizo trabajos de renders
     para una arquitecta, (AutoCad, SketchUp, Fusion 360, Adobe Suite) y
@@ -44,7 +44,7 @@ export class AboutmeComponent implements OnInit {
     desarrollando proyectos de Data Science poniendo en practica los cursos
     de Machine Learning y Deep Learning realizados en Alura Latam. Como
     segundo idioma manejo Ingles con un nivel C1 Advanced segun el EF
-    Standard English Test.`},{text:`Forme parte del primer grupo de Proyecto ONE dictado por Alura Latam +
+    Standard English Test.`},{id:2,text:`Forme parte del primer grupo de Proyecto ONE dictado por Alura Latam +
     Oracle , realizando de manera satisfactoria todas las rutas de
     aprendizaje y logrando tener el reconocimiento de Alura Latam como
     ayudante ONE Helper del Grupo 3. Soy una persona que le gusta aprender
@@ -62,5 +62,22 @@ export class AboutmeComponent implements OnInit {
       enterAnimationDuration,
       exitAnimationDuration,
     });
+  }
+  deleteAboutText(id:number): void{
+    if(this.aboutme.length ==1){
+      this.aboutme.pop();
+    }
+    if (id > -1) {
+      this.aboutme.splice(id-1, 1);
+    }
+  }
+
+  deleteNetwork(id:number): void{
+    if(this.networks.length ==1){
+      this.networks.pop();
+    }
+    if (id > -1) {
+      this.networks.splice(id-1, 1);
+    }
   }
 }

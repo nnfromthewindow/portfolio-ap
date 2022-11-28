@@ -110,6 +110,16 @@
   color: var(--navbar-font);
   }
 
+.network-hidden__delete{
+  top: 0.6rem;
+  position: relative;
+  width: 0;
+  right: 1.5rem;
+}
+.networks{
+display: flex;
+justify-content: center;
+}
   /*    DRAG AND DROP   */
 
 .cdk-drag-preview {
