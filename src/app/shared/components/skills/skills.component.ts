@@ -36,4 +36,14 @@ export class SkillsComponent implements OnInit {
         exitAnimationDuration,
       });
     }
+    deleteSkill(id:number): void{
+
+      if(this.skills.length ==1){
+        this.skills.pop();
+      }
+      if (id > -1) {
+        this.skills.splice(id-1, 1);
+      }
+
+    }
 }

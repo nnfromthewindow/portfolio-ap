@@ -39,4 +39,14 @@ export class EducationComponent implements OnInit {
       exitAnimationDuration,
     });
   }
+  deleteEducation(id:number): void{
+
+    if(this.education.length ==1){
+      this.education.pop();
+    }
+    if (id > -1) {
+      this.education.splice(id-1, 1);
+    }
+
+  }
 }

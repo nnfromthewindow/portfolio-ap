@@ -73,7 +73,16 @@ export class FormationComponent implements OnInit {
       exitAnimationDuration,
     });
   }
+  deleteExperience(id:number): void{
 
+    if(this.experiences.length ==1){
+      this.experiences.pop();
+    }
+    if (id > -1) {
+      this.experiences.splice(id-1, 1);
+    }
+
+  }
 
   ngOnInit() {
 

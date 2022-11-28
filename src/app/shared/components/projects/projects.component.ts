@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
 import { ProjectModalComponent } from '../project-modal/project-modal.component';
+import { Project } from './project';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -32,8 +33,15 @@ img:"https://github.com/nnfromthewindow/portafolio/blob/main/assets/img/ahorcado
         exitAnimationDuration,
       });
     }
-    deleteProject(): void{
-      console.log(this.projects)
+    deleteProject(id:number): void{
+
+      if(this.projects.length ==1){
+        this.projects.pop();
+      }
+      if (id > -1) {
+        this.projects.splice(id-1, 1);
+      }
+
     }
-  
+
 }
