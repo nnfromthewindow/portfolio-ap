@@ -1,8 +1,8 @@
 <div class="banner-container">
   <img
-    src="../../../../assets/img/banner.jpg"
+    src={{bannerImage}}
     alt="Imagen Banner"
     class="banner-img"
   />
-<app-edit-icon></app-edit-icon>
+<app-edit-icon (click)="openDialog('3000ms', '1500ms')"></app-edit-icon>
 </div>

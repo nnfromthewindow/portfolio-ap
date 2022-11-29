@@ -13,6 +13,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [],
   imports: [CommonModule],
@@ -29,7 +31,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     DragDropModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialFileInputModule,
+    HttpClientModule
   ],
 })
 export class AngularMaterialModuleModule {}

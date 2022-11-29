@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Seleccione una imagen para subir</h1>
+<div mat-dialog-content>
+ Seleccione un archivo
+</div>
+<mat-form-field>
+  <ngx-mat-file-input formControlName="acceptfile" placeholder="JPG file only" [accept]="'.jpg'" (change)="onChange($event)"></ngx-mat-file-input>
+  <mat-icon matSuffix>folder</mat-icon>
+</mat-form-field>
+<img [src]="imgURL" height="100" *ngIf="imgURL">
+ <button mat-raised-button color="primary" (click)="onUpload()">Subir Imagen</button>
