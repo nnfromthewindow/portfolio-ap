@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
 import { AboutAddModalComponent } from '../about-add-modal/about-add-modal.component';
+import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
+import { AboutmeTextModalComponent } from '../aboutme-text-modal/aboutme-text-modal.component';
 @Component({
   selector: 'app-aboutme',
   templateUrl: './aboutme.component.html',
@@ -13,7 +15,9 @@ export class AboutmeComponent implements OnInit {
 
   ngOnInit() {
   }
-  welcome = "  Hola! me llamo Nicolás Nuccelli y soy desarrollador de páginas y aplicaciones"
+  welcome = "Hola! me llamo Nicolás Nuccelli y soy desarrollador de páginas y aplicaciones";
+
+  avatarImage = "../../../../assets/img/avatar.jpg";
 
   networks = [{id:1,
     title:"GitHub",
@@ -56,8 +60,22 @@ export class AboutmeComponent implements OnInit {
     moveItemInArray(this.networks, event.previousIndex, event.currentIndex);
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openAddDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(AboutAddModalComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+  openAvatarDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(UploadImageModalComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+  openTextDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(AboutmeTextModalComponent, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,

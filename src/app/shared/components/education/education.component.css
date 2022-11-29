@@ -106,6 +106,9 @@ margin: 1rem;
   margin-bottom: 2rem;
 }
 
+app-edit-icon{
+  z-index: 1;
+}
 /*    DRAG AND DROP   */
 
 .cdk-drag-preview {

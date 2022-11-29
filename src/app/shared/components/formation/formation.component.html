@@ -26,7 +26,7 @@
           (mouseenter)="overItem()"
           (mouseleave)="overItem()"
         >
-        <app-edit-icon class="edit_icon__blobtext"></app-edit-icon>
+        <app-edit-icon class="edit_icon__blobtext" ></app-edit-icon>
 
           <div class="blob-text__title">
             <h2>{{experience.title}}</h2>
@@ -67,7 +67,7 @@
             transform="translate(100 100)"
            [attr.fill]="'url('+'#'+experience.id+')'" />
         </svg>
-        <app-edit-icon class="edit_icon__blobimg"></app-edit-icon>
+        <app-edit-icon class="edit_icon__blobimg" (click)="openImageDialog('3000ms', '1500ms')"></app-edit-icon>
 
       </div>
         </div>

@@ -5,10 +5,11 @@ import { AngularMaterialModuleModule } from 'src/app/angular-material-module.mod
 import { DeleteIconModule } from '../delete-icon/delete-icon.module';
 import { EditIconModule } from '../edit-icon/edit-icon.module';
 import { EducationModalModule } from '../education-modal/education-modal.module';
+import { UploadImageModalModule } from '../upload-image-modal/upload-image-modal.module';
 @NgModule({
   declarations: [EducationComponent],
   imports: [
-    CommonModule, AngularMaterialModuleModule, EditIconModule, DeleteIconModule, EducationModalModule
+    CommonModule, AngularMaterialModuleModule, EditIconModule, DeleteIconModule, EducationModalModule, UploadImageModalModule
   ],exports:[EducationComponent]
 })
 export class EducationModule { }

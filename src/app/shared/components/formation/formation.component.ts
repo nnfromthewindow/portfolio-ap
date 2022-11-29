@@ -3,6 +3,7 @@ import anime from 'animejs';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
 import { FormationModalComponent } from '../formation-modal/formation-modal.component';
+import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
@@ -68,6 +69,13 @@ export class FormationComponent implements OnInit {
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(FormationModalComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+  openImageDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(UploadImageModalComponent, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
