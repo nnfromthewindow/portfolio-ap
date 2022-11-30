@@ -7,9 +7,10 @@ import { DeleteIconModule } from '../delete-icon/delete-icon.module';
 import { NewIconModule } from '../new-icon/new-icon.module';
 import { FormationModalModule } from '../formation-modal/formation-modal.module';
 import { UploadImageModalModule } from '../upload-image-modal/upload-image-modal.module';
+import { EducationTextModalModule } from '../education-text-modal/education-text-modal.module';
 @NgModule({
   declarations: [FormationComponent],
-  imports: [CommonModule, AngularMaterialModuleModule, EditIconModule,DeleteIconModule,NewIconModule, FormationModalModule, UploadImageModalModule],
+  imports: [CommonModule, AngularMaterialModuleModule, EditIconModule,DeleteIconModule,NewIconModule, FormationModalModule, UploadImageModalModule, EducationTextModalModule],
   exports: [FormationComponent],
 })
 export class FormationModule {}

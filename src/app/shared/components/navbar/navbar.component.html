@@ -7,7 +7,7 @@
   <span class="title">#YoProgramo</span>
   <span class="example-spacer"></span>
   <div class="navbar-networks">
-    <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
+    <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon" (click)="openNetworkDialog('3000ms', '1500ms')">
       <mat-icon>add</mat-icon>
     </button>
     <div class="networks" cdkDropList (cdkDropListDropped)="drop($event)">

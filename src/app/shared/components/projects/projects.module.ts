@@ -5,10 +5,11 @@ import { AngularMaterialModuleModule } from 'src/app/angular-material-module.mod
 import { EditIconModule } from '../edit-icon/edit-icon.module';
 import { DeleteIconModule } from '../delete-icon/delete-icon.module';
 import { ProjectModalModule } from '../project-modal/project-modal.module';
-import { UploadImageModalModule } from '../upload-image-modal/upload-image-modal.module';
+import { ProjectsEditModalModule } from '../projects-edit-modal/projects-edit-modal.module';
+ProjectsEditModalModule
 @NgModule({
   declarations: [ProjectsComponent],
-  imports: [CommonModule, AngularMaterialModuleModule,EditIconModule, DeleteIconModule,ProjectModalModule, UploadImageModalModule ],
+  imports: [CommonModule, AngularMaterialModuleModule,EditIconModule, DeleteIconModule,ProjectModalModule, ProjectsEditModalModule ],
   exports: [ProjectsComponent],
 })
 export class ProjectsModule {

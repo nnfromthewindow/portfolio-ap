@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { LoginModalComponent } from '../login-modal/login-modal.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { NetworkAddModalComponent } from '../network-add-modal/network-add-modal.component';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +15,13 @@ export class NavbarComponent {
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(LoginModalComponent, {
       width: '20rem',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+  openNetworkDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(NetworkAddModalComponent, {
+      width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
     });

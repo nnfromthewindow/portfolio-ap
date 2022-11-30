@@ -24,12 +24,12 @@
         <h3>{{skill.title}}</h3>
       </div>
       <div class="admin-buttons__container">
-        <app-edit-icon></app-edit-icon>
+        <app-edit-icon (click)="openTextDialog('3000ms', '1500ms')"></app-edit-icon>
         <app-delete-icon id="project-{{skill.id}}" (click)="deleteSkill(skill.id)"></app-delete-icon>
       </div>
     </div>
   </div>
   <div class="add-btn__container">
-    <button mat-raised-button color="primary" class="add_btn" (click)="openDialog('3000ms', '1500ms')">Agregar Item</button>
+    <button mat-raised-button color="primary" class="add_btn" (click)="openTextDialog('3000ms', '1500ms')">Agregar Item</button>
   </div>
 </section>

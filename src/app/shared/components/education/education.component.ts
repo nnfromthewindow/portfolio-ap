@@ -3,6 +3,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
 import { EducationModalComponent } from '../education-modal/education-modal.component';
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
+import { EducationTextModalComponent } from '../education-text-modal/education-text-modal.component';
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
@@ -33,13 +34,13 @@ export class EducationComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.education, event.previousIndex, event.currentIndex);
   }
-  
+
   openAddDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(EducationModalComponent, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
-    });  
+    });
   }
 
   openImageDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -49,7 +50,14 @@ export class EducationComponent implements OnInit {
       exitAnimationDuration,
     });
   }
-
+  openTextDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(EducationTextModalComponent, {
+      width: '250px',
+      height: '750px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
   deleteEducation(id:number): void{
 
     if(this.education.length ==1){

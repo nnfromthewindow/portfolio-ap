@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { SkillModalComponent } from '../skill-modal/skill-modal.component';
+import { SkillEditModalComponent } from '../skill-edit-modal/skill-edit-modal.component';
+
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
@@ -31,6 +33,13 @@ export class SkillsComponent implements OnInit {
 
     openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
       this.dialog.open(SkillModalComponent, {
+        width: '250px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      });
+    }
+    openTextDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+      this.dialog.open(SkillEditModalComponent, {
         width: '250px',
         enterAnimationDuration,
         exitAnimationDuration,

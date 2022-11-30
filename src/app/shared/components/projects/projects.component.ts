@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
 import { ProjectModalComponent } from '../project-modal/project-modal.component';
-import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
+import { ProjectsEditModalComponent } from '../projects-edit-modal/projects-edit-modal.component';
+
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -33,8 +34,8 @@ img:"https://github.com/nnfromthewindow/portafolio/blob/main/assets/img/ahorcado
         exitAnimationDuration,
       });
     }
-    openImageDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-      this.dialog.open(UploadImageModalComponent, {
+    openTextDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+      this.dialog.open(ProjectsEditModalComponent, {
         width: '250px',
         enterAnimationDuration,
         exitAnimationDuration,

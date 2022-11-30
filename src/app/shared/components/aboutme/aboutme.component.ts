@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { AboutAddModalComponent } from '../about-add-modal/about-add-modal.component';
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 import { AboutmeTextModalComponent } from '../aboutme-text-modal/aboutme-text-modal.component';
+import { NetworkAddModalComponent } from '../network-add-modal/network-add-modal.component';
 @Component({
   selector: 'app-aboutme',
   templateUrl: './aboutme.component.html',
@@ -76,6 +77,13 @@ export class AboutmeComponent implements OnInit {
   }
   openTextDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(AboutmeTextModalComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+  openNetworkDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(NetworkAddModalComponent, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,

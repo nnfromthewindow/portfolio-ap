@@ -1,0 +1,42 @@
+
+<h2>Titulo</h2>
+<mat-form-field appearance="fill">
+  <mat-label>Ingrese el texto</mat-label>
+  <textarea matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="3"></textarea>
+</mat-form-field>
+<h2>Subtitulo</h2>
+<mat-form-field appearance="fill">
+  <mat-label>Ingrese el texto</mat-label>
+  <textarea matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="3"></textarea>
+</mat-form-field>
+<h2>Descripcion</h2>
+<mat-form-field appearance="fill">
+  <mat-label>Ingrese el texto</mat-label>
+  <textarea matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="5"
+            cdkAutosizeMaxRows="10"></textarea>
+</mat-form-field>
+<h2>Color</h2>
+<mat-form-field>
+  <input matInput [ngxMatColorPicker]="picker" [formControl]="colorCtr" [disabled]="disabled">
+  <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+  <ngx-mat-color-picker #picker [touchUi]="touchUi" [color]="color"></ngx-mat-color-picker>
+</mat-form-field>
+<h2>Imagen</h2>
+<mat-form-field>
+  <ngx-mat-file-input placeholder="Archivo JPG unicamente" [accept]="'.jpg'" (change)="onChange($event)"></ngx-mat-file-input>
+  <mat-icon matSuffix>folder</mat-icon>
+</mat-form-field>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Editar</button>
+</div>

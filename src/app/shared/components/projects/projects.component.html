@@ -8,13 +8,13 @@
         class="project-image"
       />
       <div class="project-image__edit">
-        <app-edit-icon (click)="openImageDialog('3000ms', '1500ms')"></app-edit-icon>
+        <app-edit-icon (click)="openTextDialog('3000ms', '1500ms')"></app-edit-icon>
       </div>
       <div class="project-text__container">
         <div class="project-title__bar" data-aos="fade-right">
           <div class="proyect-title__container">
             <h2 class="project-title">{{project.title}}</h2>
-          <app-edit-icon></app-edit-icon>
+
           </div>
 
         </div>
@@ -22,12 +22,12 @@
           <h3 class="project-description">
             {{project.description}}
           </h3>
-          <app-edit-icon></app-edit-icon>
+
         </div>
         <div class="project-button__bar" data-aos="fade-right">
           <div class="project-button__container">
             <a href={{project.link}}><button mat-raised-button color="primary">Proyecto</button></a>
-          <app-edit-icon></app-edit-icon>
+
         </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
     </div>
   </div>
   <div class="add-btn__container">
-    <button mat-raised-button color="primary" class="add_btn" (click)="openDialog('3000ms', '1500ms')">Agregar Item</button>
+    <button mat-raised-button color="primary" class="add_btn" (click)="openTextDialog('3000ms', '1500ms')">Agregar Item</button>
 
   </div>
 

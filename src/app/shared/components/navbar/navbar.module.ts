@@ -8,9 +8,10 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { RegisterModalComponent } from '../register-modal/register-modal.component';
 import { NewIconModule } from '../new-icon/new-icon.module';
 import { DeleteIconModule } from '../delete-icon/delete-icon.module';
+import { NetworkAddModalModule } from '../network-add-modal/network-add-modal.module';
 @NgModule({
   declarations: [NavbarComponent,LoginModalComponent, RegisterModalComponent  ],
-  imports: [CommonModule, AngularMaterialModuleModule,ReactiveFormsModule, AppRoutingModule,NewIconModule,DeleteIconModule],
+  imports: [CommonModule, AngularMaterialModuleModule,ReactiveFormsModule, AppRoutingModule,NewIconModule,DeleteIconModule, NetworkAddModalModule],
   exports: [NavbarComponent,LoginModalComponent, RegisterModalComponent],
 })
 export class NavbarModule {}

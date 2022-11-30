@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,9 +12,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { HttpClientModule } from '@angular/common/http';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS }
+  from '@angular-material-components/color-picker'
 @NgModule({
   declarations: [],
   imports: [CommonModule],
@@ -33,7 +35,9 @@ import { HttpClientModule } from '@angular/common/http';
     DragDropModule,
     ReactiveFormsModule,
     MaterialFileInputModule,
-    HttpClientModule
-  ],
+    HttpClientModule, NgxMatColorPickerModule
+  ],  providers: [
+    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
+   ],
 })
 export class AngularMaterialModuleModule {}
