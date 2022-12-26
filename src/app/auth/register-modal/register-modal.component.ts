@@ -25,6 +25,7 @@ export class RegisterModalComponent implements OnInit {
       Validators.minLength(8), Validators.maxLength(15), Validators.pattern(/[A-Z]/),
       Validators.pattern(/[a-z]/),
       Validators.pattern(/[0-9]/),]),
+    email: new FormControl('',[Validators.required,Validators.email])
 
   });
   onSubmit() {

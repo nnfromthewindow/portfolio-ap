@@ -11,6 +11,11 @@ import { FormationModule } from './shared/components/formation/formation.module'
 import { SkillsModule } from './shared/components/skills/skills.module';
 import { ProjectsModule } from './shared/components/projects/projects.module';
 import { EducationModule } from './shared/components/education/education.module';
+import { ToastrModule } from 'ngx-toastr';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { authReducer } from './state/auth/auth.reducer';
+//import { AuthEffects } from './state/auth/auth.effects';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -24,7 +29,11 @@ import { EducationModule } from './shared/components/education/education.module'
     FormationModule,
     SkillsModule,
     ProjectsModule,
-    EducationModule
+    EducationModule,
+    ToastrModule.forRoot(),
+    StoreModule.forRoot({ auth: authReducer }),
+   // EffectsModule.forRoot([AuthEffects])
+
   ],
   providers: [],
   exports: [AppComponent],

@@ -1,16 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import { LoginModalComponent } from '../login-modal/login-modal.component';
+import { LoginModalComponent } from '../../../auth/login-modal/login-modal.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { NetworkAddModalComponent } from '../network-add-modal/network-add-modal.component';
+import { Store } from '@ngrx/store';
+import * as fromAuth from '../../../state/auth/auth.reducer'
+import * as fromActions from '../../../state/auth/auth.actions'
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
-  constructor(public dialog: MatDialog) {}
+export class NavbarComponent implements OnInit{
+
+ jwtToken$ = this.store.select(fromAuth.selectToken);
+  user$ = this.store.select(fromAuth.selectUser);
+
+  constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>) {}
+  ngOnInit(): void {
+    //throw new Error('Method not implemented.');
+  }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(LoginModalComponent, {

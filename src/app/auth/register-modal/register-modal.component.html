@@ -30,8 +30,16 @@
       <mat-hint *ngIf="profileForm.controls.passwordverified.errors?.['pattern'] && profileForm.controls.passwordverified.touched">La contraseña debe contener una letra mayuscula, una minuscula y un numero entre 8 y 15 caracteres </mat-hint>
 
     </mat-form-field>
-    <button class="login-btn" mat-raised-button color="primary" type="submit" [disabled]="!profileForm.valid">Registrarse</button>
+    
+    <mat-form-field appearance="outline" class="input-user">
+      <mat-label>E-mail</mat-label>
+      <input matInput type="email" name="email"  id="email" formControlName="email"  >
+      <mat-icon matSuffix>mail</mat-icon>
+      <mat-hint *ngIf="profileForm.controls.email.errors?.['required'] && profileForm.controls.email.touched">El email no puede estar vacio</mat-hint>
+      <mat-hint *ngIf="profileForm.controls.email.errors?.['email'] && profileForm.controls.email.touched">Ingrese un casilla de email valida</mat-hint>
+       </mat-form-field>
 
+    <button class="login-btn" mat-raised-button color="primary" type="submit" [disabled]="!profileForm.valid">Registrarse</button>
 
   </div>
   </form>
