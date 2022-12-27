@@ -15,7 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { authReducer } from './state/auth/auth.reducer';
-//import { AuthEffects } from './state/auth/auth.effects';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -32,7 +32,6 @@ import { authReducer } from './state/auth/auth.reducer';
     EducationModule,
     ToastrModule.forRoot(),
     StoreModule.forRoot({ auth: authReducer }),
-   // EffectsModule.forRoot([AuthEffects])
 
   ],
   providers: [],

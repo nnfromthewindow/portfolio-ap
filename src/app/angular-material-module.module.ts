@@ -17,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS }
   from '@angular-material-components/color-picker'
+  
+
 @NgModule({
   declarations: [],
   imports: [CommonModule],
@@ -35,7 +37,8 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS }
     DragDropModule,
     ReactiveFormsModule,
     MaterialFileInputModule,
-    HttpClientModule, NgxMatColorPickerModule
+    HttpClientModule,
+    NgxMatColorPickerModule
   ],  providers: [
     { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
    ],

@@ -2,34 +2,28 @@
   <h2 class="skills-title" data-aos="fade-right">Skills</h2>
   <div class="skills-container" cdkDropList (cdkDropListDropped)="drop($event)">
     <div class="skills-card" data-aos="zoom-in" *ngFor="let skill of skills" cdkDrag>
-      <div class="skill-progress">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3 col-sm-6">
-              <div class="progress blue">
-                <span class="progress-left">
-                  <span class="progress-bar"></span>
-                </span>
-                <span class="progress-right">
-                  <span class="progress-bar"></span>
-                </span>
-                <div class="progress-value">{{skill.percentaje}}%</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
+      <mat-progress-spinner class="spinner-container"
+      class="example-margin"
+      [color]="color"
+      [mode]="mode"
+      [value]="value">
+    
+  </mat-progress-spinner>
+  <div class="percentaje">
+    <span>{{skill.percentaje}}%</span>
+  </div>
       <div class="skill-icon" ><i class={{skill.icon}} [ngStyle]="{'color':skill.color}"></i></div>
       <div class="skill-name">
         <h3>{{skill.title}}</h3>
       </div>
-      <div class="admin-buttons__container">
+      <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
         <app-edit-icon (click)="openTextDialog('3000ms', '1500ms')"></app-edit-icon>
         <app-delete-icon id="project-{{skill.id}}" (click)="deleteSkill(skill.id)"></app-delete-icon>
       </div>
     </div>
   </div>
-  <div class="add-btn__container">
+  <div class="add-btn__container" *ngIf="jwtToken$ | async">
     <button mat-raised-button color="primary" class="add_btn" (click)="openTextDialog('3000ms', '1500ms')">Agregar Item</button>
   </div>
 </section>

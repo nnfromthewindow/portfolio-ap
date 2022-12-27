@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { JwtTokenDto } from '../model/jwt-token-dto';
 import { LoginUserDto } from '../model/login-user-dto';
 import { LoginResponse } from '../model/loginResponse';
 

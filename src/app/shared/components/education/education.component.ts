@@ -4,14 +4,20 @@ import {MatDialog} from '@angular/material/dialog';
 import { EducationModalComponent } from '../education-modal/education-modal.component';
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 import { EducationTextModalComponent } from '../education-text-modal/education-text-modal.component';
+import * as fromAuth from '../../../state/auth/auth.reducer'
+import { Store } from '@ngrx/store';
+
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.css']
 })
 export class EducationComponent implements OnInit {
+ 
+  jwtToken$ = this.store.select(fromAuth.selectToken);
+  //user$ = this.store.select(fromAuth.selectUser);
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>) {}
 
   ngOnInit() {
   }

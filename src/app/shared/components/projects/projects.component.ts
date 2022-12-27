@@ -3,14 +3,19 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
 import { ProjectModalComponent } from '../project-modal/project-modal.component';
 import { ProjectsEditModalComponent } from '../projects-edit-modal/projects-edit-modal.component';
-
+import * as fromAuth from '../../../state/auth/auth.reducer'
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent  {
-  constructor(public dialog: MatDialog) {}
+
+  jwtToken$ = this.store.select(fromAuth.selectToken);
+  //user$ = this.store.select(fromAuth.selectUser);
+
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>) {}
   projects = [
    {id:1,
     title:"Encriptador de Texto",

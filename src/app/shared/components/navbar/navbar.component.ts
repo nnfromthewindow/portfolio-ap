@@ -5,7 +5,8 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { NetworkAddModalComponent } from '../network-add-modal/network-add-modal.component';
 import { Store } from '@ngrx/store';
 import * as fromAuth from '../../../state/auth/auth.reducer'
-import * as fromActions from '../../../state/auth/auth.actions'
+import * as AuthActions from '../../../state/auth/auth.actions'
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,11 +16,16 @@ import * as fromActions from '../../../state/auth/auth.actions'
 export class NavbarComponent implements OnInit{
 
  jwtToken$ = this.store.select(fromAuth.selectToken);
-  user$ = this.store.select(fromAuth.selectUser);
+ //user$ = this.store.select(fromAuth.selectUser);
 
-  constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>) {}
+  constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private tokenService:TokenService) {}
   ngOnInit(): void {
-    //throw new Error('Method not implemented.');
+ 
+  }
+
+  logOut(): void {
+    this.store.dispatch(AuthActions.Logout.logout());
+    this.tokenService.logOut()
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

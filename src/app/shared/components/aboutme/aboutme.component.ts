@@ -5,14 +5,18 @@ import { AboutAddModalComponent } from '../about-add-modal/about-add-modal.compo
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 import { AboutmeTextModalComponent } from '../aboutme-text-modal/aboutme-text-modal.component';
 import { NetworkAddModalComponent } from '../network-add-modal/network-add-modal.component';
+import * as fromAuth from '../../../state/auth/auth.reducer'
+import { Store } from '@ngrx/store';
+
 @Component({
   selector: 'app-aboutme',
   templateUrl: './aboutme.component.html',
   styleUrls: ['./aboutme.component.css']
 })
 export class AboutmeComponent implements OnInit {
-
-  constructor(public dialog: MatDialog) {}
+  jwtToken$ = this.store.select(fromAuth.selectToken);
+  //user$ = this.store.select(fromAuth.selectUser);
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>) {}
 
   ngOnInit() {
   }

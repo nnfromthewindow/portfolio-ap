@@ -61,11 +61,23 @@
   position: absolute;
   width: 100%;
 }
+mat-progress-spinner{
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+.percentaje{
+  bottom: 4.5rem;
+  color: white;
+  font-size: 1.8em;
+  position: relative;
+  text-align: center;
+
+}
 
 /*
 PROGRESS BAR
 */
-
+/*
 .progress {
   width: 150px;
   height: 150px;
@@ -165,7 +177,7 @@ PROGRESS BAR
 .row {
   margin-top: 1rem;
 }
-
+*/
 /*    DRAG AND DROP   */
 
 .cdk-drag-preview {

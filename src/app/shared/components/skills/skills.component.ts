@@ -3,7 +3,10 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { SkillModalComponent } from '../skill-modal/skill-modal.component';
 import { SkillEditModalComponent } from '../skill-edit-modal/skill-edit-modal.component';
-
+import * as fromAuth from '../../../state/auth/auth.reducer'
+import { Store } from '@ngrx/store';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
@@ -11,7 +14,12 @@ import { SkillEditModalComponent } from '../skill-edit-modal/skill-edit-modal.co
 })
 export class SkillsComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) {}
+  jwtToken$ = this.store.select(fromAuth.selectToken);
+  //user$ = this.store.select(fromAuth.selectUser);
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'determinate';
+  value = 90;
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>) {}
 
   ngOnInit() {
   }

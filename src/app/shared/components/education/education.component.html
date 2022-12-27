@@ -19,17 +19,17 @@
         </div>
       </div>
 
-      <div class="education-flex__edit">
+      <div class="education-flex__edit" *ngIf="jwtToken$ | async">
         <app-edit-icon (click)="openTextDialog('3000ms', '1500ms')"></app-edit-icon>
 
       </div>
-      <div class="admin-buttons__container">
+      <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
         <app-delete-icon id="education-{{educ.id}}" (click)="deleteEducation(educ.id)"></app-delete-icon>
       </div>
     </div>
 
   </div>
-  <div class="add-btn__container">
+  <div class="add-btn__container" *ngIf="jwtToken$ | async">
     <button mat-raised-button color="primary" class="add_btn" (click)="openTextDialog('3000ms', '1500ms')">Agregar Item</button>
 
   </div>

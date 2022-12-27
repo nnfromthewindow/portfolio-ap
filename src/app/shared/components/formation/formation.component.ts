@@ -5,13 +5,18 @@ import {MatDialog} from '@angular/material/dialog';
 import { FormationModalComponent } from '../formation-modal/formation-modal.component';
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 import { EducationTextModalComponent } from '../education-text-modal/education-text-modal.component';
+import * as fromAuth from '../../../state/auth/auth.reducer'
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
   styleUrls: ['./formation.component.css'],
 })
 export class FormationComponent implements OnInit {
-  constructor(public dialog: MatDialog) {}
+
+  jwtToken$ = this.store.select(fromAuth.selectToken);
+  //user$ = this.store.select(fromAuth.selectUser);
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>) {}
   overItem() {
     anime({
       targets: '#blob-item path, #text',
