@@ -18,7 +18,7 @@ import * as AuthActions from '../../state/auth/auth.actions'
   styleUrls: ['./login-modal.component.css'],
 })
 export class LoginModalComponent implements OnInit{
-  
+
   username!:string;
   password!:string;
   token!:string;
@@ -40,7 +40,7 @@ export class LoginModalComponent implements OnInit{
 
   }
   //ESTE FUNCIONA
-  /*
+
   onSubmit():void{
     const dto = new LoginUserDto(this.profileForm.controls.username.value!,this.profileForm.controls.password.value!)
       this.authService.login(dto).subscribe({
@@ -49,20 +49,25 @@ export class LoginModalComponent implements OnInit{
     complete: ()=>console.log("Completo") }
       )
   }
-  */
+
 /*
   async onSubmit(): Promise<any> {
+
     const credentials = {
-      username: this.profileForm.controls.username.value!,
-      password: this.profileForm.controls.password.value!
+      username: this.profileForm.value.username!,
+      password: this.profileForm.value.password!
     };
+
+
+   this.store.dispatch(AuthActions.LoginRequest.loginRequest({credentials}));
     this.authService.login(new LoginUserDto(this.profileForm.value.username!,this.profileForm.value.password!)).
-    subscribe({next: (req)=>this.store.dispatch(AuthActions.LoginSuccess.loginSuccess(new LoginRes req.username,req.token))})
+    subscribe({next: (req)=> {this.username!=req.username,this.token!= req.token},
+      complete: ()=>this.store.dispatch(AuthActions.LoginSuccess.loginSuccess({username:this.username, token:this.token}))})
     //this.store.dispatch(AuthActions.LoginRequest.loginRequest({credentials}));
     console.log("Logueado")
   }
 */
-  
+/*
   onSubmit() {
     const dto = new LoginUserDto(this.profileForm.value.username!,this.profileForm.value.password!);
 
@@ -71,14 +76,11 @@ export class LoginModalComponent implements OnInit{
       error: (e) => this.toast.error('Intentelo de nuevo','Usuario Invalido',{timeOut:3000, positionClass:'toast-top-center'}),
       complete: () =>  {
         this.tokenService.setToken(this.token)
-        
-        console.log(this.token);
-      
         this.dialogRef.close()}
     }
-    );   
+    );
   }
-
+*/
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(RegisterModalComponent, {
       width: '20rem',

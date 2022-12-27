@@ -23,7 +23,7 @@ export const logout = createAction('[Auth] Logout');
 export const LoginRequest = createActionGroup({
   source: 'Auth',
   events: {
-    'Login Request': props<{ credentials: { username: string; password: string }  }>()
+    'Login Request': props<{ credentials: { username: string, password: string }  }>()
   },
 });
 export const LoginSuccess = createActionGroup({
