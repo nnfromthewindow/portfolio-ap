@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { UserDetailsComponent } from './shared/components/user-details/user-details.component';
 
 
 
-const routes: Routes = [ { path: ':username', component:UserDetailsComponent }];
+const routes: Routes = [   {path: ':username', component:AppComponent}
+                            //{path:'', redirectTo: '/nuccelli', pathMatch:'full'} 
+                           ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
