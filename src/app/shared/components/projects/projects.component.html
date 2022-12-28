@@ -1,6 +1,42 @@
 <section class="projects">
   <h2 class="projects-title" data-aos="fade-right">Proyectos</h2>
-  <div class="projects-container" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div class="projects-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(jwtToken$ | async)" >
+    <div class="project" data-aos="fade-up" data-aos-duration="3000" *ngFor="let project of projects" >
+      <img
+        src={{project.img}}
+        alt={{project.title}}
+        class="project-image"
+      />
+      <div class="project-image__edit" *ngIf="jwtToken$ | async">
+        <app-edit-icon (click)="openTextDialog('3000ms', '1500ms')"></app-edit-icon>
+      </div>
+      <div class="project-text__container">
+        <div class="project-title__bar" data-aos="fade-right">
+          <div class="proyect-title__container">
+            <h2 class="project-title">{{project.title}}</h2>
+
+          </div>
+
+        </div>
+        <div class="project-description__bar" data-aos="fade-right">
+          <h3 class="project-description">
+            {{project.description}}
+          </h3>
+
+        </div>
+        <div class="project-button__bar" data-aos="fade-right">
+          <div class="project-button__container">
+            <a href={{project.link}}><button mat-raised-button color="primary">Proyecto</button></a>
+
+        </div>
+        </div>
+      </div>
+      <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
+        <app-delete-icon id="project-{{project.id}}" (click)="deleteProject(project.id)"></app-delete-icon>
+      </div>
+    </div>
+  </div>
+  <div class="projects-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(jwtToken$ | async)" >
     <div class="project" data-aos="fade-up" data-aos-duration="3000" *ngFor="let project of projects" cdkDrag>
       <img
         src={{project.img}}

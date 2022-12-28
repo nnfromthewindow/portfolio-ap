@@ -22,6 +22,7 @@
   background-color: var(--background);
   overflow-x: hidden;
   overflow-y: hidden;
+  padding-top: 5rem;
 }
 .experience-title {
   color: var(--font_title);

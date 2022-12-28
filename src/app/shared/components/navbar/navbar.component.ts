@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import * as fromAuth from '../../../state/auth/auth.reducer'
 import * as AuthActions from '../../../state/auth/auth.actions'
 import { TokenService } from 'src/app/services/token.service';
+import { ActivatedRoute } from '@angular/router';
+import { PortfolioService } from 'src/app/services/portfolio.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,10 +19,11 @@ export class NavbarComponent implements OnInit{
 
  jwtToken$ = this.store.select(fromAuth.selectToken);
  //user$ = this.store.select(fromAuth.selectUser);
-
-  constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private tokenService:TokenService) {}
+username:string ="";
+  constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private tokenService:TokenService, private route: ActivatedRoute, private portfolioService:PortfolioService) {}
   ngOnInit(): void {
- 
+    this.username = this.route.snapshot.paramMap.get('username')!;
+console.log(this.portfolioService.getPortfolio(this.username).subscribe({next:(x)=>console.log(x)}))
   }
 
   logOut(): void {

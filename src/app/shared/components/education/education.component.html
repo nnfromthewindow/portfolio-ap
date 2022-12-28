@@ -2,7 +2,34 @@
   <div class="title-container">
     <h2 class="title" data-aos="fade-right">Educacion</h2>
   </div>
-  <div class="education-container" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div class="education-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(jwtToken$ | async)" >
+    <div class="education-card" *ngFor="let educ of education"  >
+      <div class="education-card__container">
+        <div class="left-bar" data-aos="fade-right" [ngStyle]="{'background-color':educ.color}">
+          <div class="left-text__container">
+            <h2 class="left-text__title" data-aos="fade-right">{{educ.institution}}</h2>
+            <h3 class="left-text__subtitle" data-aos="fade-right">{{educ.grade}}</h3>
+            <p class="description" data-aos="fade-right"> {{educ.description}}</p>
+          </div>
+        </div>
+        <div class="right-bar" data-aos="fade-left">
+          <img src={{educ.img}} alt={{educ.institution}} >
+          <div class="right-text__container">
+          </div>
+        </div>
+      </div>
+
+      <div class="education-flex__edit" *ngIf="jwtToken$ | async">
+        <app-edit-icon (click)="openTextDialog('3000ms', '1500ms')"></app-edit-icon>
+
+      </div>
+      <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
+        <app-delete-icon id="education-{{educ.id}}" (click)="deleteEducation(educ.id)"></app-delete-icon>
+      </div>
+    </div>
+
+  </div>
+  <div class="education-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(jwtToken$ | async)" >
     <div class="education-card" *ngFor="let educ of education" cdkDrag >
       <div class="education-card__container">
         <div class="left-bar" data-aos="fade-right" [ngStyle]="{'background-color':educ.color}">
