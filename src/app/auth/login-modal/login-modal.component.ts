@@ -34,7 +34,7 @@ export class LoginModalComponent implements OnInit{
 
   });
 
-  constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<RegisterModalComponent>, private authService:AuthService, private tokenService:TokenService, private toast:ToastrService,private store:Store) {}
+  constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<RegisterModalComponent>, private authService:AuthService, private tokenService:TokenService, private toast:ToastrService,private store:Store, private router:Router) {}
 
    ngOnInit(): void {
 
@@ -66,7 +66,9 @@ export class LoginModalComponent implements OnInit{
       this.store.dispatch(AuthActions.LoginSuccess.loginSuccess({loginSuccessResponse:{
       username:req.username, token:req.token
     }}))},
-    error: (e) => this.toast.error('Intentelo de nuevo','Usuario Invalido',{timeOut:3000, positionClass:'toast-top-center'}), complete: ()=>this.dialogRef.close()})
+    error: (e) => this.toast.error('Intentelo de nuevo','Usuario Invalido',{timeOut:3000, positionClass:'toast-top-center'}), 
+    complete: ()=>{ this.dialogRef.close();
+                    this.router.navigate([this.profileForm.value.username])}})
 
   }
 

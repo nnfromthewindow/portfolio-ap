@@ -6,8 +6,8 @@ import { UserDetailsComponent } from './shared/components/user-details/user-deta
 
 
 
-const routes: Routes = [   {path: ':username', component:AppComponent}
-                            //{path:'', redirectTo: '/nuccelli', pathMatch:'full'} 
+const routes: Routes = [   {path: ':username', component:AppComponent},
+                            {path:'', redirectTo: '/argentina', pathMatch:'full'} 
                            ];
 
 @NgModule({

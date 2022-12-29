@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterState, RouterStateSnapshot } from '@angular/router';
-import { map } from 'rxjs';
-import { tap } from 'rxjs/internal/operators/tap';
+import { ActivatedRoute, ActivationEnd, NavigationEnd, Router, RouterState, RouterStateSnapshot } from '@angular/router';
+import { filter } from 'rxjs';
+import { PortfolioService } from './services/portfolio.service';
+
 declare let AOS: any;
 @Component({
   selector: 'app-root',
@@ -10,20 +11,23 @@ declare let AOS: any;
 })
 export class AppComponent {
   title = 'portfolio-ap';
- public username:string | null | undefined;
-  constructor(private route:Router){
+  
+ username:any;
+  constructor(private portfolioService:PortfolioService){
     
   }
 
   ngOnInit(){
     AOS.init()
-    window.addEventListener('load',AOS.refresh)
-    //const state: RouterState = this.router.routerState;
-    //const snapshot: RouterStateSnapshot = state.snapshot;
-    //this.username = this.route.snapshot.root
-   //  this.username = this.route.snapshot.params['username']
-  //const url = this.route.snapshot.params[':username']
-    console.log(this.route)
+    
+    var username= location.pathname.substring(1,location.pathname.length)
+    this.portfolioService.getPortfolio(username).subscribe({next:(port)=>{var portfolio:Object; 
+      portfolio=port
+      
+      console.log(portfolio)
+    }}) 
+    //this.router.events.pipe( filter(event => event instanceof NavigationEnd) ).subscribe((event) => { console.log(event)});
+   
    
   }
 }
