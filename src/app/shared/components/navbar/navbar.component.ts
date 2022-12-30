@@ -22,10 +22,15 @@ export class NavbarComponent implements OnInit{
 username?:string;
   constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private tokenService:TokenService, private route: ActivatedRoute, private portfolioService:PortfolioService) {}
 
-  
+  networks:any=[];
 
   ngOnInit(): void {
-  
+    var username= location.pathname.substring(1,location.pathname.length)
+    this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+      port.forEach()
+      //console.log(port[0])
+    }})
+
   }
 
   logOut(): void {
@@ -47,7 +52,7 @@ username?:string;
       exitAnimationDuration,
     });
   }
-
+/*
   networks = [{id:1,
     title:"GitHub",
     icon:"fa-brands fa-github",
@@ -65,7 +70,7 @@ username?:string;
     icon:"fa-brands fa-spotify",
     link:"http://spotify.com"}
     ]
-
+*/
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.networks, event.previousIndex, event.currentIndex);

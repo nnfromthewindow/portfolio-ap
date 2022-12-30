@@ -11,23 +11,14 @@ declare let AOS: any;
 })
 export class AppComponent {
   title = 'portfolio-ap';
-  
- username:any;
+
+
+ welcome:any;
   constructor(private portfolioService:PortfolioService){
-    
+
   }
 
   ngOnInit(){
     AOS.init()
-    
-    var username= location.pathname.substring(1,location.pathname.length)
-    this.portfolioService.getPortfolio(username).subscribe({next:(port)=>{var portfolio:Object; 
-      portfolio=port
-      
-      console.log(portfolio)
-    }}) 
-    //this.router.events.pipe( filter(event => event instanceof NavigationEnd) ).subscribe((event) => { console.log(event)});
-   
-   
   }
 }
