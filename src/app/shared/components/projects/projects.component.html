@@ -3,7 +3,7 @@
   <div class="projects-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(jwtToken$ | async)" >
     <div class="project" data-aos="fade-up" data-aos-duration="3000" *ngFor="let project of projects" >
       <img
-        src={{project.img}}
+        src={{project.image}}
         alt={{project.title}}
         class="project-image"
       />
@@ -37,9 +37,9 @@
     </div>
   </div>
   <div class="projects-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(jwtToken$ | async)" >
-    <div class="project" data-aos="fade-up" data-aos-duration="3000" *ngFor="let project of projects" cdkDrag>
+    <div class="project" data-aos="fade-up" data-aos-duration="3000" *ngFor="let project of projects" >
       <img
-        src={{project.img}}
+        src={{project.image}}
         alt={{project.title}}
         class="project-image"
       />

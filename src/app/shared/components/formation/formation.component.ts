@@ -7,6 +7,7 @@ import { UploadImageModalComponent } from '../upload-image-modal/upload-image-mo
 import { EducationTextModalComponent } from '../education-text-modal/education-text-modal.component';
 import * as fromAuth from '../../../state/auth/auth.reducer'
 import { Store } from '@ngrx/store';
+import { PortfolioService } from 'src/app/services/portfolio.service';
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
@@ -16,7 +17,19 @@ export class FormationComponent implements OnInit {
 
   jwtToken$ = this.store.select(fromAuth.selectToken);
   //user$ = this.store.select(fromAuth.selectUser);
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>) {}
+  experiences!:any[];
+
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService) {}
+
+  ngOnInit() {
+    var username= location.pathname.substring(1,location.pathname.length)
+    this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+        this.experiences=Object.values(port[6]) 
+        this.experiences= this.experiences[0]
+     
+    }})
+  }
+
   overItem() {
     anime({
       targets: '#blob-item path, #text',
@@ -55,6 +68,7 @@ export class FormationComponent implements OnInit {
       direction: 'alternate',
     });
   }
+  /*
   experiences = [
     {id:1,
       color:"#FF0066",
@@ -68,6 +82,7 @@ export class FormationComponent implements OnInit {
    position:"Administracion",
   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quibusdam velit hic, at debitis voluptas impedit assumenda recusandae nostrum quidem blanditiis eius rerum, totam natus iusto quasi, accusantium nam atque?",
   img:"https://live.staticflickr.com/1429/4609529146_f07d1a4585_z.jpg"}];
+*/
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.experiences, event.previousIndex, event.currentIndex);
@@ -105,7 +120,5 @@ export class FormationComponent implements OnInit {
 
   }
 
-  ngOnInit() {
 
-  }
 }

@@ -30,9 +30,9 @@
 
   </div>
   <div class="about-text__descript" style="overflow-x: hidden">
-    <div *ngFor="let about of aboutme">
+    <div *ngFor="let about of aboutme" >
       <p data-aos="fade-right" data-aos-duration="1000">
-        {{about.text}}
+        {{about.message}}
       </p>
       <br />
       <div class="admin-buttons__container" *ngIf="jwtToken$ | async">

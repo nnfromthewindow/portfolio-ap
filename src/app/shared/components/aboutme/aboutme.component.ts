@@ -7,6 +7,7 @@ import { AboutmeTextModalComponent } from '../aboutme-text-modal/aboutme-text-mo
 import { NetworkAddModalComponent } from '../network-add-modal/network-add-modal.component';
 import * as fromAuth from '../../../state/auth/auth.reducer'
 import { Store } from '@ngrx/store';
+import { PortfolioService } from 'src/app/services/portfolio.service';
 
 @Component({
   selector: 'app-aboutme',
@@ -14,55 +15,36 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./aboutme.component.css']
 })
 export class AboutmeComponent implements OnInit {
+
   jwtToken$ = this.store.select(fromAuth.selectToken);
   //user$ = this.store.select(fromAuth.selectUser);
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>) {}
+  networks!:any[];
+  welcome!:any[];
+  avatarImage!:any[];
+  aboutme!:any[];
+
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService) {}
 
   ngOnInit() {
+    var username= location.pathname.substring(1,location.pathname.length)
+    this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+      this.networks=Object.values(port[0]) 
+      this.networks= this.networks[0]
+      this.welcome=port[1].welcome
+      this.welcome= this.welcome[0].message
+      this.avatarImage=port[2].avatarImage
+      this.avatarImage= this.avatarImage[0].image
+      this.aboutme=Object.values(port[4]) 
+      this.aboutme= this.aboutme[0]
+
+    }})
   }
-  welcome = "Hola! me llamo Nicolás Nuccelli y soy desarrollador de páginas y aplicaciones";
-
-  avatarImage = "../../../../assets/img/avatar.jpg";
-
-  networks = [{id:1,
-    title:"GitHub",
-    icon:"fa-brands fa-github",
-    link:"http://github.com"},
-    {id:2,
-    title:"LinkedIn",
-    icon:"fa-brands fa-linkedin",
-    link:"http://linkedin.com"},
-    {id:3,
-    title:"Instagram",
-    icon:"fa-brands fa-instagram",
-    link:"http://instagram.com"},
-    {id:4,
-    title:"Spotify",
-    icon:"fa-brands fa-spotify",
-    link:"http://spotify.com"}
-    ]
-    aboutme = [{id:1,text:`Desde muy chico siempre estuve en contacto con las computadoras desde
-    DOS y luego Windows 3.1. Con el tiempo fui adquiriendo conocimientos en
-    varios software de diseño con los cuales realizo trabajos de renders
-    para una arquitecta, (AutoCad, SketchUp, Fusion 360, Adobe Suite) y
-    producción musical (Ableton Live) debido a que soy musico. Soy
-    desarrollador web fullstack manejando, HTML, CSS, Javascript, Bootstrap
-    y frameworks como Angular y React. Manejo backend con SpringBoot además
-    de manejar su dependecia de seguridad y autenticacion JWT. Tambien
-    realice aplicaciones de escritorio con Java y JavaFX. Ultimamente estoy
-    desarrollando proyectos de Data Science poniendo en practica los cursos
-    de Machine Learning y Deep Learning realizados en Alura Latam. Como
-    segundo idioma manejo Ingles con un nivel C1 Advanced segun el EF
-    Standard English Test.`},{id:2,text:`Forme parte del primer grupo de Proyecto ONE dictado por Alura Latam +
-    Oracle , realizando de manera satisfactoria todas las rutas de
-    aprendizaje y logrando tener el reconocimiento de Alura Latam como
-    ayudante ONE Helper del Grupo 3. Soy una persona que le gusta aprender
-    cosas nuevas sobre todo tecnologías, que sabe trabajar en equipo y a su
-    vez me considero emprendedor.`}]
-
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.networks, event.previousIndex, event.currentIndex);
+  }
+  dropAbout(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.aboutme, event.previousIndex, event.currentIndex);
   }
 
   openAddDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

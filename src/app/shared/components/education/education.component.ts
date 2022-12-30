@@ -6,6 +6,7 @@ import { UploadImageModalComponent } from '../upload-image-modal/upload-image-mo
 import { EducationTextModalComponent } from '../education-text-modal/education-text-modal.component';
 import * as fromAuth from '../../../state/auth/auth.reducer'
 import { Store } from '@ngrx/store';
+import { PortfolioService } from 'src/app/services/portfolio.service';
 
 @Component({
   selector: 'app-education',
@@ -16,26 +17,18 @@ export class EducationComponent implements OnInit {
  
   jwtToken$ = this.store.select(fromAuth.selectToken);
   //user$ = this.store.select(fromAuth.selectUser);
+  education!:any[];
 
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>) {}
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService) {}
 
   ngOnInit() {
+    var username= location.pathname.substring(1,location.pathname.length)
+    this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+        this.education=Object.values(port[5]) 
+        this.education= this.education[0]
+  
+    }})
   }
-
-  education = [
-    {id:1,
-    institution: "Alura",
-    grade:"Formacion Fullstack",
-    description:"Cursos y challenges desarrollados durante todo el 2022 logrando conocimientos web fullstack, Java y Machine Learning",
-    color: "#c2185b",
-    img:"https://www.aluracursos.com/assets/img/alura-share.1647533644.png"},
-    {id:2,
-      institution: "Instituto Fortin Pavon",
-      grade:"Bachillerato Comercial",
-      description:"Formacion de titulo secundario completo con orientacion a contabilidad y administracion de empresas",
-      color: "#5632a8",
-      img:"https://acogeauncientifico.com/static/fortin-pavon-ee57eb4156b76e83fb2b3577f7b45ad1.jpg"}
-  ]
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.education, event.previousIndex, event.currentIndex);

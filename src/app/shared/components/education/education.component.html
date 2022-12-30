@@ -7,13 +7,13 @@
       <div class="education-card__container">
         <div class="left-bar" data-aos="fade-right" [ngStyle]="{'background-color':educ.color}">
           <div class="left-text__container">
-            <h2 class="left-text__title" data-aos="fade-right">{{educ.institution}}</h2>
-            <h3 class="left-text__subtitle" data-aos="fade-right">{{educ.grade}}</h3>
-            <p class="description" data-aos="fade-right"> {{educ.description}}</p>
+            <h2 class="left-text__title" data-aos="fade-right">{{educ.title}}</h2>
+            <h3 class="left-text__subtitle" data-aos="fade-right">{{educ.subtitle}}</h3>
+            <p class="description" data-aos="fade-right"> {{educ.detail}}</p>
           </div>
         </div>
         <div class="right-bar" data-aos="fade-left">
-          <img src={{educ.img}} alt={{educ.institution}} >
+          <img src={{educ.image}} alt={{educ.title}} >
           <div class="right-text__container">
           </div>
         </div>
@@ -30,17 +30,17 @@
 
   </div>
   <div class="education-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(jwtToken$ | async)" >
-    <div class="education-card" *ngFor="let educ of education" cdkDrag >
+    <div class="education-card" *ngFor="let educ of education"  cdkDrag>
       <div class="education-card__container">
         <div class="left-bar" data-aos="fade-right" [ngStyle]="{'background-color':educ.color}">
           <div class="left-text__container">
-            <h2 class="left-text__title" data-aos="fade-right">{{educ.institution}}</h2>
-            <h3 class="left-text__subtitle" data-aos="fade-right">{{educ.grade}}</h3>
-            <p class="description" data-aos="fade-right"> {{educ.description}}</p>
+            <h2 class="left-text__title" data-aos="fade-right">{{educ.title}}</h2>
+            <h3 class="left-text__subtitle" data-aos="fade-right">{{educ.subtitle}}</h3>
+            <p class="description" data-aos="fade-right"> {{educ.detail}}</p>
           </div>
         </div>
         <div class="right-bar" data-aos="fade-left">
-          <img src={{educ.img}} alt={{educ.institution}} >
+          <img src={{educ.image}} alt={{educ.title}} >
           <div class="right-text__container">
           </div>
         </div>

@@ -22,13 +22,14 @@ export class NavbarComponent implements OnInit{
 username?:string;
   constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private tokenService:TokenService, private route: ActivatedRoute, private portfolioService:PortfolioService) {}
 
-  networks:any=[];
+  networks!:any[];
 
   ngOnInit(): void {
     var username= location.pathname.substring(1,location.pathname.length)
     this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
-      port.forEach()
-      //console.log(port[0])
+      this.networks=Object.values(port[0]) 
+      this.networks= this.networks[0]
+     // console.log(this.networks)
     }})
 
   }

@@ -7,7 +7,7 @@
       class="example-margin"
       [color]="color"
       [mode]="mode"
-      [value]="value">
+      [value]="skill.percentaje">
 
   </mat-progress-spinner>
   <div class="percentaje">
@@ -24,13 +24,13 @@
     </div>
   </div>
   <div class="skills-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(jwtToken$ | async)" >
-    <div class="skills-card" data-aos="zoom-in" *ngFor="let skill of skills" cdkDrag>
+    <div class="skills-card" data-aos="zoom-in" *ngFor="let skill of skills" >
 
       <mat-progress-spinner class="spinner-container"
       class="example-margin"
       [color]="color"
       [mode]="mode"
-      [value]="value">
+      [value]="skill.percentaje">
 
   </mat-progress-spinner>
   <div class="percentaje">

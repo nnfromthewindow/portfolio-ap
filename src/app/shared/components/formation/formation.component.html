@@ -30,9 +30,9 @@
           <div class="blob-text__title">
             <h2>{{experience.title}}</h2>
             <div class="blob-text__sub">
-              <h3>{{experience.position}}</h3>
+              <h3>{{experience.subtitle}}</h3>
               <div class="blob-text__descript">
-                <p >{{experience.description}}</p>
+                <p >{{experience.detail}}</p>
               </div>
             </div>
           </div>
@@ -49,7 +49,7 @@
               height="1"
             >
               <image
-              [attr.xlink:href]="experience.img"
+              [attr.xlink:href]="experience.image"
                 x="-200"
                 y="0"
                 width="1000"
@@ -72,7 +72,7 @@
   </div>
 </div>
 <div  cdkDropList (cdkDropListDropped)="drop($event)"  *ngIf="(jwtToken$ | async)" >
-  <div class="cardblob-container" *ngFor="let experience of experiences" cdkDrag >
+  <div class="cardblob-container" *ngFor="let experience of experiences" >
     <div class="cardblob" >
       <div class="blob-left" data-aos="fade-up"
       data-aos-duration="3000">
@@ -99,9 +99,9 @@
           <div class="blob-text__title">
             <h2>{{experience.title}}</h2>
             <div class="blob-text__sub">
-              <h3>{{experience.position}}</h3>
+              <h3>{{experience.subtitle}}</h3>
               <div class="blob-text__descript">
-                <p >{{experience.description}}</p>
+                <p >{{experience.detail}}</p>
               </div>
             </div>
           </div>
@@ -118,7 +118,7 @@
               height="1"
             >
               <image
-              [attr.xlink:href]="experience.img"
+              [attr.xlink:href]="experience.image"
                 x="-200"
                 y="0"
                 width="1000"

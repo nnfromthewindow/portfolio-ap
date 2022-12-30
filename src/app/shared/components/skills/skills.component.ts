@@ -7,6 +7,7 @@ import * as fromAuth from '../../../state/auth/auth.reducer'
 import { Store } from '@ngrx/store';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { PortfolioService } from 'src/app/services/portfolio.service';
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
@@ -18,12 +19,21 @@ export class SkillsComponent implements OnInit {
   //user$ = this.store.select(fromAuth.selectUser);
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'determinate';
-  value = 90;
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>) {}
+  value!:any;
+  skills!:any[];
+
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService) {}
 
   ngOnInit() {
+    var username= location.pathname.substring(1,location.pathname.length)
+    this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+        this.skills=Object.values(port[7]); 
+        this.skills= this.skills[0];
+        this.value=this.skills[0].percentaje;
+ 
+    }})
   }
-
+/*
   skills = [{id:1,
   title:"Javascript",
   icon:"fa-brands fa-square-js",
@@ -34,7 +44,7 @@ export class SkillsComponent implements OnInit {
     icon:"fa-brands fa-html5",
     percentaje:80,
     color: "green"}]
-
+*/
     drop(event: CdkDragDrop<string[]>) {
       moveItemInArray(this.skills, event.previousIndex, event.currentIndex);
     }
