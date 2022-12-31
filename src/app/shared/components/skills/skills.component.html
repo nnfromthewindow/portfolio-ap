@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="skills-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(jwtToken$ | async)" >
-    <div class="skills-card" data-aos="zoom-in" *ngFor="let skill of skills" >
+    <div class="skills-card" data-aos="zoom-in" *ngFor="let skill of skills" cdkDrag>
 
       <mat-progress-spinner class="spinner-container"
       class="example-margin"

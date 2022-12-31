@@ -27,26 +27,16 @@ export class SkillsComponent implements OnInit {
   ngOnInit() {
     var username= location.pathname.substring(1,location.pathname.length)
     this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
-        this.skills=Object.values(port[7]); 
+        this.skills=Object.values(port[7]);
         this.skills= this.skills[0];
         this.value=this.skills[0].percentaje;
- 
+
     }})
   }
-/*
-  skills = [{id:1,
-  title:"Javascript",
-  icon:"fa-brands fa-square-js",
-  percentaje:90,
-  color: "red"},
-  {id:2,
-    title:"HTML",
-    icon:"fa-brands fa-html5",
-    percentaje:80,
-    color: "green"}]
-*/
+
     drop(event: CdkDragDrop<string[]>) {
       moveItemInArray(this.skills, event.previousIndex, event.currentIndex);
+      console.log(event)
     }
 
     openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
