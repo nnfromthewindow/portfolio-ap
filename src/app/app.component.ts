@@ -14,11 +14,24 @@ export class AppComponent {
 
 
  welcome:any;
-  constructor(private portfolioService:PortfolioService){
+  constructor(private portfolioService:PortfolioService, private router:Router){
 
   }
 
   ngOnInit(){
     AOS.init()
+   // this.router.navigateByUrl('/nuccelli')
+    var username= location.pathname.substring(1,location.pathname.length)
+    this.portfolioService.getPortfolio(username).subscribe({
+     // next:(next)=>//console.log(next),
+      error:(err:any)=>{
+     if(err){
+  
+      this.router.navigateByUrl('/nuccelli')
+    
+     }
+    
+
+    }})
   }
 }

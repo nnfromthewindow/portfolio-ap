@@ -36,7 +36,8 @@ export class AboutmeComponent implements OnInit {
       this.avatarImage= this.avatarImage[0].image
       this.aboutme=Object.values(port[4])
       this.aboutme= this.aboutme[0]
-
+      console.log(this.networks)
+      console.log(this.welcome)
     }})
   }
 

@@ -23,7 +23,7 @@ export class ProjectsComponent implements OnInit {
     this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
         this.projects=Object.values(port[8]) 
         this.projects= this.projects[0]
-     
+    // console.log(this.projects)
     }})
   }
 

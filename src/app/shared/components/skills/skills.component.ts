@@ -29,14 +29,14 @@ export class SkillsComponent implements OnInit {
     this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
         this.skills=Object.values(port[7]);
         this.skills= this.skills[0];
-        this.value=this.skills[0].percentaje;
+        this.value=this.skills[0];
 
     }})
   }
 
     drop(event: CdkDragDrop<string[]>) {
       moveItemInArray(this.skills, event.previousIndex, event.currentIndex);
-      console.log(event)
+      
     }
 
     openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
