@@ -29,7 +29,7 @@ export class AboutmeComponent implements OnInit {
     var username= location.pathname.substring(1,location.pathname.length)
     this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
 
-      //console.log(port[0].network.length)
+      //console.log(port[2].avatarImage.length)
 
       if(port[0].network.length>0 || port[1].welcome.length>0 || port[2].avatarImage.length>0 || port[4].aboutme.length>0){
       this.networks=Object.values(port[0])

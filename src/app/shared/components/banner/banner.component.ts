@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import * as fromAuth from '../../../state/auth/auth.reducer'
 import { Store } from '@ngrx/store';
 import { PortfolioService } from 'src/app/services/portfolio.service';
+import { BannerModalComponent } from '../banner-modal/banner-modal.component';
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
@@ -33,7 +34,7 @@ if(port[3].bannerImage.length>0){
 
 
 openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-  this.dialog.open(UploadImageModalComponent, {
+  this.dialog.open(BannerModalComponent, {
     width: '250px',
     enterAnimationDuration,
     exitAnimationDuration,
