@@ -28,6 +28,10 @@ export class AboutmeComponent implements OnInit {
   ngOnInit() {
     var username= location.pathname.substring(1,location.pathname.length)
     this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+
+      //console.log(port[0].network.length)
+
+      if(port[0].network.length>0 || port[1].welcome.length>0 || port[2].avatarImage.length>0 || port[4].aboutme.length>0){
       this.networks=Object.values(port[0])
       this.networks= this.networks[0]
       this.welcome=port[1].welcome
@@ -36,8 +40,8 @@ export class AboutmeComponent implements OnInit {
       this.avatarImage= this.avatarImage[0].image
       this.aboutme=Object.values(port[4])
       this.aboutme= this.aboutme[0]
-      console.log(this.networks)
-      console.log(this.welcome)
+      }
+      //console.log(this.welcome)
     }})
   }
 

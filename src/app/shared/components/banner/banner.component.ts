@@ -20,12 +20,14 @@ export class BannerComponent implements OnInit {
   ngOnInit(): void {
     var username= location.pathname.substring(1,location.pathname.length)
     this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
-      //this.bannerImage=port[3].bannerImage
-      //this.bannerImage= this.bannerImage[0].image
+
+if(port[3].bannerImage.length>0){
       this.bannerImage=Object.values(port[3])
       this.bannerImage=this.bannerImage[0]
       this.bannerImage=this.bannerImage[0].image
-      //console.log(this.bannerImage)
+     // console.log(port)
+}
+
     }})
   }
 
