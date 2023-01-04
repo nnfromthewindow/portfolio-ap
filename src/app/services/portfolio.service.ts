@@ -11,13 +11,17 @@ export class PortfolioService implements OnInit{
 
 
   portfolioURL = environment.apiURL;
-  
+
 
   constructor(private httpClient: HttpClient) { }
 
 
   public getPortfolio(username:string): Observable<Object>{
     return this.httpClient.get(this.portfolioURL+'/'+username)
+  }
+
+  public editBannerImage(id:string, image:string, username:string, httpOptions:any): Observable<Object>{
+    return this.httpClient.put(this.portfolioURL+'/'+username+'/'+'banner'+'/'+id, image,httpOptions)
   }
 
   ngOnInit(): void {
