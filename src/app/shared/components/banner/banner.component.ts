@@ -27,6 +27,8 @@ if(port[3].bannerImage.length>0){
       this.bannerImage=this.bannerImage[0]
       this.bannerImage=this.bannerImage[0].image
      // console.log(port)
+    // this.portfolioService.sendBanner(this.bannerImage)
+     
 }
 
     }})
