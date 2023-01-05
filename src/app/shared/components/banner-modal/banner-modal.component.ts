@@ -5,7 +5,7 @@ import * as fromAuth from '../../../state/auth/auth.reducer'
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { BannerComponent } from '../banner/banner.component';
+
 
 @Component({
   selector: 'app-banner-modal',
@@ -20,11 +20,9 @@ bannerId!:any;
 image!:any;
 
 
-  profileForm = new FormGroup({
-    link: new FormControl('', [Validators.required])
+profileForm = new FormGroup({
+  link: new FormControl('', [Validators.required])
   });
-
-
 
   constructor(private portfolioService:PortfolioService, private store: Store<fromAuth.State>, public dialogRef: MatDialogRef<BannerModalComponent>,private router:Router) { }
 
@@ -35,8 +33,6 @@ image!:any;
       this.bannerId=port[3].bannerImage
       this.image=this.bannerId[0].image
       this.bannerId=this.bannerId[0].id
-      console.log(this.image)
-
     }})
   }
 
@@ -45,18 +41,13 @@ image!:any;
 
        var username:any= location.pathname.substring(1,location.pathname.length);
        this.image= this.profileForm.controls.link.value!;
-       
+
       this.portfolioService.editBannerImage(this.bannerId,{image:this.image},username,{
         headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
      }).subscribe(
-      (banner)=>{console.log('imagen actual'+this.image),
-      
-        this.image=banner.image,
-        //console.log('imagen despues'+this.image)
-        //this.bannerComponent.setBannerImage(this.image)
-      this.dialogRef.close}
+      (banner)=>{this.portfolioService.setBanner(banner)}
      );
-   
+
   })
   }
 }

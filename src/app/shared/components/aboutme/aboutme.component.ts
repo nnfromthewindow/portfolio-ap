@@ -8,6 +8,8 @@ import { NetworkAddModalComponent } from '../network-add-modal/network-add-modal
 import * as fromAuth from '../../../state/auth/auth.reducer'
 import { Store } from '@ngrx/store';
 import { PortfolioService } from 'src/app/services/portfolio.service';
+import { AvatarModalComponent } from '../avatar-modal/avatar-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-aboutme',
@@ -22,14 +24,13 @@ export class AboutmeComponent implements OnInit {
   welcome!:any[];
   avatarImage!:any[];
   aboutme!:any[];
-
+  public avatarSubscription!: Subscription;
   constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService) {}
 
   ngOnInit() {
     var username= location.pathname.substring(1,location.pathname.length)
     this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
 
-      //console.log(port[2].avatarImage.length)
 
       if(port[0].network.length>0 || port[1].welcome.length>0 || port[2].avatarImage.length>0 || port[4].aboutme.length>0){
       this.networks=Object.values(port[0])
@@ -40,8 +41,10 @@ export class AboutmeComponent implements OnInit {
       this.avatarImage= this.avatarImage[0].image
       this.aboutme=Object.values(port[4])
       this.aboutme= this.aboutme[0]
+
+      this.avatarSubscription=this.portfolioService.getAvatar().subscribe((resp:any)=>{this.avatarImage=resp.image})
       }
-      //console.log(this.welcome)
+
     }})
   }
 
@@ -60,7 +63,7 @@ export class AboutmeComponent implements OnInit {
     });
   }
   openAvatarDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(UploadImageModalComponent, {
+    this.dialog.open(AvatarModalComponent, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
