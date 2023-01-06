@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { AvatarModalComponent } from '../avatar-modal/avatar-modal.component';
 import { Subscription } from 'rxjs';
+import { WelcomeModalComponent } from '../welcome-modal/welcome-modal.component';
 
 @Component({
   selector: 'app-aboutme',
@@ -25,6 +26,8 @@ export class AboutmeComponent implements OnInit {
   avatarImage!:any[];
   aboutme!:any[];
   public avatarSubscription!: Subscription;
+  public welcomeSubscription!: Subscription;
+
   constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService) {}
 
   ngOnInit() {
@@ -43,6 +46,9 @@ export class AboutmeComponent implements OnInit {
       this.aboutme= this.aboutme[0]
 
       this.avatarSubscription=this.portfolioService.getAvatar().subscribe((resp:any)=>{this.avatarImage=resp.image})
+      
+      this.welcomeSubscription=this.portfolioService.getWelcome().subscribe((resp:any)=>{this.welcome=resp.message})
+      
       }
 
     }})
@@ -70,7 +76,7 @@ export class AboutmeComponent implements OnInit {
     });
   }
   openTextDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(AboutmeTextModalComponent, {
+    this.dialog.open(WelcomeModalComponent, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,

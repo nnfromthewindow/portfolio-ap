@@ -1,3 +1,15 @@
-<p>
-  welcome-modal works!
-</p>
+<h1 mat-dialog-title>Mensaje de Bienvenida</h1>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<mat-form-field appearance="fill">
+  <mat-label>Ingrese el mensaje aqui...</mat-label>
+  <textarea matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="5"
+            cdkAutosizeMaxRows="30"
+            value={{welcome}} name="welcome" formControlName="message"></textarea>
+</mat-form-field>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" mat-dialog-close type="submit" [disabled]="!profileForm.valid" >Editar</button>
+</div>
+</form>
