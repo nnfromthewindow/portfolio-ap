@@ -36,7 +36,6 @@ constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, pri
       this.networkSubscription=this.portfolioService.getNetwork().subscribe((resp:any)=>{
         this.networks.push(resp)
       })
-
     }})
 
   }
@@ -68,14 +67,7 @@ constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, pri
     this.jwtToken$.subscribe((token:any)=>{
    this.portfolioService.deleteNetwork(id, username,{
     headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
- }).subscribe((resp)=>this.portfolioService.setNetwork(resp))
-
-  })
-    /* if(this.networks.length ==1){
-      this.networks.pop();
-    }
-    if (id > -1) {
-      this.networks.splice(id-1, 1);
-    }
-  */}
+ }).subscribe()})
+ this.networks=this.networks.filter((net)=>{return  net.id!==id})
+}
 }

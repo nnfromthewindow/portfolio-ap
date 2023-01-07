@@ -23,11 +23,15 @@ export class NetworkAddModalComponent implements OnInit {
 
   ngOnInit() {
     this.username= location.pathname.substring(1,location.pathname.length)
+ 
   }
 
   onSubmit(){
     this.jwtToken$.subscribe((token:any)=>{
-      this.portfolioService.createNetwork(this.profileForm.controls.title.value,this.profileForm.controls.icon.value,this.profileForm.controls.link.value,this.username,{
+      var title = this.profileForm.controls.title.value;
+      var icon = this.profileForm.controls.icon.value;
+      var link = this.profileForm.controls.link.value
+      this.portfolioService.createNetwork(title,icon?.substring(10,icon.length-6),link,this.username,{
         headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
      }).subscribe((net)=>{
       this.portfolioService.setNetwork(net)
