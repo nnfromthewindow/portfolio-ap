@@ -9,6 +9,7 @@ import * as AuthActions from '../../../state/auth/auth.actions'
 import { TokenService } from 'src/app/services/token.service';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { PortfolioService } from 'src/app/services/portfolio.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -17,19 +18,25 @@ import { PortfolioService } from 'src/app/services/portfolio.service';
 })
 export class NavbarComponent implements OnInit{
 
- jwtToken$ = this.store.select(fromAuth.selectToken);
- //user$ = this.store.select(fromAuth.selectUser);
+jwtToken$ = this.store.select(fromAuth.selectToken);
+//user$ = this.store.select(fromAuth.selectUser);
 username?:string;
-  constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private tokenService:TokenService, private route: ActivatedRoute, private portfolioService:PortfolioService) {}
+networks!:any[];
+public networkSubscription!: Subscription;
 
-  networks!:any[];
+constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private tokenService:TokenService, private portfolioService:PortfolioService) {}
+
+
 
   ngOnInit(): void {
     var username= location.pathname.substring(1,location.pathname.length)
     this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
-      this.networks=Object.values(port[0]) 
+      this.networks=Object.values(port[0])
       this.networks= this.networks[0]
-     // console.log(this.networks)
+      this.networkSubscription=this.portfolioService.getNetwork().subscribe((resp:any)=>{
+        this.networks.push(resp)
+      })
+
     }})
 
   }
@@ -53,35 +60,22 @@ username?:string;
       exitAnimationDuration,
     });
   }
-/*
-  networks = [{id:1,
-    title:"GitHub",
-    icon:"fa-brands fa-github",
-    link:"http://github.com"},
-    {id:2,
-    title:"LinkedIn",
-    icon:"fa-brands fa-linkedin",
-    link:"http://linkedin.com"},
-    {id:3,
-    title:"Instagram",
-    icon:"fa-brands fa-instagram",
-    link:"http://instagram.com"},
-    {id:4,
-    title:"Spotify",
-    icon:"fa-brands fa-spotify",
-    link:"http://spotify.com"}
-    ]
-*/
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.networks, event.previousIndex, event.currentIndex);
   }
-  deleteNetwork(id:number): void{
-    if(this.networks.length ==1){
+  deleteNetwork(id:string, username:string): void{
+    this.jwtToken$.subscribe((token:any)=>{
+   this.portfolioService.deleteNetwork(id, username,{
+    headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
+ }).subscribe((resp)=>this.portfolioService.setNetwork(resp))
+
+  })
+    /* if(this.networks.length ==1){
       this.networks.pop();
     }
     if (id > -1) {
       this.networks.splice(id-1, 1);
     }
-  }
+  */}
 }

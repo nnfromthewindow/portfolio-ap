@@ -16,7 +16,7 @@ export class PortfolioService implements OnInit{
   public avatarSubject = new Subject();
   public welcomeSubject = new Subject();
   public aboutmeSubject = new Subject();
-
+  public networkSubject = new Subject();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -28,6 +28,18 @@ export class PortfolioService implements OnInit{
   public getPortfolio(username:string): Observable<Object>{
     return this.httpClient.get(this.portfolioURL+'/'+username)
   }
+
+////  METODOS POST //////
+public createNetwork(title:any, icon:any, link:any, username:any, httpOptions:any): Observable<any>{
+  return this.httpClient.post<any>(this.portfolioURL+'/'+username+'/'+'network', {title:title,icon:icon,link:link, userUsername:username},httpOptions)
+}
+setNetwork(network:any){
+  this.networkSubject.next(network)
+}
+getNetwork(){
+  return this.networkSubject
+}
+
 
 ////  METODOS PUT //////
 
@@ -71,5 +83,12 @@ export class PortfolioService implements OnInit{
   getAboutme(){
     return this.aboutmeSubject
   }
+
+//// METODOS DELETE /////
+
+public deleteNetwork(id:any,username:any, httpOptions:any): Observable<any>{
+  return this.httpClient.delete<any>(this.portfolioURL+'/'+username+'/'+'network'+'/'+id, httpOptions)
+}
+
 
 }

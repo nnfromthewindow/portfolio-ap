@@ -2,7 +2,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription, take } from 'rxjs';
+import {  take } from 'rxjs';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import * as fromAuth from '../../../state/auth/auth.reducer'
 
@@ -18,7 +18,7 @@ export class WelcomeModalComponent implements OnInit {
   profileForm = new FormGroup({
     message: new FormControl(this.welcome, [Validators.required])
     });
-  
+
 
 
   constructor(private _ngZone: NgZone, private portfolioService:PortfolioService, private store: Store<fromAuth.State>) {}

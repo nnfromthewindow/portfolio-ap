@@ -1,4 +1,14 @@
 <h1>Agregue una Red</h1>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<h2>Nombre de la red</h2>
+<mat-form-field appearance="fill">
+  <mat-label>Ingrese el texto</mat-label>
+  <textarea matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="3" name="title" formControlName="title"></textarea>
+</mat-form-field>
 <h2>Link</h2>
 <mat-form-field appearance="fill">
   <mat-label>Ingrese el texto</mat-label>
@@ -6,7 +16,8 @@
             cdkTextareaAutosize
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="3"></textarea>
+            cdkAutosizeMaxRows="3"
+            name="link" formControlName="link"></textarea>
 </mat-form-field>
 <h2>Icono de Font Awesome</h2>
 <mat-form-field appearance="fill">
@@ -15,9 +26,11 @@
             cdkTextareaAutosize
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="3"></textarea>
+            cdkAutosizeMaxRows="3"
+            name="icon" formControlName="icon"></textarea>
 </mat-form-field>
 
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Agregar</button>
+  <button mat-button mat-dialog-close type="submit" [disabled]="!profileForm.valid" >Agregar</button>
 </div>
+</form>
