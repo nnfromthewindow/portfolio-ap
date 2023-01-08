@@ -39,7 +39,17 @@ setNetwork(network:any){
 getNetwork(){
   return this.networkSubject
 }
-
+/*
+public createAboutme(message:any, username:any, httpOptions:any): Observable<any>{
+  return this.httpClient.post<any>(this.portfolioURL+'/'+username+'/'+'aboutme', {message:message, userUsername:username},httpOptions)
+}
+setAboutme(network:any){
+  this.networkSubject.next(network)
+}
+getAboutme(){
+  return this.networkSubject
+}
+*/
 
 ////  METODOS PUT //////
 

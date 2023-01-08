@@ -46,9 +46,9 @@ export class AboutmeComponent implements OnInit {
       this.aboutme= this.aboutme[0]
 
       this.avatarSubscription=this.portfolioService.getAvatar().subscribe((resp:any)=>{this.avatarImage=resp.image})
-      
+
       this.welcomeSubscription=this.portfolioService.getWelcome().subscribe((resp:any)=>{this.welcome=resp.message})
-      
+
       }
 
     }})
@@ -77,6 +77,13 @@ export class AboutmeComponent implements OnInit {
   }
   openTextDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(WelcomeModalComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+  openAboutDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(AboutmeTextModalComponent, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,

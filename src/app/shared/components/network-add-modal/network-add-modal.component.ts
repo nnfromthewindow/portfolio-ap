@@ -23,7 +23,7 @@ export class NetworkAddModalComponent implements OnInit {
 
   ngOnInit() {
     this.username= location.pathname.substring(1,location.pathname.length)
- 
+
   }
 
   onSubmit(){
@@ -37,7 +37,7 @@ export class NetworkAddModalComponent implements OnInit {
       this.portfolioService.setNetwork(net)
     })
 
-    })
+    }).unsubscribe()
 
   }
 }

@@ -11,7 +11,7 @@ import { AvatarModalModule } from '../avatar-modal/avatar-modal.module';
 import { WelcomeModalModule } from '../welcome-modal/welcome-modal.module';
 @NgModule({
   declarations: [AboutmeComponent],
-  imports: [CommonModule, AngularMaterialModuleModule, EditIconModule,DeleteIconModule, NewIconModule, AboutAddModalModule, WelcomeModalModule, AvatarModalModule],
+  imports: [CommonModule, AngularMaterialModuleModule, EditIconModule,DeleteIconModule, NewIconModule, AboutAddModalModule, WelcomeModalModule, AvatarModalModule, AboutmeTextModalModule],
   exports: [AboutmeComponent],
 })
 export class AboutmeModule {}

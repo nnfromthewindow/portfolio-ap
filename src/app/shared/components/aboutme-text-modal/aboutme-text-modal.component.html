@@ -1,13 +1,15 @@
-<h1 mat-dialog-title>Edite el texto</h1>
+<h1 mat-dialog-title>Texto Biografia</h1>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
 <mat-form-field appearance="fill">
-  <mat-label>Ingrese el texto</mat-label>
+  <mat-label>Ingrese el mensaje aqui...</mat-label>
   <textarea matInput
             cdkTextareaAutosize
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="5"
-            cdkAutosizeMaxRows="30"></textarea>
+            cdkAutosizeMaxRows="30"
+            value={{aboutme}} name="aboutme" formControlName="message"></textarea>
 </mat-form-field>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Editar</button>
-
+  <button mat-raised-button color="primary" mat-dialog-close type="submit" [disabled]="!profileForm.valid" >Editar</button>
 </div>
+</form>

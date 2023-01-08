@@ -48,6 +48,6 @@ profileForm = new FormGroup({
       (banner)=>{this.portfolioService.setBanner(banner)}
      );
 
-  })
+  }).unsubscribe()
   }
 }

@@ -48,6 +48,6 @@ export class WelcomeModalComponent implements OnInit {
     }).subscribe(
      (welcome)=>{this.portfolioService.setWelcome(welcome)}
     );
- })
+ }).unsubscribe()
   }
 }

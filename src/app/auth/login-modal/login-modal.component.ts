@@ -62,13 +62,17 @@ export class LoginModalComponent implements OnInit{
    this.store.dispatch(AuthActions.LoginRequest.loginRequest({credentials}));
     this.authService.login(new LoginUserDto(this.profileForm.value.username!,this.profileForm.value.password!)).
     subscribe({next: (req)=> {
+      //console.log(req),
       this.tokenService.setToken(req.token!)
       this.store.dispatch(AuthActions.LoginSuccess.loginSuccess({loginSuccessResponse:{
       username:req.username, token:req.token
-    }}))},
-    error: (e) => this.toast.error('Intentelo de nuevo','Usuario Invalido',{timeOut:3000, positionClass:'toast-top-center'}), 
+    }
+  }))
+},
+    error: (e) => {console.log(e),this.toast.error('Intentelo de nuevo','Usuario Invalido',{timeOut:3000, positionClass:'toast-top-center'})},
     complete: ()=>{ this.dialogRef.close();
-                    this.router.navigate([this.profileForm.value.username])}})
+                    this.router.navigate([this.profileForm.value.username])
+                  }})
 
   }
 

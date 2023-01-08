@@ -47,6 +47,6 @@ export class AvatarModalComponent implements OnInit {
         (avatar)=>{this.portfolioService.setAvatar(avatar)}
        );
 
-    })
+    }).unsubscribe()
     }
 }

@@ -65,9 +65,10 @@ constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, pri
   }
   deleteNetwork(id:string, username:string): void{
     this.jwtToken$.subscribe((token:any)=>{
-   this.portfolioService.deleteNetwork(id, username,{
+    this.portfolioService.deleteNetwork(id, username,{
     headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
- }).subscribe()})
- this.networks=this.networks.filter((net)=>{return  net.id!==id})
+  }).subscribe().unsubscribe()})
+  this.networks=this.networks.filter((net)=>{return  net.id!==id})
+
 }
 }
