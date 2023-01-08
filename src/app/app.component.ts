@@ -12,15 +12,17 @@ declare let AOS: any;
 export class AppComponent {
   title = 'portfolio-ap';
 
-
+  aboutmeId!:any;
  welcome:any;
-  constructor(private portfolioService:PortfolioService, private router:Router){
+  constructor(private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute){
 
   }
 
   ngOnInit(){
     AOS.init()
    // this.router.navigateByUrl('/nuccelli')
+    
+
     var username= location.pathname.substring(1,location.pathname.length)
     this.portfolioService.getPortfolio(username).subscribe({
      // next:(next)=>//console.log(next),

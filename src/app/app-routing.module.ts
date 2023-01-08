@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
+import { AboutmeTextModalComponent } from './shared/components/aboutme-text-modal/aboutme-text-modal.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { UserDetailsComponent } from './shared/components/user-details/user-details.component';
 
@@ -8,10 +9,9 @@ import { UserDetailsComponent } from './shared/components/user-details/user-deta
 
 const routes: Routes = [   {path: ':username', component:AppComponent},
                             {path: 'nuccelli', component:AppComponent},
-                            //{ path: '',component:AppComponent},
-                            //{ path: '', redirectTo: '/nuccelli', pathMatch:'full' },
+                            {path: ':username/aboutme/:id', component:AboutmeTextModalComponent},
                             { path: '**', redirectTo: 'nuccelli', pathMatch:'full' },
-                            //{ path: ':username/**', redirectTo: 'nuccelli', pathMatch:'prefix' }
+
                            ];
 
 @NgModule({
