@@ -1,4 +1,3 @@
-
 <h2>Titulo</h2>
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
 <mat-form-field appearance="fill">
@@ -8,7 +7,7 @@
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="3"
-            formControlName="title"></textarea>
+            formControlName="title" value={{title}}></textarea>
 </mat-form-field>
 <h2>Subtitulo</h2>
 <mat-form-field appearance="fill">
@@ -18,7 +17,7 @@
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="3"
-            formControlName="subtitle"></textarea>
+            formControlName="subtitle" value={{subtitle}}></textarea>
 </mat-form-field>
 <h2>Descripcion</h2>
 <mat-form-field appearance="fill">
@@ -28,20 +27,20 @@
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="5"
             cdkAutosizeMaxRows="10"
-            formControlName="detail"></textarea>
+            formControlName="detail" value={{detail}}></textarea>
 </mat-form-field>
 <h2>Color</h2>
 <mat-form-field>
-  <input matInput [ngxMatColorPicker]="picker" [formControl]="colorCtr" [disabled]="disabled" formControlName="color">
+  <input matInput [ngxMatColorPicker]="picker" [formControl]="colorCtr"  formControlName="color" >
   <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
   <ngx-mat-color-picker #picker [touchUi]="touchUi" [color]="color"></ngx-mat-color-picker>
 </mat-form-field>
 <h2>Imagen</h2>
 <mat-form-field class="example-full-width" >
   <mat-label>Ingrese la direccion de la imagen</mat-label>
-  <input matInput placeholder="Link" name="link" formControlName="image">
+  <input matInput placeholder="Link" name="link" formControlName="image" value={{image}}>
 </mat-form-field>
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" mat-dialog-close type="submit"  >Agregar</button>
+  <button mat-raised-button color="primary" mat-dialog-close type="submit"  >Editar</button>
 </div>
 </form>

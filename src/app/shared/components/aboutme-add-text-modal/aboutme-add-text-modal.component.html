@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Agregue informacion a su Biografia</h1>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<mat-form-field appearance="fill">
+  <mat-label>Ingrese el mensaje aqui...</mat-label>
+  <textarea matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="5"
+            cdkAutosizeMaxRows="30"
+            name="aboutme" formControlName="message"></textarea>
+</mat-form-field>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" mat-dialog-close type="submit" [disabled]="!profileForm.valid" >Agregar</button>
+</div>
+</form>

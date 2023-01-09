@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
-import { AboutAddModalComponent } from '../about-add-modal/about-add-modal.component';
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 import { AboutmeTextModalComponent } from '../aboutme-text-modal/aboutme-text-modal.component';
 import { NetworkAddModalComponent } from '../network-add-modal/network-add-modal.component';
@@ -12,6 +11,7 @@ import { AvatarModalComponent } from '../avatar-modal/avatar-modal.component';
 import { filter, Subscription } from 'rxjs';
 import { WelcomeModalComponent } from '../welcome-modal/welcome-modal.component';
 import { Router } from '@angular/router';
+import { AboutmeAddTextModalComponent } from '../aboutme-add-text-modal/aboutme-add-text-modal.component';
 
 @Component({
   selector: 'app-aboutme',
@@ -30,7 +30,9 @@ export class AboutmeComponent implements OnInit {
   public avatarSubscription!: Subscription;
   public welcomeSubscription!: Subscription;
   public aboutmeSubscription!: Subscription;
-
+  public aboutmeAddSubscription!: Subscription;
+ 
+  
   constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router) {}
 
   ngOnInit() {
@@ -59,9 +61,12 @@ export class AboutmeComponent implements OnInit {
           }
         })
       })
-
+      this.aboutmeAddSubscription=this.portfolioService.getAddAboutme().subscribe((resp:any)=>{
+        this.aboutme.push(resp)
+      })
+   
+      
       }
-
     }})
   }
 
@@ -72,13 +77,6 @@ export class AboutmeComponent implements OnInit {
     moveItemInArray(this.aboutme, event.previousIndex, event.currentIndex);
   }
 
-  openAddDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(AboutAddModalComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
-  }
   openAvatarDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(AvatarModalComponent, {
       width: '250px',
@@ -102,6 +100,14 @@ export class AboutmeComponent implements OnInit {
     });
 
   }
+  openAddAboutDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(AboutmeAddTextModalComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+  }
   openNetworkDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(NetworkAddModalComponent, {
       width: '250px',
@@ -109,6 +115,17 @@ export class AboutmeComponent implements OnInit {
       exitAnimationDuration,
     });
   }
+
+  deleteAboutme(id:string, username:string): void{
+    this.jwtToken$.subscribe((token:any)=>{
+    this.portfolioService.deleteAboutme(id, username,{
+    headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
+  }).subscribe().unsubscribe()})
+  this.aboutme=this.aboutme.filter((ab)=>{return  ab.id!==id})
+  }
+
+
+  ////////////////////////////////////////
   deleteAboutText(id:number): void{
     if(this.aboutme.length ==1){
       this.aboutme.pop();

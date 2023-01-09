@@ -16,7 +16,11 @@ export class PortfolioService implements OnInit{
   public avatarSubject = new Subject();
   public welcomeSubject = new Subject();
   public aboutmeSubject = new Subject();
+  public aboutmeAddSubject = new Subject();
   public networkSubject = new Subject();
+  public educationSubject = new Subject();
+  public educationEditSubject = new Subject();
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -39,17 +43,26 @@ setNetwork(network:any){
 getNetwork(){
   return this.networkSubject
 }
-/*
+
 public createAboutme(message:any, username:any, httpOptions:any): Observable<any>{
   return this.httpClient.post<any>(this.portfolioURL+'/'+username+'/'+'aboutme', {message:message, userUsername:username},httpOptions)
 }
-setAboutme(network:any){
-  this.networkSubject.next(network)
+setAddAboutme(network:any){
+  this.aboutmeAddSubject.next(network)
 }
-getAboutme(){
-  return this.networkSubject
+getAddAboutme(){
+  return this.aboutmeAddSubject
 }
-*/
+
+public createEducation(title:string, subtitle:string, detail:string, color:string, image:string, username:string, httpOptions:any): Observable<any>{
+  return this.httpClient.post<any>(this.portfolioURL+'/'+username+'/'+'education', {title:title,subtitle:subtitle,detail:detail,color:color,image:image, userUsername:username},httpOptions)
+} 
+setEducation(education:any){
+  this.educationSubject.next(education)
+}
+getEducation(){
+  return this.educationSubject
+}
 
 ////  METODOS PUT //////
 
@@ -94,11 +107,23 @@ getAboutme(){
     return this.aboutmeSubject
   }
 
+  public editEducation(id:string, title:string, subtitle:string, detail:string, color:string, image:string, userUsername:string, httpOptions:any): Observable<any>{
+    return this.httpClient.put<any>(this.portfolioURL+'/'+userUsername+'/'+'education'+'/'+id, {title,subtitle,detail,color,image},httpOptions)
+  }
+  setEditEducation(education:any){
+    this.educationEditSubject.next(education)
+  }
+  getEditEducation(){
+    return this.educationEditSubject
+  }
+
 //// METODOS DELETE /////
 
 public deleteNetwork(id:any,username:any, httpOptions:any): Observable<any>{
   return this.httpClient.delete<any>(this.portfolioURL+'/'+username+'/'+'network'+'/'+id, httpOptions)
 }
-
+public deleteAboutme(id:any,username:any, httpOptions:any): Observable<any>{
+  return this.httpClient.delete<any>(this.portfolioURL+'/'+username+'/'+'aboutme'+'/'+id, httpOptions)
+}
 
 }

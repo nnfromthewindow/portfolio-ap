@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EducationModalComponent } from './education-modal.component';
+import { AboutmeAddTextModalComponent } from './aboutme-add-text-modal.component';
 import { AngularMaterialModuleModule } from 'src/app/angular-material-module.module';
+
 @NgModule({
   imports: [
     CommonModule, AngularMaterialModuleModule
-  ], exports: [EducationModalComponent],
-  declarations: [EducationModalComponent]
+  ],
+  declarations: [AboutmeAddTextModalComponent], 
+  exports:[AboutmeAddTextModalComponent]
 })
-export class EducationModalModule { }
+export class AboutmeAddTextModalModule { }

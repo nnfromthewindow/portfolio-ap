@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
 import { Color } from '@angular-material-components/color-picker';
-import {  FormControl } from '@angular/forms';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { PortfolioService } from 'src/app/services/portfolio.service';
+import * as fromAuth from '../../../state/auth/auth.reducer'
 @Component({
   selector: 'app-education-text-modal',
   templateUrl: './education-text-modal.component.html',
   styleUrls: ['./education-text-modal.component.css']
 })
 export class EducationTextModalComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+  
   public disabled = false;
   public color: ThemePalette = 'primary';
   public touchUi = false;
@@ -23,18 +23,42 @@ export class EducationTextModalComponent implements OnInit {
   receivedImageData: any;
   base64Data: any;
   convertedImage: any;
+  
+  jwtToken$ = this.store.select(fromAuth.selectToken);
+  username!:string;
+  
+  profileForm = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    subtitle: new FormControl('', [Validators.required]),
+    detail: new FormControl('', [Validators.required]),
+    color: new FormControl('', [Validators.required]),
+    image: new FormControl('', [Validators.required]),
+    });
+
+  constructor(private portfolioService:PortfolioService, private store: Store<fromAuth.State>, private route:ActivatedRoute, private router:Router) { }
+
+  ngOnInit() {
+    this.username=this.route.snapshot.children[0].paramMap.get('username')!
+   
+  }
+  
 
 
-  public  onChange(event:any) {
-    console.log(event);
-    this.selectedFile = event.target.files[0];
+ onSubmit(){
+  this.jwtToken$.subscribe((token:any)=>{
+  
+  const title= this.profileForm.controls.title.value!
+  const subtitle= this.profileForm.controls.subtitle.value!
+  const detail= this.profileForm.controls.detail.value!
+  const color= '#'+this.colorCtr.value.hex
+  const image= this.profileForm.controls.image.value!
+ 
+  this.portfolioService.createEducation(title,subtitle,detail,color,image,this.username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe((education)=>{
+    this.portfolioService.setEducation(education)
+  })
+ })
+ 
+  }
 
-    // Below part is used to display the selected image
-    let reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-    reader.onload = (event2) => {
-      this.imgURL = reader.result;
-  };
 
- }
 }
