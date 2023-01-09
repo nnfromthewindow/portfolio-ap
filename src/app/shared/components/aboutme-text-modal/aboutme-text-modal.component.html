@@ -7,7 +7,7 @@
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="5"
             cdkAutosizeMaxRows="30"
-            value={{aboutme|async}} name="aboutme" formControlName="message"></textarea>
+            value={{aboutme}} name="aboutme" formControlName="message"></textarea>
 </mat-form-field>
 <div mat-dialog-actions>
   <button mat-raised-button color="primary" mat-dialog-close type="submit" [disabled]="!profileForm.valid" >Editar</button>

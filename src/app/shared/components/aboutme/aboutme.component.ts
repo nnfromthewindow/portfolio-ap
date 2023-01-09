@@ -9,7 +9,7 @@ import * as fromAuth from '../../../state/auth/auth.reducer'
 import { Store } from '@ngrx/store';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { AvatarModalComponent } from '../avatar-modal/avatar-modal.component';
-import { Subscription } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { WelcomeModalComponent } from '../welcome-modal/welcome-modal.component';
 import { Router } from '@angular/router';
 
@@ -48,11 +48,17 @@ export class AboutmeComponent implements OnInit {
       this.avatarImage= this.avatarImage[0].image
       this.aboutme=Object.values(port[4])
       this.aboutme= this.aboutme[0]
-      
+
 
       this.avatarSubscription=this.portfolioService.getAvatar().subscribe((resp:any)=>{this.avatarImage=resp.image})
       this.welcomeSubscription=this.portfolioService.getWelcome().subscribe((resp:any)=>{this.welcome=resp.message})
-      //this.aboutmeSubscription=this.portfolioService.getAboutme().subscribe((resp:any)=>{this.aboutme=resp})
+      this.aboutmeSubscription=this.portfolioService.getAboutme().subscribe((resp:any)=>{
+        this.aboutme.forEach((e,i)=>{
+          if(e.id==resp.id){
+            this.aboutme[i].message=resp.message
+          }
+        })
+      })
 
       }
 
@@ -94,11 +100,7 @@ export class AboutmeComponent implements OnInit {
       enterAnimationDuration,
       exitAnimationDuration,
     });
-    const about=this.aboutme.filter((ab)=>{return ab.id==id})[0]
-    //console.log(this.aboutme.filter((ab)=>{return ab.id==id})[0].id)
-   //this.aboutmeSubscription=this.portfolioService.getAboutme().subscribe((resp:any)=>{this.aboutme.filter((ab)=>{return ab.id==id})[0]})
-   //console.log(this.aboutme.filter((ab)=>{return ab.id==id})[0])
-   this.portfolioService.setAboutme(about)
+
   }
   openNetworkDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(NetworkAddModalComponent, {
