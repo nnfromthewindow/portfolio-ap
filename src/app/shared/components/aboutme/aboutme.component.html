@@ -13,7 +13,7 @@
           <mat-icon >add</mat-icon>
         </button>
         <div class="networks" cdkDropList (cdkDropListDropped)="drop($event)">
-          <div class="networks-hidden__container" *ngFor="let network of networks" cdkDrag ><a href={{network.link}} ><i class={{network.icon}} ></i> </a> <button class="network-hidden__delete" mat-icon-button color="warn" aria-label="Delete icon" (click)="deleteNetwork(network.id)" *ngIf="jwtToken$ | async">
+          <div class="networks-hidden__container" *ngFor="let network of networks" cdkDrag ><a href={{network.link}} ><i class={{network.icon}} ></i> </a> <button class="network-hidden__delete" mat-icon-button color="warn" aria-label="Delete icon" (click)="deleteNetwork(network.id, username)" *ngIf="jwtToken$ | async">
             <mat-icon>delete</mat-icon>
           </button>
         </div>

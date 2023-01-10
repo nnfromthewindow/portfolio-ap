@@ -39,17 +39,6 @@ export class LoginModalComponent implements OnInit{
    ngOnInit(): void {
 
   }
-  //ESTE FUNCIONA
-/*
-  onSubmit():void{
-    const dto = new LoginUserDto(this.profileForm.controls.username.value!,this.profileForm.controls.password.value!)
-      this.authService.login(dto).subscribe({
-        next:(n)=>console.log(n),
-      error: ()=> this.toast.error("Usuario Invalido","Error",{timeOut:3000, positionClass:'toast-top-center'}),
-    complete: ()=>console.log("Completo") }
-      )
-  }
-*/
 
   async onSubmit(): Promise<any> {
 
@@ -69,7 +58,7 @@ export class LoginModalComponent implements OnInit{
     }
   }))
 },
-    error: (e) => {console.log(e),this.toast.error('Intentelo de nuevo','Usuario Invalido',{timeOut:3000, positionClass:'toast-top-center'})},
+    error: (e) => {this.toast.error('Intentelo de nuevo','Usuario Invalido',{timeOut:3000, positionClass:'toast-top-center'})},
     complete: ()=>{ this.dialogRef.close();
                     this.router.navigate([this.profileForm.value.username])
                   }})

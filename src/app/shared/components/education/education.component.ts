@@ -9,6 +9,7 @@ import { PortfolioService } from 'src/app/services/portfolio.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EducationEditModalComponent } from '../education-edit-modal/education-edit-modal.component';
+import { ThisReceiver } from '@angular/compiler';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class EducationComponent implements OnInit {
         this.educationSubscription=this.portfolioService.getEducation().subscribe((resp:any)=>{
           this.education.push(resp)
         })
+
         this.educationEditSubscription=this.portfolioService.getEditEducation().subscribe((resp:any)=>{
           this.education.forEach((e,i)=>{
             if(e.id==resp.id){
@@ -77,17 +79,17 @@ export class EducationComponent implements OnInit {
       enterAnimationDuration,
       exitAnimationDuration,
     });
+    this.dialog.afterAllClosed.subscribe((close)=>this.router.navigateByUrl(this.username))
   }
  
+  ///////////////////////////////////////
 
-  deleteEducation(id:number): void{
+  deleteEducation(id:string, username:string): void{
+    this.jwtToken$.subscribe((token:any)=>{
+    this.portfolioService.deleteEducation(id, username,{
+    headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
+  }).subscribe().unsubscribe()})
+  this.education=this.education.filter((educ)=>{return  educ.id!==id})
 
-    if(this.education.length ==1){
-      this.education.pop();
-    }
-    if (id > -1) {
-      this.education.splice(id-1, 1);
-    }
-
-  }
+}
 }

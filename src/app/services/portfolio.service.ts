@@ -20,7 +20,8 @@ export class PortfolioService implements OnInit{
   public networkSubject = new Subject();
   public educationSubject = new Subject();
   public educationEditSubject = new Subject();
-
+  public experienceSubject = new Subject();
+  public experienceEditSubject = new Subject();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -62,6 +63,16 @@ setEducation(education:any){
 }
 getEducation(){
   return this.educationSubject
+}
+
+public createExperience(title:string, subtitle:string, detail:string, color:string, image:string, username:string, httpOptions:any): Observable<any>{
+  return this.httpClient.post<any>(this.portfolioURL+'/'+username+'/'+'experience', {title:title,subtitle:subtitle,detail:detail,color:color,image:image, userUsername:username},httpOptions)
+} 
+setExperience(experience:any){
+  this.experienceSubject.next(experience)
+}
+getExperience(){
+  return this.experienceSubject
 }
 
 ////  METODOS PUT //////
@@ -107,14 +118,24 @@ getEducation(){
     return this.aboutmeSubject
   }
 
-  public editEducation(id:string, title:string, subtitle:string, detail:string, color:string, image:string, userUsername:string, httpOptions:any): Observable<any>{
-    return this.httpClient.put<any>(this.portfolioURL+'/'+userUsername+'/'+'education'+'/'+id, {title,subtitle,detail,color,image},httpOptions)
+  public editEducation(id:any, education:any,username:any, httpOptions:any): Observable<any>{
+    return this.httpClient.put<any>(this.portfolioURL+'/'+username+'/'+'education'+'/'+id, education,httpOptions)
   }
   setEditEducation(education:any){
     this.educationEditSubject.next(education)
   }
   getEditEducation(){
     return this.educationEditSubject
+  }
+
+  public editExperience(id:any, experience:any,username:any, httpOptions:any): Observable<any>{
+    return this.httpClient.put<any>(this.portfolioURL+'/'+username+'/'+'experience'+'/'+id, experience,httpOptions)
+  }
+  setEditExperience(experience:any){
+    this.experienceEditSubject.next(experience)
+  }
+  getEditExperience(){
+    return this.experienceEditSubject
   }
 
 //// METODOS DELETE /////
@@ -124,6 +145,9 @@ public deleteNetwork(id:any,username:any, httpOptions:any): Observable<any>{
 }
 public deleteAboutme(id:any,username:any, httpOptions:any): Observable<any>{
   return this.httpClient.delete<any>(this.portfolioURL+'/'+username+'/'+'aboutme'+'/'+id, httpOptions)
+}
+public deleteEducation(id:any,username:any, httpOptions:any): Observable<any>{
+  return this.httpClient.delete<any>(this.portfolioURL+'/'+username+'/'+'education'+'/'+id, httpOptions)
 }
 
 }

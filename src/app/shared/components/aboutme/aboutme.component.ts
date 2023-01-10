@@ -98,7 +98,7 @@ export class AboutmeComponent implements OnInit {
       enterAnimationDuration,
       exitAnimationDuration,
     });
-
+    this.dialog.afterAllClosed.subscribe((close)=>this.router.navigateByUrl(this.username))
   }
   openAddAboutDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(AboutmeAddTextModalComponent, {
@@ -116,6 +116,8 @@ export class AboutmeComponent implements OnInit {
     });
   }
 
+  //////////////////////////////////////////
+
   deleteAboutme(id:string, username:string): void{
     this.jwtToken$.subscribe((token:any)=>{
     this.portfolioService.deleteAboutme(id, username,{
@@ -125,22 +127,12 @@ export class AboutmeComponent implements OnInit {
   }
 
 
-  ////////////////////////////////////////
-  deleteAboutText(id:number): void{
-    if(this.aboutme.length ==1){
-      this.aboutme.pop();
-    }
-    if (id > -1) {
-      this.aboutme.splice(id-1, 1);
-    }
-  }
+  deleteNetwork(id:string, username:string): void{
+    this.jwtToken$.subscribe((token:any)=>{
+    this.portfolioService.deleteNetwork(id, username,{
+    headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
+  }).subscribe().unsubscribe()})
+  this.networks=this.networks.filter((net)=>{return  net.id!==id})
 
-  deleteNetwork(id:number): void{
-    if(this.networks.length ==1){
-      this.networks.pop();
-    }
-    if (id > -1) {
-      this.networks.splice(id-1, 1);
-    }
-  }
+}
 }

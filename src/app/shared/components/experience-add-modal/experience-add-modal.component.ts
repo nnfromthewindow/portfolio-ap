@@ -7,12 +7,11 @@ import { Store } from '@ngrx/store';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import * as fromAuth from '../../../state/auth/auth.reducer'
 @Component({
-  selector: 'app-education-text-modal',
-  templateUrl: './education-text-modal.component.html',
-  styleUrls: ['./education-text-modal.component.css']
+  selector: 'app-experience-add-modal',
+  templateUrl: './experience-add-modal.component.html',
+  styleUrls: ['./experience-add-modal.component.css']
 })
-export class EducationTextModalComponent implements OnInit {
-  
+export class ExperienceAddModalComponent implements OnInit {
  
   public color: ThemePalette = 'primary';
   public touchUi = false;
@@ -53,12 +52,10 @@ export class EducationTextModalComponent implements OnInit {
   const color= '#'+this.colorCtr.value.hex
   const image= this.profileForm.controls.image.value!
  
-  this.portfolioService.createEducation(title,subtitle,detail,color,image,this.username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe((education)=>{
-    this.portfolioService.setEducation(education)
+  this.portfolioService.createExperience(title,subtitle,detail,color,image,this.username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe((experience)=>{
+    this.portfolioService.setExperience(experience)
   })
  })
  
   }
-
-
 }

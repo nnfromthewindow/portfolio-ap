@@ -8,12 +8,11 @@ import { PortfolioService } from 'src/app/services/portfolio.service';
 import * as fromAuth from '../../../state/auth/auth.reducer'
 
 @Component({
-  selector: 'app-education-edit-modal',
-  templateUrl: './education-edit-modal.component.html',
-  styleUrls: ['./education-edit-modal.component.css']
+  selector: 'app-experience-edit-modal',
+  templateUrl: './experience-edit-modal.component.html',
+  styleUrls: ['./experience-edit-modal.component.css']
 })
-export class EducationEditModalComponent implements OnInit {
-
+export class ExperienceEditModalComponent implements OnInit {
   public color: ThemePalette = 'primary';
   public touchUi = false;
   colorParsed!:Color;
@@ -21,8 +20,8 @@ export class EducationEditModalComponent implements OnInit {
 
   jwtToken$ = this.store.select(fromAuth.selectToken);
   username!:string;
-  education!:any;
-  educationId!:string;
+  experiences!:any;
+  experienceId!:string;
   title!:string;
   subtitle!:string;
   detail!:string;
@@ -40,23 +39,24 @@ export class EducationEditModalComponent implements OnInit {
 
   ngOnInit() {
     this.username=this.route.snapshot.children[0].paramMap.get('username')!
-    this.educationId=this.route.snapshot.children[0].paramMap.get('id')!
+    this.experienceId=this.route.snapshot.children[0].paramMap.get('id')!
 
     this.portfolioService.getPortfolio(this.username).subscribe((port:any)=>{
-    this.education= port[5].education.filter((ab:any)=>{return ab.id==this.educationId})
-    this.education=this.education[0];
-    
-    this.title=this.education.title;
-    this.subtitle=this.education.subtitle;
-    this.detail=this.education.detail;
-    this.image=this.education.image;
+      
+    this.experiences= port[6].experience.filter((ab:any)=>{return ab.id==this.experienceId})
+    this.experiences=this.experiences[0];
+
+    this.title=this.experiences.title;
+    this.subtitle=this.experiences.subtitle;
+    this.detail=this.experiences.detail;
+    this.image=this.experiences.image;
 
     this.profileForm.controls.title.setValue(this.title)
     this.profileForm.controls.subtitle.setValue(this.subtitle)
     this.profileForm.controls.detail.setValue(this.detail)
     this.profileForm.controls.image.setValue(this.image)
    
-    const col= new Color(this.hexToRgb(this.education.color)?._r!,this.hexToRgb(this.education.color)?._g!,this.hexToRgb(this.education.color)?._b!);
+    const col= new Color(this.hexToRgb(this.experiences.color)?._r!,this.hexToRgb(this.experiences.color)?._g!,this.hexToRgb(this.experiences.color)?._b!);
     this.colorCtr= new FormControl(col)
 
   })
@@ -65,7 +65,7 @@ export class EducationEditModalComponent implements OnInit {
 
   onSubmit(){
     this.jwtToken$.subscribe((token:any)=>{
-      const id = this.educationId
+      const id = this.experienceId
       const title= this.profileForm.controls.title.value!
       const subtitle= this.profileForm.controls.subtitle.value!
       const detail= this.profileForm.controls.detail.value!
@@ -78,9 +78,9 @@ export class EducationEditModalComponent implements OnInit {
       this.detail=detail;
       this.image=image;
       
-      this.portfolioService.editEducation(this.educationId,{title:this.title,subtitle:this.subtitle,detail:this.detail,color:'#'+this.colorCtr.value.hex,image:this.image},this.username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe(
-        (education)=>{
-          this.portfolioService.setEditEducation(education)
+      this.portfolioService.editExperience(this.experienceId,{title:this.title,subtitle:this.subtitle,detail:this.detail,color:'#'+this.colorCtr.value.hex,image:this.image},this.username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe(
+        (experience)=>{
+          this.portfolioService.setEditExperience(experience)
           this.router.navigateByUrl(this.username)
         }
       )

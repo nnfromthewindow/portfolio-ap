@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import anime from 'animejs';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
-import { FormationModalComponent } from '../formation-modal/formation-modal.component';
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 import { EducationTextModalComponent } from '../education-text-modal/education-text-modal.component';
 import * as fromAuth from '../../../state/auth/auth.reducer'
 import { Store } from '@ngrx/store';
 import { PortfolioService } from 'src/app/services/portfolio.service';
+import { ExperienceAddModalComponent } from '../experience-add-modal/experience-add-modal.component';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ExperienceEditModalComponent } from '../experience-edit-modal/experience-edit-modal.component';
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
@@ -17,17 +20,33 @@ export class FormationComponent implements OnInit {
 
   jwtToken$ = this.store.select(fromAuth.selectToken);
   //user$ = this.store.select(fromAuth.selectUser);
+  username!:string;
   experiences!:any[];
+  public experienceSubscription!: Subscription;
+  public experienceEditSubscription!: Subscription;
 
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService) {}
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute) {}
 
   ngOnInit() {
-    var username= location.pathname.substring(1,location.pathname.length)
-    this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+    this.username= location.pathname.substring(1,location.pathname.length)
+    this.portfolioService.getPortfolio(this.username).subscribe({next:(port:any)=>{
         this.experiences=Object.values(port[6]) 
         this.experiences= this.experiences[0]
+      
+        this.experienceSubscription=this.portfolioService.getExperience().subscribe((resp:any)=>{
+          this.experiences.push(resp)
+        })
+        this.experienceEditSubscription=this.portfolioService.getEditExperience().subscribe((resp:any)=>{
+          this.experiences.forEach((e,i)=>{
+            if(e.id==resp.id){
+              this.experiences[i]=resp
+            }
+          })
+        })
+      
+      }})
      
-    }})
+   
   }
 
   overItem() {
@@ -68,40 +87,29 @@ export class FormationComponent implements OnInit {
       direction: 'alternate',
     });
   }
-  /*
-  experiences = [
-    {id:1,
-      color:"#FF0066",
-    title:"Casino Sierra de la Ventana",
-    position:"Croupier",
-   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quibusdam velit hic, at debitis voluptas impedit assumenda recusandae nostrum quidem blanditiis eius rerum, totam natus iusto quasi, accusantium nam atque?",
-   img:"https://www.noticiastornquist.com.ar/adjuntos/2022-04/casino.jpg"},
-  {id:2,
-    color:"#ffee00",
-    title:"Hostal del Arroyo",
-   position:"Administracion",
-  description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quibusdam velit hic, at debitis voluptas impedit assumenda recusandae nostrum quidem blanditiis eius rerum, totam natus iusto quasi, accusantium nam atque?",
-  img:"https://live.staticflickr.com/1429/4609529146_f07d1a4585_z.jpg"}];
-*/
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.experiences, event.previousIndex, event.currentIndex);
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(FormationModalComponent, {
+  openAddExperienceDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(ExperienceAddModalComponent, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
   }
-  openImageDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(UploadImageModalComponent, {
+  openEditExperienceDialog(enterAnimationDuration: string, exitAnimationDuration: string, id:string): void {
+    this.router.navigateByUrl(`${this.username}/experience/${id}`)
+    this.dialog.open(ExperienceEditModalComponent, {
       width: '250px',
+      height: '750px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
+    this.dialog.afterAllClosed.subscribe((close)=>this.router.navigateByUrl(this.username))
   }
+
   openTextDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(EducationTextModalComponent, {
       width: '250px',

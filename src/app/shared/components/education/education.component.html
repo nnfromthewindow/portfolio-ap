@@ -24,7 +24,7 @@
 
       </div>
       <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
-        <app-delete-icon id="education-{{educ.id}}" (click)="deleteEducation(educ.id)"></app-delete-icon>
+        <app-delete-icon id="education-{{educ.id}}" (click)="deleteEducation(educ.id,username)"></app-delete-icon>
       </div>
     </div>
 
@@ -51,7 +51,7 @@
 
       </div>
       <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
-        <app-delete-icon id="education-{{educ.id}}" (click)="deleteEducation(educ.id)"></app-delete-icon>
+        <app-delete-icon id="education-{{educ.id}}" (click)="deleteEducation(educ.id,username)"></app-delete-icon>
       </div>
     </div>
 

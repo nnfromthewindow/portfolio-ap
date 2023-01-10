@@ -26,7 +26,7 @@
           (mouseenter)="overItem()"
           (mouseleave)="overItem()"
         >
-        <app-edit-icon class="edit_icon__blobtext" (click)="openTextDialog('3000ms', '1500ms')" *ngIf="jwtToken$ | async"></app-edit-icon>
+        <app-edit-icon class="edit_icon__blobtext" (click)="openEditExperienceDialog('3000ms', '1500ms',experience.id)" *ngIf="jwtToken$ | async"></app-edit-icon>
           <div class="blob-text__title">
             <h2>{{experience.title}}</h2>
             <div class="blob-text__sub">
@@ -95,7 +95,7 @@
           (mouseenter)="overItem()"
           (mouseleave)="overItem()"
         >
-        <app-edit-icon class="edit_icon__blobtext" (click)="openTextDialog('3000ms', '1500ms')" *ngIf="jwtToken$ | async"></app-edit-icon>
+        <app-edit-icon class="edit_icon__blobtext" (click)="openEditExperienceDialog('3000ms', '1500ms',experience.id)" *ngIf="jwtToken$ | async"></app-edit-icon>
           <div class="blob-text__title">
             <h2>{{experience.title}}</h2>
             <div class="blob-text__sub">
@@ -141,7 +141,7 @@
   </div>
 </div>
 <div class="add-btn__container" *ngIf="jwtToken$ | async">
-  <button mat-raised-button color="primary" class="add_btn" (click)="openTextDialog('3000ms', '1500ms')">Agregar Item</button>
+  <button mat-raised-button color="primary" class="add_btn" (click)="openAddExperienceDialog('3000ms', '1500ms')">Agregar Item</button>
 </div>
 
 </section>
