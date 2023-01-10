@@ -16,14 +16,16 @@ export class EducationEditModalComponent implements OnInit {
   public disabled = false;
   public color: ThemePalette = 'primary';
   public touchUi = false;
+colorParsed!:Color;
   colorCtr: any = new FormControl(new Color(255, 243, 0));
+
   public selectedFile:any;
   public event1:any;
   imgURL: any;
   receivedImageData: any;
   base64Data: any;
   convertedImage: any;
-  
+
   jwtToken$ = this.store.select(fromAuth.selectToken);
   username!:string;
   education!:any;
@@ -37,7 +39,7 @@ export class EducationEditModalComponent implements OnInit {
     title: new FormControl('', [Validators.required]),
     subtitle: new FormControl('', [Validators.required]),
     detail: new FormControl('', [Validators.required]),
-    color: new FormControl("#"+this.colorCtr.value.hex, [Validators.required]),
+    color: new FormControl('', [Validators.required]),
     image: new FormControl('', [Validators.required]),
     });
 
@@ -46,7 +48,7 @@ export class EducationEditModalComponent implements OnInit {
   ngOnInit() {
     this.username=this.route.snapshot.children[0].paramMap.get('username')!
     this.educationId=this.route.snapshot.children[0].paramMap.get('id')!
-    
+
     this.portfolioService.getPortfolio(this.username).subscribe((port:any)=>{
     this.education= port[5].education.filter((ab:any)=>{return ab.id==this.educationId})
     this.education=this.education[0];
@@ -54,12 +56,14 @@ export class EducationEditModalComponent implements OnInit {
     this.subtitle=this.education.subtitle;
     this.detail=this.education.detail;
     this.image=this.education.image;
+    //const col= new Color(this.hexToRgb(this.education.color)?._r!,this.hexToRgb(this.education.color)?._g!,this.hexToRgb(this.education.color)?._b!);
+    //console.log(col)
     //const color = this.education.color.substring(1,this.education.color.length)
    // this.profileForm.controls.color.value!=this.education.color
     //this.colorCtr.value.hex=color
     //console.log(this.colorCtr)
   })
-   
+
   }
 
   onSubmit(){
@@ -73,10 +77,20 @@ export class EducationEditModalComponent implements OnInit {
       const username= this.username
       this.portfolioService.editEducation(id,title,subtitle,detail,color,image,username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe(
         (education:any)=>{
+          console.log(education)
           this.portfolioService.setEditEducation(education)
           this.router.navigateByUrl(this.username)
         }
       )
     }).unsubscribe()
+  }
+
+   hexToRgb(hex:string) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      _r: parseInt(result[1], 16),
+      _g: parseInt(result[2], 16),
+      _b: parseInt(result[3], 16)
+    } : null;
   }
 }
