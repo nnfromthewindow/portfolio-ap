@@ -15,7 +15,6 @@ import * as fromAuth from '../../../state/auth/auth.reducer'
 export class ExperienceEditModalComponent implements OnInit {
   public color: ThemePalette = 'primary';
   public touchUi = false;
-  colorParsed!:Color;
   colorCtr: any=new FormControl(new Color(255,50,50))
 
   jwtToken$ = this.store.select(fromAuth.selectToken);
@@ -34,7 +33,7 @@ export class ExperienceEditModalComponent implements OnInit {
     color: new FormControl({value:'',disabled:false}, [Validators.required]),
     image: new FormControl(this.image, [Validators.required]),
     });
-  
+
   constructor(private portfolioService:PortfolioService, private store: Store<fromAuth.State>, private route:ActivatedRoute, private router:Router) { }
 
   ngOnInit() {
@@ -42,8 +41,8 @@ export class ExperienceEditModalComponent implements OnInit {
     this.experienceId=this.route.snapshot.children[0].paramMap.get('id')!
 
     this.portfolioService.getPortfolio(this.username).subscribe((port:any)=>{
-      
-    this.experiences= port[6].experience.filter((ab:any)=>{return ab.id==this.experienceId})
+
+    this.experiences= port[6].experience.filter((exp:any)=>{return exp.id==this.experienceId})
     this.experiences=this.experiences[0];
 
     this.title=this.experiences.title;
@@ -55,7 +54,7 @@ export class ExperienceEditModalComponent implements OnInit {
     this.profileForm.controls.subtitle.setValue(this.subtitle)
     this.profileForm.controls.detail.setValue(this.detail)
     this.profileForm.controls.image.setValue(this.image)
-   
+
     const col= new Color(this.hexToRgb(this.experiences.color)?._r!,this.hexToRgb(this.experiences.color)?._g!,this.hexToRgb(this.experiences.color)?._b!);
     this.colorCtr= new FormControl(col)
 
@@ -72,12 +71,12 @@ export class ExperienceEditModalComponent implements OnInit {
       const color= '#'+this.colorCtr.value.hex
       const image= this.profileForm.controls.image.value!
       const username= this.username
-      
+
       this.title=title;
       this.subtitle=subtitle;
       this.detail=detail;
       this.image=image;
-      
+
       this.portfolioService.editExperience(this.experienceId,{title:this.title,subtitle:this.subtitle,detail:this.detail,color:'#'+this.colorCtr.value.hex,image:this.image},this.username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe(
         (experience)=>{
           this.portfolioService.setEditExperience(experience)

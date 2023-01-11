@@ -22,6 +22,10 @@ export class PortfolioService implements OnInit{
   public educationEditSubject = new Subject();
   public experienceSubject = new Subject();
   public experienceEditSubject = new Subject();
+  public skillSubject = new Subject();
+  public skillEditSubject = new Subject();
+  public projectSubject = new Subject();
+  public projectEditSubject = new Subject();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -57,7 +61,7 @@ getAddAboutme(){
 
 public createEducation(title:string, subtitle:string, detail:string, color:string, image:string, username:string, httpOptions:any): Observable<any>{
   return this.httpClient.post<any>(this.portfolioURL+'/'+username+'/'+'education', {title:title,subtitle:subtitle,detail:detail,color:color,image:image, userUsername:username},httpOptions)
-} 
+}
 setEducation(education:any){
   this.educationSubject.next(education)
 }
@@ -67,13 +71,34 @@ getEducation(){
 
 public createExperience(title:string, subtitle:string, detail:string, color:string, image:string, username:string, httpOptions:any): Observable<any>{
   return this.httpClient.post<any>(this.portfolioURL+'/'+username+'/'+'experience', {title:title,subtitle:subtitle,detail:detail,color:color,image:image, userUsername:username},httpOptions)
-} 
+}
 setExperience(experience:any){
   this.experienceSubject.next(experience)
 }
 getExperience(){
   return this.experienceSubject
 }
+
+public createSkill(title:string, percentaje:number, icon:string, color:string, username:string, httpOptions:any): Observable<any>{
+  return this.httpClient.post<any>(this.portfolioURL+'/'+username+'/'+'skill', {title:title,percentaje:percentaje,icon:icon,color:color,userUsername:username},httpOptions)
+}
+setSkill(skill:any){
+  this.skillSubject.next(skill)
+}
+getSkill(){
+  return this.skillSubject
+}
+
+public createProject(title:string, description:string, link:string, image:string, username:string, httpOptions:any): Observable<any>{
+  return this.httpClient.post<any>(this.portfolioURL+'/'+username+'/'+'project', {title:title,description:description,link:link,image:image,userUsername:username},httpOptions)
+}
+setProject(project:any){
+  this.projectSubject.next(project)
+}
+getProject(){
+  return this.projectSubject
+}
+
 
 ////  METODOS PUT //////
 
@@ -138,6 +163,26 @@ getExperience(){
     return this.experienceEditSubject
   }
 
+  public editSkill(id:any, skill:any,username:any, httpOptions:any): Observable<any>{
+    return this.httpClient.put<any>(this.portfolioURL+'/'+username+'/'+'skill'+'/'+id, skill,httpOptions)
+  }
+  setEditSkill(skill:any){
+    this.skillEditSubject.next(skill)
+  }
+  getEditSkill(){
+    return this.skillEditSubject
+  }
+
+  public editProject(id:any, project:any,username:any, httpOptions:any): Observable<any>{
+    return this.httpClient.put<any>(this.portfolioURL+'/'+username+'/'+'project'+'/'+id, project,httpOptions)
+  }
+  setEditProject(project:any){
+    this.projectEditSubject.next(project)
+  }
+  getEditProject(){
+    return this.projectEditSubject
+  }
+
 //// METODOS DELETE /////
 
 public deleteNetwork(id:any,username:any, httpOptions:any): Observable<any>{
@@ -149,5 +194,13 @@ public deleteAboutme(id:any,username:any, httpOptions:any): Observable<any>{
 public deleteEducation(id:any,username:any, httpOptions:any): Observable<any>{
   return this.httpClient.delete<any>(this.portfolioURL+'/'+username+'/'+'education'+'/'+id, httpOptions)
 }
-
+public deleteExperience(id:any,username:any, httpOptions:any): Observable<any>{
+  return this.httpClient.delete<any>(this.portfolioURL+'/'+username+'/'+'experience'+'/'+id, httpOptions)
+}
+public deleteSkill(id:any,username:any, httpOptions:any): Observable<any>{
+  return this.httpClient.delete<any>(this.portfolioURL+'/'+username+'/'+'skill'+'/'+id, httpOptions)
+}
+public deleteProject(id:any,username:any, httpOptions:any): Observable<any>{
+  return this.httpClient.delete<any>(this.portfolioURL+'/'+username+'/'+'project'+'/'+id, httpOptions)
+}
 }

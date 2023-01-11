@@ -12,20 +12,15 @@ import * as fromAuth from '../../../state/auth/auth.reducer'
   styleUrls: ['./experience-add-modal.component.css']
 })
 export class ExperienceAddModalComponent implements OnInit {
- 
+
   public color: ThemePalette = 'primary';
   public touchUi = false;
   colorCtr: any = new FormControl(new Color(255, 243, 0));
-  public selectedFile:any;
-  public event1:any;
-  imgURL: any;
-  receivedImageData: any;
-  base64Data: any;
-  convertedImage: any;
-  
+
+
   jwtToken$ = this.store.select(fromAuth.selectToken);
   username!:string;
-  
+
   profileForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     subtitle: new FormControl('', [Validators.required]),
@@ -34,28 +29,28 @@ export class ExperienceAddModalComponent implements OnInit {
     image: new FormControl('', [Validators.required]),
     });
 
-  constructor(private portfolioService:PortfolioService, private store: Store<fromAuth.State>, private route:ActivatedRoute, private router:Router) { }
+  constructor(private portfolioService:PortfolioService, private store: Store<fromAuth.State>, private route:ActivatedRoute) { }
 
   ngOnInit() {
     this.username=this.route.snapshot.children[0].paramMap.get('username')!
-   
+
   }
-  
+
 
 
  onSubmit(){
   this.jwtToken$.subscribe((token:any)=>{
-  
+
   const title= this.profileForm.controls.title.value!
   const subtitle= this.profileForm.controls.subtitle.value!
   const detail= this.profileForm.controls.detail.value!
   const color= '#'+this.colorCtr.value.hex
   const image= this.profileForm.controls.image.value!
- 
+
   this.portfolioService.createExperience(title,subtitle,detail,color,image,this.username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe((experience)=>{
     this.portfolioService.setExperience(experience)
   })
  })
- 
+
   }
 }

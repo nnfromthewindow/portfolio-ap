@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import anime from 'animejs';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
-import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 import { EducationTextModalComponent } from '../education-text-modal/education-text-modal.component';
 import * as fromAuth from '../../../state/auth/auth.reducer'
 import { Store } from '@ngrx/store';
@@ -25,14 +24,14 @@ export class FormationComponent implements OnInit {
   public experienceSubscription!: Subscription;
   public experienceEditSubscription!: Subscription;
 
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute) {}
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router) {}
 
   ngOnInit() {
     this.username= location.pathname.substring(1,location.pathname.length)
     this.portfolioService.getPortfolio(this.username).subscribe({next:(port:any)=>{
-        this.experiences=Object.values(port[6]) 
+        this.experiences=Object.values(port[6])
         this.experiences= this.experiences[0]
-      
+
         this.experienceSubscription=this.portfolioService.getExperience().subscribe((resp:any)=>{
           this.experiences.push(resp)
         })
@@ -43,10 +42,10 @@ export class FormationComponent implements OnInit {
             }
           })
         })
-      
+
       }})
-     
-   
+
+
   }
 
   overItem() {
@@ -117,16 +116,15 @@ export class FormationComponent implements OnInit {
       exitAnimationDuration,
     });
   }
-  deleteExperience(id:number): void{
 
-    if(this.experiences.length ==1){
-      this.experiences.pop();
-    }
-    if (id > -1) {
-      this.experiences.splice(id-1, 1);
-    }
+  deleteExperience(id:string, username:string): void{
+    this.jwtToken$.subscribe((token:any)=>{
+    this.portfolioService.deleteExperience(id, username,{
+    headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
+  }).subscribe().unsubscribe()})
+  this.experiences=this.experiences.filter((exp)=>{return  exp.id!==id})
 
-  }
+}
 
 
 }
