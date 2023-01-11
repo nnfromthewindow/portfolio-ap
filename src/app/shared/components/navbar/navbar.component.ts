@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import * as fromAuth from '../../../state/auth/auth.reducer'
 import * as AuthActions from '../../../state/auth/auth.actions'
 import { TokenService } from 'src/app/services/token.service';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { Subscription } from 'rxjs';
 
@@ -24,7 +24,7 @@ username?:string;
 networks!:any[];
 public networkSubscription!: Subscription;
 
-constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private tokenService:TokenService, private portfolioService:PortfolioService) {}
+constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private tokenService:TokenService, private portfolioService:PortfolioService, private router:Router) {}
 
 
 
@@ -45,7 +45,8 @@ constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, pri
     this.tokenService.logOut()
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openLoginDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.router.navigateByUrl("/login")
     this.dialog.open(LoginModalComponent, {
       width: '20rem',
       enterAnimationDuration,

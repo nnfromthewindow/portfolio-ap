@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ActivationEnd, NavigationEnd, Router, RouterState, RouterStateSnapshot } from '@angular/router';
-import { filter } from 'rxjs';
+
 import { PortfolioService } from './services/portfolio.service';
+import * as fromAuth from '../app/state/auth/auth.reducer'
+import { Store } from '@ngrx/store';
 
 declare let AOS: any;
 @Component({
@@ -11,29 +13,14 @@ declare let AOS: any;
 })
 export class AppComponent {
   title = 'portfolio-ap';
-
-  aboutmeId!:any;
- welcome:any;
-  constructor(private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute){
+  username!:string;
+  
+  constructor(private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute, private store: Store<fromAuth.State>){
 
   }
 
   ngOnInit(){
     AOS.init()
-   // this.router.navigateByUrl('/nuccelli')
-    
-
-    var username= location.pathname.substring(1,location.pathname.length)
-    this.portfolioService.getPortfolio(username).subscribe({
-     // next:(next)=>//console.log(next),
-      error:(err:any)=>{
-     if(err){
-  
-      this.router.navigateByUrl('/nuccelli')
-    
-     }
-    
-
-    }})
+ 
   }
 }

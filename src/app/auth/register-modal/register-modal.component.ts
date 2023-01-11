@@ -2,13 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { MatDialogRef} from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { CreateUserDto } from 'src/app/model/create-user-dto';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-register-modal',
   templateUrl: './register-modal.component.html',
   styleUrls: ['./register-modal.component.css']
 })
 export class RegisterModalComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<RegisterModalComponent>) {}
+  constructor(public dialogRef: MatDialogRef<RegisterModalComponent>, private authService:AuthService, private toast:ToastrService, private router:Router) {}
 
   hide = true;
   hideVerified = true;
@@ -28,12 +32,24 @@ export class RegisterModalComponent implements OnInit {
     email: new FormControl('',[Validators.required,Validators.email])
 
   });
-  onSubmit() {
+  async onSubmit() {
     // TODO: Use EventEmitter with form value
     if(this.profileForm.controls.password.value==this.profileForm.controls.passwordverified.value){
-      console.warn(this.profileForm.value);
+      this.authService.register(new CreateUserDto(this.profileForm.controls.username.value!,this.profileForm.controls.email.value!,this.profileForm.controls.password.value!)).subscribe({
+        error:(err:any)=>{
+                  if(err){
+                    this.toast.error('Usuario existente, intente con otro nombre de usuario','Usuario Existente',{timeOut:3000, positionClass:'toast-top-full-width'})
+                  }
+                  },
+        complete:()=>{ console.log("COMPLETO!!"),
+          this.toast.success(`Bienvenido ${this.profileForm.controls.username.value!} !!! Revisa tu correo electronico para activar tu cuenta`,'Usuario registrado con exito!!!',{timeOut:3000, positionClass:'toast-top-full-width'}),
+         this.router.navigateByUrl(this.profileForm.controls.username.value!)
+        }
+      }
+      )
     }else{
-      alert("La contraseña no es igual, intentelo de nuevo")
+      this.toast.error('Revise que los dos campos de contraseña sean iguales','Contraseña Invalida',{timeOut:3000, positionClass:'toast-top-full-width'})
+    
     }
 
   }

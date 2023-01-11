@@ -28,6 +28,6 @@
     </div>
   </div>
 
-  <button mat-raised-button color="primary" (click)="openDialog('1500ms', '1500ms')" *ngIf="!(jwtToken$ | async)">Login</button>
+  <button mat-raised-button color="primary" (click)="openLoginDialog('1500ms', '1500ms')" *ngIf="!(jwtToken$ | async)">Login</button>
   <button mat-raised-button color="success" (click)="logOut()" *ngIf="(jwtToken$ | async)">Logout</button>
 </mat-toolbar>

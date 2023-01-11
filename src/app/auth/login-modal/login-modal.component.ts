@@ -7,7 +7,7 @@ import { MatDialogRef} from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginUserDto } from 'src/app/model/login-user-dto';
 import { stringInputToObject } from '@angular-material-components/color-picker';
 import { Store } from '@ngrx/store';
@@ -34,7 +34,7 @@ export class LoginModalComponent implements OnInit{
 
   });
 
-  constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<RegisterModalComponent>, private authService:AuthService, private tokenService:TokenService, private toast:ToastrService,private store:Store, private router:Router) {}
+  constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<RegisterModalComponent>, private authService:AuthService, private tokenService:TokenService, private toast:ToastrService,private store:Store, private router:Router, private route:ActivatedRoute) {}
 
    ngOnInit(): void {
 
@@ -51,18 +51,24 @@ export class LoginModalComponent implements OnInit{
    this.store.dispatch(AuthActions.LoginRequest.loginRequest({credentials}));
     this.authService.login(new LoginUserDto(this.profileForm.value.username!,this.profileForm.value.password!)).
     subscribe({next: (req)=> {
-      //console.log(req),
-      this.tokenService.setToken(req.token!)
-      this.store.dispatch(AuthActions.LoginSuccess.loginSuccess({loginSuccessResponse:{
-      username:req.username, token:req.token
-    }
-  }))
+      console.log(req),
+      this.token=req.token!
+      this.username=req.username!
+      window.location.href = this.profileForm.value.username!;
+      this.router.navigate([this.profileForm.value.username])
+
+  //window.location.href = this.profileForm.value.username!;
+  //this.router.navigate([this.profileForm.value.username])
 },
     error: (e) => {this.toast.error('Intentelo de nuevo','Usuario Invalido',{timeOut:3000, positionClass:'toast-top-center'})},
     complete: ()=>{ this.dialogRef.close();
-                    this.router.navigate([this.profileForm.value.username])
+      this.tokenService.setToken(this.token)
+      this.store.dispatch(AuthActions.LoginSuccess.loginSuccess({loginSuccessResponse:{
+      username:this.username, token:this.token
+    }
+  }))
                   }})
-
+                 
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

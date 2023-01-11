@@ -1,3 +1,41 @@
-<p>
-  project-edit-modal works!
-</p>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <h2>Nombre del proyecto</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Ingrese el texto</mat-label>
+    <textarea matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3"
+              formControlName="title"></textarea>
+  </mat-form-field>
+  <h2>Descripcion</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Ingrese el texto</mat-label>
+    <textarea matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3"
+              formControlName="description"></textarea>
+  </mat-form-field>
+  <h2>Link del proyecto</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Ingrese el texto</mat-label>
+    <textarea matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3"
+              formControlName="link"></textarea>
+  </mat-form-field>
+  <h2>Imagen</h2>
+  <mat-form-field class="example-full-width" >
+    <mat-label>Ingrese la direccion de la imagen</mat-label>
+    <input matInput placeholder="Link" name="link" formControlName="image">
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close type="submit">Editar</button>
+  </div>
+  </form>
+  
