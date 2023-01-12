@@ -9,7 +9,6 @@ import { TokenService } from 'src/app/services/token.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginUserDto } from 'src/app/model/login-user-dto';
-import { stringInputToObject } from '@angular-material-components/color-picker';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../state/auth/auth.actions'
 @Component({
@@ -51,10 +50,10 @@ export class LoginModalComponent implements OnInit{
    this.store.dispatch(AuthActions.LoginRequest.loginRequest({credentials}));
     this.authService.login(new LoginUserDto(this.profileForm.value.username!,this.profileForm.value.password!)).
     subscribe({next: (req)=> {
-      console.log(req),
+      //console.log(req),
       this.token=req.token!
       this.username=req.username!
-      window.location.href = this.profileForm.value.username!;
+     //window.location.href = this.profileForm.value.username!;
       this.router.navigate([this.profileForm.value.username])
 
   //window.location.href = this.profileForm.value.username!;
@@ -68,7 +67,7 @@ export class LoginModalComponent implements OnInit{
     }
   }))
                   }})
-                 
+
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

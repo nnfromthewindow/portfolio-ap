@@ -22,4 +22,24 @@ export class AuthService {
   public register(dto: CreateUserDto): Observable<any>{
     return this.httpClient.post(this.registerURL, dto)
   }
+/*
+  loginURL = environment.apiURL + '/login';
+  registerURL = environment.apiURL + '/register';
+
+  private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this._isLoggedIn$.asObservable();
+
+  constructor(private httpClient: HttpClient) {
+  const token = localStorage.getItem('AuthToken');
+  this._isLoggedIn$.next(!!token);
+  }
+
+   public login(dto: LoginUserDto): Observable<LoginResponse>{
+    return this.httpClient.post(this.loginURL, dto).pipe(tap((resp:any)=>{
+      console.log(resp.token)
+      this.isLoggedIn$.subscribe((resp)=>console.log(resp))
+      localStorage.setItem('AuthToken', resp.token);
+    }))
+  }
+*/
 }
