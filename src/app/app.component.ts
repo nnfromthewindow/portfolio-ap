@@ -17,12 +17,15 @@ export class AppComponent {
   title = 'portfolio-ap';
   username!:string;
   jwtToken$ = this.store.select(fromAuth.selectToken);
+
   constructor(private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute, private store: Store<fromAuth.State>, private tokenService:TokenService, private authService:AuthService){
 
   }
 
   ngOnInit(){
     AOS.init()
-
+    this.username= location.pathname.substring(1,location.pathname.length)
+    this.authService.setUser(this.username)
+    this.authService.user$.subscribe((res)=>console.log(res))
   }
 }

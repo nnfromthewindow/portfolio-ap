@@ -12,6 +12,7 @@ import { filter, Subscription } from 'rxjs';
 import { WelcomeModalComponent } from '../welcome-modal/welcome-modal.component';
 import { Router } from '@angular/router';
 import { AboutmeAddTextModalComponent } from '../aboutme-add-text-modal/aboutme-add-text-modal.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-aboutme',
@@ -33,7 +34,7 @@ export class AboutmeComponent implements OnInit {
   public aboutmeAddSubscription!: Subscription;
  
   
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router) {}
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router, public authService:AuthService) {}
 
   ngOnInit() {
     var username= location.pathname.substring(1,location.pathname.length)

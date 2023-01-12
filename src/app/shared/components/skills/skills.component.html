@@ -1,6 +1,6 @@
 <section class="skills">
   <h2 class="skills-title" data-aos="fade-right">Skills</h2>
-  <div class="skills-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(jwtToken$ | async)" >
+  <div class="skills-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(authService.isLoggedIn$ | async)" >
     <div class="skills-card" data-aos="zoom-in" *ngFor="let skill of skills" >
 
       <mat-progress-spinner class="spinner-container"
@@ -17,13 +17,13 @@
       <div class="skill-name">
         <h3>{{skill.title}}</h3>
       </div>
-      <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
+      <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
         <app-edit-icon (click)="openSkillEditDialog('3000ms', '1500ms',skill.id)"></app-edit-icon>
         <app-delete-icon id="project-{{skill.id}}" (click)="deleteSkill(skill.id, username)"></app-delete-icon>
       </div>
     </div>
   </div>
-  <div class="skills-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(jwtToken$ | async)" >
+  <div class="skills-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(authService.isLoggedIn$ | async)" >
     <div class="skills-card" data-aos="zoom-in" *ngFor="let skill of skills" cdkDrag>
 
       <mat-progress-spinner class="spinner-container"
@@ -40,13 +40,13 @@
       <div class="skill-name">
         <h3>{{skill.title}}</h3>
       </div>
-      <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
+      <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
         <app-edit-icon (click)="openSkillEditDialog('3000ms', '1500ms',skill.id)"></app-edit-icon>
         <app-delete-icon id="project-{{skill.id}}" (click)="deleteSkill(skill.id,username)"></app-delete-icon>
       </div>
     </div>
   </div>
-  <div class="add-btn__container" *ngIf="jwtToken$ | async">
+  <div class="add-btn__container" *ngIf="authService.isLoggedIn$ | async">
     <button mat-raised-button color="primary" class="add_btn" (click)="openSkillAddDialog('3000ms', '1500ms')">Agregar Item</button>
   </div>
 </section>

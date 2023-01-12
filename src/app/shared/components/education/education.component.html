@@ -2,7 +2,7 @@
   <div class="title-container">
     <h2 class="title" data-aos="fade-right">Educacion</h2>
   </div>
-  <div class="education-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(jwtToken$ | async)" >
+  <div class="education-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(authService.isLoggedIn$ | async)" >
     <div class="education-card" *ngFor="let educ of education"  >
       <div class="education-card__container">
         <div class="left-bar" data-aos="fade-right" [ngStyle]="{'background-color':educ.color}">
@@ -19,17 +19,17 @@
         </div>
       </div>
 
-      <div class="education-flex__edit" *ngIf="jwtToken$ | async">
+      <div class="education-flex__edit" *ngIf="authService.isLoggedIn$ | async">
         <app-edit-icon (click)="openEditDialog('3000ms', '1500ms',educ.id)"></app-edit-icon>
 
       </div>
-      <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
+      <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
         <app-delete-icon id="education-{{educ.id}}" (click)="deleteEducation(educ.id,username)"></app-delete-icon>
       </div>
     </div>
 
   </div>
-  <div class="education-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(jwtToken$ | async)" >
+  <div class="education-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(authService.isLoggedIn$ | async)" >
     <div class="education-card" *ngFor="let educ of education"  cdkDrag>
       <div class="education-card__container">
         <div class="left-bar" data-aos="fade-right" [ngStyle]="{'background-color':educ.color}">
@@ -46,17 +46,17 @@
         </div>
       </div>
 
-      <div class="education-flex__edit" *ngIf="jwtToken$ | async">
+      <div class="education-flex__edit" *ngIf="authService.isLoggedIn$ | async">
         <app-edit-icon (click)="openEditDialog('3000ms', '1500ms',educ.id)"></app-edit-icon>
 
       </div>
-      <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
+      <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
         <app-delete-icon id="education-{{educ.id}}" (click)="deleteEducation(educ.id,username)"></app-delete-icon>
       </div>
     </div>
 
   </div>
-  <div class="add-btn__container" *ngIf="jwtToken$ | async">
+  <div class="add-btn__container" *ngIf="authService.isLoggedIn$ | async">
     <button mat-raised-button color="primary" class="add_btn" (click)="openTextDialog('3000ms', '1500ms')">Agregar Item</button>
 
   </div>

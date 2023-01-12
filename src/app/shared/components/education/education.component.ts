@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EducationEditModalComponent } from '../education-edit-modal/education-edit-modal.component';
 import { ThisReceiver } from '@angular/compiler';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class EducationComponent implements OnInit {
   public educationSubscription!: Subscription;
   public educationEditSubscription!: Subscription;
 
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute) {}
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute, public authService:AuthService) {}
 
   ngOnInit() {
     this.username= location.pathname.substring(1,location.pathname.length)

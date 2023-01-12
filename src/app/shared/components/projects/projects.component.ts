@@ -8,6 +8,7 @@ import { ProjectAddModalComponent } from '../project-add-modal/project-add-modal
 import { Subscription } from 'rxjs';
 import { ProjectEditModalComponent } from '../project-edit-modal/project-edit-modal.component';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -22,7 +23,7 @@ export class ProjectsComponent implements OnInit {
   public projectSubscription!: Subscription;
   public projectEditSubscription!: Subscription;
 
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router) {}
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router, public authService:AuthService) {}
   ngOnInit(): void {
     this.username= location.pathname.substring(1,location.pathname.length)
     this.portfolioService.getPortfolio(this.username).subscribe({next:(port:any)=>{

@@ -1,13 +1,13 @@
 <section class="projects">
   <h2 class="projects-title" data-aos="fade-right">Proyectos</h2>
-  <div class="projects-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(jwtToken$ | async)" >
+  <div class="projects-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(authService.isLoggedIn$ | async)" >
     <div class="project" data-aos="fade-up" data-aos-duration="3000" *ngFor="let project of projects" >
       <img
         src={{project.image}}
         alt={{project.title}}
         class="project-image"
       />
-      <div class="project-image__edit" *ngIf="jwtToken$ | async">
+      <div class="project-image__edit" *ngIf="authService.isLoggedIn$ | async">
         <app-edit-icon (click)="openProjectEditDialog('3000ms', '1500ms',project.id)"></app-edit-icon>
       </div>
       <div class="project-text__container">
@@ -31,19 +31,19 @@
         </div>
         </div>
       </div>
-      <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
+      <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
         <app-delete-icon id="project-{{project.id}}" (click)="deleteProject(project.id, username)"></app-delete-icon>
       </div>
     </div>
   </div>
-  <div class="projects-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(jwtToken$ | async)" >
+  <div class="projects-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(authService.isLoggedIn$ | async)" >
     <div class="project" data-aos="fade-up" data-aos-duration="3000" *ngFor="let project of projects" >
       <img
         src={{project.image}}
         alt={{project.title}}
         class="project-image"
       />
-      <div class="project-image__edit" *ngIf="jwtToken$ | async">
+      <div class="project-image__edit" *ngIf="authService.isLoggedIn$ | async">
         <app-edit-icon (click)="openProjectEditDialog('3000ms', '1500ms',project.id)"></app-edit-icon>
       </div>
       <div class="project-text__container">
@@ -67,12 +67,12 @@
         </div>
         </div>
       </div>
-      <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
+      <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
         <app-delete-icon id="project-{{project.id}}" (click)="deleteProject(project.id, username)"></app-delete-icon>
       </div>
     </div>
   </div>
-  <div class="add-btn__container" *ngIf="jwtToken$ | async">
+  <div class="add-btn__container" *ngIf="authService.isLoggedIn$ | async">
     <button mat-raised-button color="primary" class="add_btn" (click)="openProjectAddDialog('3000ms', '1500ms')">Agregar Item</button>
 
   </div>

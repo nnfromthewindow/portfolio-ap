@@ -2,7 +2,7 @@
   <div class="experience-type">
     <h2 class="experience-title" data-aos="fade-right">Experiencia</h2>
   </div>
-<div  cdkDropList (cdkDropListDropped)="drop($event)"  *ngIf="!(jwtToken$ | async)" >
+<div  cdkDropList (cdkDropListDropped)="drop($event)"  *ngIf="!(authService.isLoggedIn$ | async)" >
   <div class="cardblob-container" *ngFor="let experience of experiences" >
     <div class="cardblob" >
       <div class="blob-left" data-aos="fade-up"
@@ -26,7 +26,7 @@
           (mouseenter)="overItem()"
           (mouseleave)="overItem()"
         >
-        <app-edit-icon class="edit_icon__blobtext" (click)="openEditExperienceDialog('3000ms', '1500ms',experience.id)" *ngIf="jwtToken$ | async"></app-edit-icon>
+        <app-edit-icon class="edit_icon__blobtext" (click)="openEditExperienceDialog('3000ms', '1500ms',experience.id)" *ngIf="authService.isLoggedIn$ | async"></app-edit-icon>
           <div class="blob-text__title">
             <h2>{{experience.title}}</h2>
             <div class="blob-text__sub">
@@ -66,12 +66,12 @@
         </svg>
       </div>
         </div>
-    <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
+    <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
       <app-delete-icon id="experience-{{experience.id}}" (click)="deleteExperience(experience.id,username)"></app-delete-icon>
     </div>
   </div>
 </div>
-<div  cdkDropList (cdkDropListDropped)="drop($event)"  *ngIf="(jwtToken$ | async)" >
+<div  cdkDropList (cdkDropListDropped)="drop($event)"  *ngIf="(authService.isLoggedIn$ | async)" >
   <div class="cardblob-container" *ngFor="let experience of experiences" cdkDrag>
     <div class="cardblob" >
       <div class="blob-left" data-aos="fade-up"
@@ -95,7 +95,7 @@
           (mouseenter)="overItem()"
           (mouseleave)="overItem()"
         >
-        <app-edit-icon class="edit_icon__blobtext" (click)="openEditExperienceDialog('3000ms', '1500ms',experience.id)" *ngIf="jwtToken$ | async"></app-edit-icon>
+        <app-edit-icon class="edit_icon__blobtext" (click)="openEditExperienceDialog('3000ms', '1500ms',experience.id)" *ngIf="authService.isLoggedIn$ | async"></app-edit-icon>
           <div class="blob-text__title">
             <h2>{{experience.title}}</h2>
             <div class="blob-text__sub">
@@ -135,12 +135,12 @@
         </svg>
       </div>
         </div>
-    <div class="admin-buttons__container" *ngIf="jwtToken$ | async">
+    <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
       <app-delete-icon id="experience-{{experience.id}}" (click)="deleteExperience(experience.id,username)"></app-delete-icon>
     </div>
   </div>
 </div>
-<div class="add-btn__container" *ngIf="jwtToken$ | async">
+<div class="add-btn__container" *ngIf="authService.isLoggedIn$ | async">
   <button mat-raised-button color="primary" class="add_btn" (click)="openAddExperienceDialog('3000ms', '1500ms')">Agregar Item</button>
 </div>
 

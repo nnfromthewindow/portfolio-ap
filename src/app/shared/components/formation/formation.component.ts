@@ -10,6 +10,7 @@ import { ExperienceAddModalComponent } from '../experience-add-modal/experience-
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExperienceEditModalComponent } from '../experience-edit-modal/experience-edit-modal.component';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
@@ -24,7 +25,7 @@ export class FormationComponent implements OnInit {
   public experienceSubscription!: Subscription;
   public experienceEditSubscription!: Subscription;
 
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router) {}
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router, public authService:AuthService) {}
 
   ngOnInit() {
     this.username= location.pathname.substring(1,location.pathname.length)

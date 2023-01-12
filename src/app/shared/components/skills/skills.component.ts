@@ -10,6 +10,7 @@ import { PortfolioService } from 'src/app/services/portfolio.service';
 import { SkillAddModalComponent } from '../skill-add-modal/skill-add-modal.component';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
@@ -27,7 +28,7 @@ export class SkillsComponent implements OnInit {
   public skillSubscription!: Subscription;
   public skillEditSubscription!: Subscription;
 
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router) {}
+  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router, public authService:AuthService) {}
 
   ngOnInit() {
     this.username= location.pathname.substring(1,location.pathname.length)

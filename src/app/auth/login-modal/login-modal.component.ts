@@ -56,16 +56,19 @@ export class LoginModalComponent implements OnInit{
      //window.location.href = this.profileForm.value.username!;
       this.router.navigate([this.profileForm.value.username])
 
-  //window.location.href = this.profileForm.value.username!;
+  window.location.href = this.profileForm.value.username!;
   //this.router.navigate([this.profileForm.value.username])
 },
     error: (e) => {this.toast.error('Intentelo de nuevo','Usuario Invalido',{timeOut:3000, positionClass:'toast-top-center'})},
     complete: ()=>{ this.dialogRef.close();
+      this.toast.success(`Bienvenido ${this.profileForm.controls.username.value!} !!!`,'Usuario logueado con exito!!!',{timeOut:3000, positionClass:'toast-top-full-width'})
       this.tokenService.setToken(this.token)
       this.store.dispatch(AuthActions.LoginSuccess.loginSuccess({loginSuccessResponse:{
       username:this.username, token:this.token
     }
+    
   }))
+  //this.authService.isLoggedIn$.subscribe((res)=>res=true)
                   }})
 
   }

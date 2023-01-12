@@ -7,27 +7,27 @@
   <span class="title">#YoProgramo</span>
   <span class="example-spacer"></span>
   <div class="navbar-networks">
-    <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon" (click)="openNetworkDialog('3000ms', '1500ms')"  *ngIf="(jwtToken$ | async)">
+    <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon" (click)="openNetworkDialog('3000ms', '1500ms')"  *ngIf="(authService.isLoggedIn$  | async)">
       <mat-icon>add</mat-icon>
     </button>
-    <div class="networks" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(jwtToken$ | async)" >
+    <div class="networks" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(authService.isLoggedIn$  | async)" >
       
       <div class="networks-hidden__container" *ngFor="let network of networks"  cdkDrag >
-        <a href={{network.link}} ><i class={{network.icon}} ></i> </a> <button class="network-hidden__delete" mat-icon-button color="warn" aria-label="Delete icon" (click)="deleteNetwork(network.id,network.user)" *ngIf="jwtToken$ | async" >
+        <a href={{network.link}} ><i class={{network.icon}} ></i> </a> <button class="network-hidden__delete" mat-icon-button color="warn" aria-label="Delete icon" (click)="deleteNetwork(network.id,network.user)" *ngIf="authService.isLoggedIn$| async" >
         <mat-icon>delete</mat-icon>
       </button>
     </div>
     </div>
-    <div class="networks" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(jwtToken$ | async)" >
+    <div class="networks" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(authService.isLoggedIn$| async)" >
 
       <div class="networks-hidden__container" *ngFor="let network of networks"  >
-        <a href={{network.link}} ><i class={{network.icon}} ></i> </a> <button class="network-hidden__delete" mat-icon-button color="warn" aria-label="Delete icon" (click)="deleteNetwork(network.id,network.user)" *ngIf="jwtToken$ | async" >
+        <a href={{network.link}} ><i class={{network.icon}} ></i> </a> <button class="network-hidden__delete" mat-icon-button color="warn" aria-label="Delete icon" (click)="deleteNetwork(network.id,network.user)" *ngIf="authService.isLoggedIn$  | async" >
         <mat-icon>delete</mat-icon>
       </button>
     </div>
     </div>
   </div>
 
-  <button mat-raised-button color="primary" (click)="openLoginDialog('1500ms', '1500ms')" *ngIf="!(jwtToken$ | async)">Login</button>
-  <button mat-raised-button color="success" (click)="logOut()" *ngIf="(jwtToken$ | async)">Logout</button>
+  <button mat-raised-button color="primary" (click)="openLoginDialog('1500ms', '1500ms')" *ngIf="!(authService.isLoggedIn$ | async)">Login</button>
+  <button mat-raised-button color="success" (click)="authService.logOut()" *ngIf="(authService.isLoggedIn$ | async)">Logout</button>
 </mat-toolbar>

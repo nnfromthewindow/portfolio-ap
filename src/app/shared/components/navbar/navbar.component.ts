@@ -10,6 +10,7 @@ import { TokenService } from 'src/app/services/token.service';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,13 +25,14 @@ username?:string;
 networks!:any[];
 public networkSubscription!: Subscription;
 
-constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private tokenService:TokenService, private portfolioService:PortfolioService, private router:Router) {}
+constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private tokenService:TokenService, private portfolioService:PortfolioService, private router:Router, public authService:AuthService) {}
 
 
 
   ngOnInit(): void {
-    var username= location.pathname.substring(1,location.pathname.length)
-    this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+    this.username= location.pathname.substring(1,location.pathname.length)
+
+    this.portfolioService.getPortfolio(this.username).subscribe({next:(port:any)=>{
       this.networks=Object.values(port[0])
       this.networks= this.networks[0]
       this.networkSubscription=this.portfolioService.getNetwork().subscribe((resp:any)=>{
@@ -38,11 +40,6 @@ constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, pri
       })
     }})
 
-  }
-
-  logOut(): void {
-    this.store.dispatch(AuthActions.Logout.logout());
-    this.tokenService.logOut()
   }
 
   openLoginDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
