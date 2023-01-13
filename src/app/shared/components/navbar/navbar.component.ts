@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit{
 
 jwtToken$ = this.store.select(fromAuth.selectToken);
 //user$ = this.store.select(fromAuth.selectUser);
-username?:string;
+username!:string;
 networks!:any[];
 public networkSubscription!: Subscription;
 
@@ -49,6 +49,7 @@ constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, pri
       enterAnimationDuration,
       exitAnimationDuration,
     });
+    this.dialog.afterAllClosed.subscribe((close)=>this.router.navigateByUrl(this.username))
   }
   openNetworkDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(NetworkAddModalComponent, {

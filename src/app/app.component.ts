@@ -6,6 +6,7 @@ import * as fromAuth from '../app/state/auth/auth.reducer'
 import { Store } from '@ngrx/store';
 import { TokenService } from './services/token.service';
 import { AuthService } from './services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 declare let AOS: any;
 @Component({
@@ -15,17 +16,26 @@ declare let AOS: any;
 })
 export class AppComponent {
   title = 'portfolio-ap';
-  username!:string;
-  jwtToken$ = this.store.select(fromAuth.selectToken);
+  pathUser!:string;
+  userLogged?:string;
+  token!:string;
 
-  constructor(private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute, private store: Store<fromAuth.State>, private tokenService:TokenService, private authService:AuthService){
+
+  constructor(private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute, private store: Store<fromAuth.State>, private tokenService:TokenService, private authService:AuthService, private toast:ToastrService){
 
   }
 
   ngOnInit(){
     AOS.init()
-    this.username= location.pathname.substring(1,location.pathname.length)
-    this.authService.setUser(this.username)
-    this.authService.user$.subscribe((res)=>console.log(res))
+    this.pathUser= location.pathname.substring(1,location.pathname.length)
+    this.userLogged=localStorage.getItem('user')!
+    this.token=localStorage.getItem('AuthToken')!
+    if(this.pathUser==this.userLogged){
+      this.authService.setUser(this.userLogged)
+
+      this.toast.success(`Bienvenido ${this.userLogged!} !!!`,'Usuario logueado con exito!!!',{timeOut:2000, positionClass:'toast-top-full-width'})
+    }else{
+      this.authService.logOut();
+    }
   }
 }

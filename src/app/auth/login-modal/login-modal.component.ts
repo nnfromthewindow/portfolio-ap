@@ -39,7 +39,7 @@ export class LoginModalComponent implements OnInit{
 
   }
 
-  async onSubmit(): Promise<any> {
+  onSubmit(){
 
     const credentials = {
       username: this.profileForm.value.username!,
@@ -51,24 +51,28 @@ export class LoginModalComponent implements OnInit{
     this.authService.login(new LoginUserDto(this.profileForm.value.username!,this.profileForm.value.password!)).
     subscribe({next: (req)=> {
       //console.log(req),
-      this.token=req.token!
-      this.username=req.username!
+      //this.token=req.token!
+      //this.username=req.username!
      //window.location.href = this.profileForm.value.username!;
-      this.router.navigate([this.profileForm.value.username])
+      //this.router.navigate([this.profileForm.value.username])
+      localStorage.setItem('AuthToken',req.token)
+      localStorage.setItem('user',req.username)
 
-  window.location.href = this.profileForm.value.username!;
   //this.router.navigate([this.profileForm.value.username])
 },
     error: (e) => {this.toast.error('Intentelo de nuevo','Usuario Invalido',{timeOut:3000, positionClass:'toast-top-center'})},
     complete: ()=>{ this.dialogRef.close();
-      this.toast.success(`Bienvenido ${this.profileForm.controls.username.value!} !!!`,'Usuario logueado con exito!!!',{timeOut:3000, positionClass:'toast-top-full-width'})
-      this.tokenService.setToken(this.token)
+      window.location.href = this.profileForm.value.username!;
+     // this.toast.success(`Bienvenido ${this.profileForm.controls.username.value!} !!!`,'Usuario logueado con exito!!!',{timeOut:5000, positionClass:'toast-top-full-width'})
+     // this.tokenService.setToken(this.token)
+      //this.tokenService.setUser(this.username)
+      /*
       this.store.dispatch(AuthActions.LoginSuccess.loginSuccess({loginSuccessResponse:{
       username:this.username, token:this.token
     }
-    
+
   }))
-  //this.authService.isLoggedIn$.subscribe((res)=>res=true)
+*/
                   }})
 
   }

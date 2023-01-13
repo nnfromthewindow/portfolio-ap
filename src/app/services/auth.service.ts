@@ -22,7 +22,7 @@ export class AuthService {
     return this.httpClient.post(this.loginURL, dto)
   }
 
-*/  
+*/
   public register(dto: CreateUserDto): Observable<any>{
     return this.httpClient.post(this.registerURL, dto)
   }
@@ -52,6 +52,7 @@ export class AuthService {
   public logOut(){
     this.tokenService.logOut()
     this._isLoggedIn$.next(false);
+    localStorage.removeItem('user')
   }
   public setUser(username:string){
     this._user$.next(username);
