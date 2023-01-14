@@ -3,15 +3,17 @@
 }
 .banner-img {
   height: 20rem;
+  min-height: 10rem;
   object-fit: cover;
   width: 100%;
 }
 
 app-edit-icon{
-  bottom: 16rem;
+  bottom: 4rem;
   color: var(--font_p);
   display: flex;
   justify-content: flex-end;
-  position: absolute;
+  position: relative;
   width: 98%;
+  z-index: 10;
 }

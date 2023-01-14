@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, ActivationEnd, NavigationEnd, Router, RouterState, RouterStateSnapshot } from '@angular/router';
+import {Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
-import { PortfolioService } from './services/portfolio.service';
-import * as fromAuth from '../app/state/auth/auth.reducer'
-import { Store } from '@ngrx/store';
-import { TokenService } from './services/token.service';
 import { AuthService } from './services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { filter } from 'rxjs';
 
 declare let AOS: any;
 @Component({
@@ -21,21 +18,20 @@ export class AppComponent {
   token!:string;
 
 
-  constructor(private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute, private store: Store<fromAuth.State>, private tokenService:TokenService, private authService:AuthService, private toast:ToastrService){
+  constructor(private authService:AuthService, private toast:ToastrService,private router:Router){
 
   }
+ 
 
   ngOnInit(){
     AOS.init()
-    this.pathUser= location.pathname.substring(1,location.pathname.length)
-    this.userLogged=localStorage.getItem('user')!
-    this.token=localStorage.getItem('AuthToken')!
-    if(this.pathUser==this.userLogged){
-      this.authService.setUser(this.userLogged)
-
-      this.toast.success(`Bienvenido ${this.userLogged!} !!!`,'Usuario logueado con exito!!!',{timeOut:2000, positionClass:'toast-top-full-width'})
-    }else{
-      this.authService.logOut();
-    }
+ 
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event:any)=>{
+      const username=event.url.substring(1,event.url.length)
+      const userLogged = localStorage.getItem('user');
+      if(username!=userLogged){
+        this.authService.setIsLoggedIn(false)
+      } else this.authService.setIsLoggedIn(true)
+  })
   }
 }

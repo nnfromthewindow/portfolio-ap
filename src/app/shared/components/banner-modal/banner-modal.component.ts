@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import * as fromAuth from '../../../state/auth/auth.reducer'
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-banner-modal',
@@ -14,22 +10,24 @@ import { Router } from '@angular/router';
 })
 export class BannerModalComponent implements OnInit {
 
-jwtToken$ = this.store.select(fromAuth.selectToken);
 username!:string;
 bannerId!:any;
 image!:any;
-
+userLogged!:string;
+token!:string;
 
 profileForm = new FormGroup({
   link: new FormControl('', [Validators.required])
   });
 
-  constructor(private portfolioService:PortfolioService, private store: Store<fromAuth.State>, public dialogRef: MatDialogRef<BannerModalComponent>,private router:Router) { }
+  constructor(private portfolioService:PortfolioService, public dialogRef: MatDialogRef<BannerModalComponent>) { }
 
 
   ngOnInit() {
-    var username= location.pathname.substring(1,location.pathname.length)
-    this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+    this.userLogged=localStorage.getItem('user')!
+    this.token=localStorage.getItem('AuthToken')!
+
+    this.portfolioService.getPortfolio(this.userLogged).subscribe({next:(port:any)=>{
       this.bannerId=port[3].bannerImage
       this.image=this.bannerId[0].image
       this.bannerId=this.bannerId[0].id
@@ -37,17 +35,12 @@ profileForm = new FormGroup({
   }
 
   onSubmit(){
-    this.jwtToken$.subscribe((token:any)=>{
-
-       var username:any= location.pathname.substring(1,location.pathname.length);
-       this.image= this.profileForm.controls.link.value!;
-
-      this.portfolioService.editBannerImage(this.bannerId,{image:this.image},username,{
-        headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
+      this.image= this.profileForm.controls.link.value!;
+      this.portfolioService.editBannerImage(this.bannerId,{image:this.image},this.userLogged,{
+        headers: {'Content-Type':'application/json','Authorization':`Bearer ${this.token}`}
      }).subscribe(
       (banner)=>{this.portfolioService.setBanner(banner)}
      );
 
-  }).unsubscribe()
-  }
+     }
 }

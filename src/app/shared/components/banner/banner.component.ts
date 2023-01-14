@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import * as fromAuth from '../../../state/auth/auth.reducer'
-import { Store } from '@ngrx/store';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { BannerModalComponent } from '../banner-modal/banner-modal.component';
-import { Subscription } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { ActivatedRoute, NavigationEnd, Router, RouterState } from '@angular/router';
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
@@ -13,27 +12,29 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class BannerComponent implements OnInit {
 
-  jwtToken$ = this.store.select(fromAuth.selectToken);
-  //user$ = this.store.select(fromAuth.selectUser);
   bannerImage!:any[];
   public bannerSubscription!: Subscription;
-  constructor(public dialog: MatDialog,  private store: Store<fromAuth.State>, private portfolioService: PortfolioService, public authService:AuthService) {}
+  public portfolioSubscription!: Subscription;
+  constructor(public dialog: MatDialog, private portfolioService: PortfolioService, public authService:AuthService, private route:ActivatedRoute, private router:Router) {}
 
   ngOnInit(): void {
-    var username= location.pathname.substring(1,location.pathname.length)
-    this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
    
-    if(port[3].bannerImage.length>0){
-      this.bannerImage=Object.values(port[3])
-      this.bannerImage=this.bannerImage[0]
-      this.bannerImage=this.bannerImage[0].image
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event:any)=>{
+      var username=this.route.snapshot.children[0].paramMap.get('username')!
+      this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+   
+        if(port[3].bannerImage.length>0){
+          this.bannerImage=Object.values(port[3])
+          this.bannerImage=this.bannerImage[0]
+          this.bannerImage=this.bannerImage[0].image
+    
+        this.bannerSubscription = this.portfolioService.getBanner().subscribe((resp:any)=>{this.bannerImage=resp.image})
+    }
+    
+        }})
 
-    this.bannerSubscription = this.portfolioService.getBanner().subscribe((resp:any)=>{this.bannerImage=resp.image})
-}
-
-    }})
+    })
   }
-
 
 openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
   this.dialog.open(BannerModalComponent, {

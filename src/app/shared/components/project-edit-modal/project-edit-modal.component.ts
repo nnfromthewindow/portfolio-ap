@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { AuthService } from 'src/app/services/auth.service';
 import { PortfolioService } from 'src/app/services/portfolio.service';
-import * as fromAuth from '../../../state/auth/auth.reducer'
+
 
 @Component({
   selector: 'app-project-edit-modal',
@@ -13,8 +14,9 @@ import * as fromAuth from '../../../state/auth/auth.reducer'
 })
 export class ProjectEditModalComponent implements OnInit {
 
-  jwtToken$ = this.store.select(fromAuth.selectToken);
-  username!:string;
+  userLogged!:string
+  token!:string;
+
   projects!:any;
   projectId!:string;
   title!:string;
@@ -29,14 +31,15 @@ export class ProjectEditModalComponent implements OnInit {
     image: new FormControl(this.image, [Validators.required]),
     });
 
-  constructor(private portfolioService:PortfolioService, private store: Store<fromAuth.State>, private route:ActivatedRoute, private router:Router) { }
+  constructor(private portfolioService:PortfolioService, private authService:AuthService) { }
 
   ngOnInit() {
-    this.username=this.route.snapshot.children[0].paramMap.get('username')!
-    this.projectId=this.route.snapshot.children[0].paramMap.get('id')!
-
-    this.portfolioService.getPortfolio(this.username).subscribe((port:any)=>{
-      console.log(port[8])
+    
+    this.userLogged=localStorage.getItem('user')!
+    this.token=localStorage.getItem('AuthToken')!
+    this.authService.editId$.subscribe((res)=>this.projectId=res)
+    this.portfolioService.getPortfolio(this.userLogged).subscribe((port:any)=>{
+   
     this.projects= port[8].projects.filter((exp:any)=>{return exp.id==this.projectId})
     this.projects=this.projects[0];
 
@@ -55,8 +58,7 @@ export class ProjectEditModalComponent implements OnInit {
   }
 
   onSubmit(){
-    this.jwtToken$.subscribe((token:any)=>{
-     
+
       const title= this.profileForm.controls.title.value!
       const description= this.profileForm.controls.description.value!
       const link= this.profileForm.controls.link.value!
@@ -67,12 +69,11 @@ export class ProjectEditModalComponent implements OnInit {
       this.link=link;
       this.image=image;
 
-      this.portfolioService.editProject(this.projectId,{title:this.title,description:this.description,link:this.link,image:this.image},this.username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe(
+      this.portfolioService.editProject(this.projectId,{title:this.title,description:this.description,link:this.link,image:this.image},this.userLogged,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${this.token}`}}).subscribe(
         (project)=>{
           this.portfolioService.setEditProject(project)
-          this.router.navigateByUrl(this.username)
         }
       )
-      }).unsubscribe()
+
   }
 }

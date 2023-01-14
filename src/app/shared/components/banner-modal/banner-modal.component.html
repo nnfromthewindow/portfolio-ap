@@ -2,7 +2,7 @@
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
 <mat-form-field class="example-full-width" >
   <mat-label>Ingrese la direccion de la imagen</mat-label>
-  <input matInput placeholder="Link" name="link" formControlName="link">
+  <input matInput placeholder="Link" name="link" type="url" formControlName="link">
 </mat-form-field>
 <button mat-raised-button color="primary" type="submit" [disabled]="!profileForm.valid">Subir Imagen</button>
 </form>

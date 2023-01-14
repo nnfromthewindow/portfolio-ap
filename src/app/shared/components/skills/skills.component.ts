@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { SkillEditModalComponent } from '../skill-edit-modal/skill-edit-modal.component';
-import * as fromAuth from '../../../state/auth/auth.reducer'
 import { Store } from '@ngrx/store';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { SkillAddModalComponent } from '../skill-add-modal/skill-add-modal.component';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-skills',
@@ -18,38 +17,43 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SkillsComponent implements OnInit {
 
-  jwtToken$ = this.store.select(fromAuth.selectToken);
-  //user$ = this.store.select(fromAuth.selectUser);
   username!:string
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'determinate';
   value!:any;
   skills!:any[];
+  userLogged!:string;
+  token!:string;
+
   public skillSubscription!: Subscription;
   public skillEditSubscription!: Subscription;
 
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router, public authService:AuthService) {}
+  constructor(public dialog: MatDialog, private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute, public authService:AuthService) {}
 
   ngOnInit() {
-    this.username= location.pathname.substring(1,location.pathname.length)
-    this.portfolioService.getPortfolio(this.username).subscribe({next:(port:any)=>{
-        this.skills=Object.values(port[7]);
-        this.skills= this.skills[0];
-        this.value=this.skills[0];
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event:any)=>{
+      var username=this.route.snapshot.children[0].paramMap.get('username')!
+      this.userLogged=localStorage.getItem('user')!
+      this.token=localStorage.getItem('AuthToken')!
+      this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+          this.skills=Object.values(port[7]);
+          this.skills= this.skills[0];
+          this.value=this.skills[0];
+      }})
+      
+    })
+    
+    this.skillSubscription=this.portfolioService.getSkill().subscribe((resp:any)=>{
+      this.skills.push(resp)
+    })
 
-        this.skillSubscription=this.portfolioService.getSkill().subscribe((resp:any)=>{
-          this.skills.push(resp)
-        })
-
-        this.skillEditSubscription=this.portfolioService.getEditSkill().subscribe((resp:any)=>{
-          this.skills.forEach((e,i)=>{
-            if(e.id==resp.id){
-              this.skills[i]=resp
-            }
-          })
-        })
-
-    }})
+    this.skillEditSubscription=this.portfolioService.getEditSkill().subscribe((resp:any)=>{
+      this.skills.forEach((e,i)=>{
+        if(e.id==resp.id){
+          this.skills[i]=resp
+        }
+      })
+    })
   }
 
     drop(event: CdkDragDrop<string[]>) {
@@ -65,8 +69,7 @@ export class SkillsComponent implements OnInit {
       });
     }
     openSkillEditDialog(enterAnimationDuration: string, exitAnimationDuration:string, id:string): void {
-      this.router.navigateByUrl(`${this.username}/skill/${id}`)
-
+      this.authService.setEditId(id)
       this.dialog.open(SkillEditModalComponent, {
         width: '250px',
         enterAnimationDuration,
@@ -74,11 +77,10 @@ export class SkillsComponent implements OnInit {
       });
     }
 
-  deleteSkill(id:string, username:string): void{
-    this.jwtToken$.subscribe((token:any)=>{
-    this.portfolioService.deleteSkill(id, username,{
-    headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
-  }).subscribe().unsubscribe()})
+  deleteSkill(id:string): void{
+    this.portfolioService.deleteSkill(id, this.userLogged,{
+    headers: {'Content-Type':'application/json','Authorization':`Bearer ${this.token}`}
+  }).subscribe()
   this.skills=this.skills.filter((sk)=>{return  sk.id!==id})
 
 }

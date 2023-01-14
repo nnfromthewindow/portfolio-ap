@@ -35,14 +35,17 @@ export class RegisterModalComponent implements OnInit {
   async onSubmit() {
     if(this.profileForm.controls.password.value==this.profileForm.controls.passwordverified.value){
       this.authService.register(new CreateUserDto(this.profileForm.controls.username.value!,this.profileForm.controls.email.value!,this.profileForm.controls.password.value!)).subscribe({
-        error:(err:any)=>{
-                  if(err){
+        error:(err)=>{
+                 
                     this.toast.error('Usuario existente, intente con otro nombre de usuario','Usuario Existente',{timeOut:3000, positionClass:'toast-top-full-width'})
-                  }
+                  
                   },
         complete:()=>{
-          this.toast.success(`Bienvenido ${this.profileForm.controls.username.value!} !!! Revisa tu correo electronico para activar tu cuenta`,'Usuario registrado con exito!!!',{timeOut:3000, positionClass:'toast-top-full-width'}),
-         this.router.navigateByUrl(this.profileForm.controls.username.value!)
+          this.toast.success(`Bienvenid@ ${this.profileForm.controls.username.value!} !!! Revisa tu correo electronico para activar tu cuenta`,'Usuario registrado con exito!!!',{timeOut:3000, positionClass:'toast-top-full-width'}),
+         location.href=this.profileForm.controls.username.value!
+          this.router.navigateByUrl(this.profileForm.controls.username.value!)
+         this.dialogRef.close()
+
         }
       }
       )

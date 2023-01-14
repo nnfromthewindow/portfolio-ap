@@ -13,8 +13,8 @@ import { ProjectsModule } from './shared/components/projects/projects.module';
 import { EducationModule } from './shared/components/education/education.module';
 import { ToastrModule } from 'ngx-toastr';
 import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { authReducer } from './state/auth/auth.reducer';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,8 +31,6 @@ import { authReducer } from './state/auth/auth.reducer';
     ProjectsModule,
     EducationModule,
     ToastrModule.forRoot(),
-    StoreModule.forRoot({ auth: authReducer }),
-
   ],
   providers: [],
   exports: [AppComponent],

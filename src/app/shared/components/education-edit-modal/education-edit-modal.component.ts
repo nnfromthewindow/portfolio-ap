@@ -1,11 +1,11 @@
 import { Color } from '@angular-material-components/color-picker';
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { AuthService } from 'src/app/services/auth.service';
 import { PortfolioService } from 'src/app/services/portfolio.service';
-import * as fromAuth from '../../../state/auth/auth.reducer'
+
 
 @Component({
   selector: 'app-education-edit-modal',
@@ -19,8 +19,9 @@ export class EducationEditModalComponent implements OnInit {
   colorParsed!:Color;
   colorCtr: any=new FormControl(new Color(255,50,50))
 
-  jwtToken$ = this.store.select(fromAuth.selectToken);
-  username!:string;
+  userLogged!:string
+  token!:string;
+
   education!:any;
   educationId!:string;
   title!:string;
@@ -32,20 +33,20 @@ export class EducationEditModalComponent implements OnInit {
     title: new FormControl(this.title, [Validators.required]),
     subtitle: new FormControl(this.subtitle, [Validators.required]),
     detail: new FormControl(this.detail, [Validators.required]),
-    color: new FormControl({value:'',disabled:false}, [Validators.required]),
+    color: new FormControl({value:'',disabled:false}),
     image: new FormControl(this.image, [Validators.required]),
     });
   
-  constructor(private portfolioService:PortfolioService, private store: Store<fromAuth.State>, private route:ActivatedRoute, private router:Router) { }
+  constructor(private portfolioService:PortfolioService,private router:Router, private authService:AuthService,private route:ActivatedRoute) { }
 
   ngOnInit() {
-    this.username=this.route.snapshot.children[0].paramMap.get('username')!
-    this.educationId=this.route.snapshot.children[0].paramMap.get('id')!
-
-    this.portfolioService.getPortfolio(this.username).subscribe((port:any)=>{
+    this.userLogged=localStorage.getItem('user')!
+    this.token=localStorage.getItem('AuthToken')!
+    this.authService.editId$.subscribe((res)=>this.educationId=res)
+    
+    this.portfolioService.getPortfolio(this.userLogged).subscribe((port:any)=>{
     this.education= port[5].education.filter((ab:any)=>{return ab.id==this.educationId})
     this.education=this.education[0];
-    
     this.title=this.education.title;
     this.subtitle=this.education.subtitle;
     this.detail=this.education.detail;
@@ -64,27 +65,23 @@ export class EducationEditModalComponent implements OnInit {
   }
 
   onSubmit(){
-    this.jwtToken$.subscribe((token:any)=>{
-      const id = this.educationId
       const title= this.profileForm.controls.title.value!
       const subtitle= this.profileForm.controls.subtitle.value!
       const detail= this.profileForm.controls.detail.value!
-      const color= '#'+this.colorCtr.value.hex
       const image= this.profileForm.controls.image.value!
-      const username= this.username
       
       this.title=title;
       this.subtitle=subtitle;
       this.detail=detail;
       this.image=image;
       
-      this.portfolioService.editEducation(this.educationId,{title:this.title,subtitle:this.subtitle,detail:this.detail,color:'#'+this.colorCtr.value.hex,image:this.image},this.username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe(
+      this.portfolioService.editEducation(this.educationId,{title:this.title,subtitle:this.subtitle,detail:this.detail,color:'#'+this.colorCtr.value.hex,image:this.image},this.userLogged,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${this.token}`}}).subscribe(
         (education)=>{
           this.portfolioService.setEditEducation(education)
-          this.router.navigateByUrl(this.username)
+          this.router.navigateByUrl(this.userLogged)
         }
       )
-      }).unsubscribe()
+      
   }
 
    hexToRgb(hex:string) {

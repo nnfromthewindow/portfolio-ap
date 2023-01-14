@@ -19,7 +19,7 @@
       </div>
       <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
         <app-edit-icon (click)="openSkillEditDialog('3000ms', '1500ms',skill.id)"></app-edit-icon>
-        <app-delete-icon id="project-{{skill.id}}" (click)="deleteSkill(skill.id, username)"></app-delete-icon>
+        <app-delete-icon id="project-{{skill.id}}" (click)="deleteSkill(skill.id)"></app-delete-icon>
       </div>
     </div>
   </div>
@@ -42,7 +42,7 @@
       </div>
       <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
         <app-edit-icon (click)="openSkillEditDialog('3000ms', '1500ms',skill.id)"></app-edit-icon>
-        <app-delete-icon id="project-{{skill.id}}" (click)="deleteSkill(skill.id,username)"></app-delete-icon>
+        <app-delete-icon id="project-{{skill.id}}" (click)="deleteSkill(skill.id)"></app-delete-icon>
       </div>
     </div>
   </div>

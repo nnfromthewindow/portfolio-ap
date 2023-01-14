@@ -2,10 +2,9 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import {  take } from 'rxjs';
 import { PortfolioService } from 'src/app/services/portfolio.service';
-import * as fromAuth from '../../../state/auth/auth.reducer'
+
 
 @Component({
   selector: 'app-aboutme-add-text-modal',
@@ -14,16 +13,17 @@ import * as fromAuth from '../../../state/auth/auth.reducer'
 })
 export class AboutmeAddTextModalComponent implements OnInit {
 
-  jwtToken$ = this.store.select(fromAuth.selectToken);
   aboutme!:any;
   aboutmeId!:any;
-  username!:any;
+  userLogged!:string
+  token!:string;
+
   profileForm = new FormGroup({
     message: new FormControl(this.aboutme, [Validators.required])
     });
 
 
-  constructor(private _ngZone: NgZone, private portfolioService:PortfolioService, private store: Store<fromAuth.State>, private route:ActivatedRoute, private router:Router) {}
+  constructor(private _ngZone: NgZone, private portfolioService:PortfolioService, private route:ActivatedRoute, private router:Router) {}
 
   @ViewChild('autosize') autosize!: CdkTextareaAutosize;
 
@@ -33,20 +33,17 @@ export class AboutmeAddTextModalComponent implements OnInit {
   }
 
   ngOnInit() {
-  
-    this.username=this.route.snapshot.children[0].paramMap.get('username')
+    this.userLogged=localStorage.getItem('user')!
+    this.token=localStorage.getItem('AuthToken')!
    
    }
 
   onSubmit(){
-    this.jwtToken$.subscribe((token:any)=>{
-      this.portfolioService.createAboutme(this.profileForm.controls.message.value,this.username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe(
+      this.portfolioService.createAboutme(this.profileForm.controls.message.value,this.userLogged,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${this.token}`}}).subscribe(
         (about:any)=>{
-       
          this.portfolioService.setAddAboutme(about)
        }
-       );
-    }).unsubscribe()
+       )
   }
   
 }

@@ -32,12 +32,12 @@
         </div>
       </div>
       <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
-        <app-delete-icon id="project-{{project.id}}" (click)="deleteProject(project.id, username)"></app-delete-icon>
+        <app-delete-icon id="project-{{project.id}}" (click)="deleteProject(project.id)"></app-delete-icon>
       </div>
     </div>
   </div>
   <div class="projects-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(authService.isLoggedIn$ | async)" >
-    <div class="project" data-aos="fade-up" data-aos-duration="3000" *ngFor="let project of projects" >
+    <div class="project" data-aos="fade-up" data-aos-duration="3000" *ngFor="let project of projects" cdkDrag>
       <img
         src={{project.image}}
         alt={{project.title}}
@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
-        <app-delete-icon id="project-{{project.id}}" (click)="deleteProject(project.id, username)"></app-delete-icon>
+        <app-delete-icon id="project-{{project.id}}" (click)="deleteProject(project.id)"></app-delete-icon>
       </div>
     </div>
   </div>

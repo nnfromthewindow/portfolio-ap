@@ -2,10 +2,9 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import {  take } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { PortfolioService } from 'src/app/services/portfolio.service';
-import * as fromAuth from '../../../state/auth/auth.reducer'
 
 @Component({
   selector: 'app-aboutme-text-modal',
@@ -14,16 +13,18 @@ import * as fromAuth from '../../../state/auth/auth.reducer'
 })
 export class AboutmeTextModalComponent implements OnInit {
 
-  jwtToken$ = this.store.select(fromAuth.selectToken);
   aboutme!:any;
   aboutmeId!:any;
   username!:any;
+  userLogged!:string
+  token!:string;
+
   profileForm = new FormGroup({
     message: new FormControl(this.aboutme, [Validators.required])
     });
 
 
-  constructor(private _ngZone: NgZone, private portfolioService:PortfolioService, private store: Store<fromAuth.State>, private route:ActivatedRoute, private router:Router) {}
+  constructor(private _ngZone: NgZone, private portfolioService:PortfolioService, private route:ActivatedRoute, private router:Router, private authService:AuthService) {}
 
   @ViewChild('autosize') autosize!: CdkTextareaAutosize;
 
@@ -33,23 +34,22 @@ export class AboutmeTextModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.aboutmeId=this.route.snapshot.children[0].paramMap.get('id')
-    this.username=this.route.snapshot.children[0].paramMap.get('username')
-    this.portfolioService.getPortfolio(this.username).subscribe((port:any)=>{
+    this.userLogged=localStorage.getItem('user')!
+    this.token=localStorage.getItem('AuthToken')!
+    this.authService.editId$.subscribe((res)=>this.aboutmeId=res)
+    this.portfolioService.getPortfolio(this.userLogged).subscribe((port:any)=>{
     this.aboutme= port[4].aboutme.filter((ab:any)=>ab.id==this.aboutmeId)[0].message
     })
     }
 
   onSubmit(){
-    this.jwtToken$.subscribe((token:any)=>{
-     this.portfolioService.editAboutme(this.aboutmeId,{message:this.profileForm.controls.message.value},this.username,{
-       headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
+     this.portfolioService.editAboutme(this.aboutmeId,{message:this.profileForm.controls.message.value},this.userLogged,{
+       headers: {'Content-Type':'application/json','Authorization':`Bearer ${this.token}`}
     }).subscribe(
      (about)=>{
       this.portfolioService.setAboutme(about)
-      this.router.navigateByUrl(this.username)
+      this.router.navigateByUrl(this.userLogged)
     }
     );
-    }).unsubscribe()
   }
 }

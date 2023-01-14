@@ -1,11 +1,9 @@
 import { Color } from '@angular-material-components/color-picker';
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { PortfolioService } from 'src/app/services/portfolio.service';
-import * as fromAuth from '../../../state/auth/auth.reducer'
+
 @Component({
   selector: 'app-education-text-modal',
   templateUrl: './education-text-modal.component.html',
@@ -23,42 +21,37 @@ export class EducationTextModalComponent implements OnInit {
   receivedImageData: any;
   base64Data: any;
   convertedImage: any;
-  
-  jwtToken$ = this.store.select(fromAuth.selectToken);
-  username!:string;
-  
+
+  userLogged!:string
+  token!:string;
+    
   profileForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     subtitle: new FormControl('', [Validators.required]),
     detail: new FormControl('', [Validators.required]),
-    color: new FormControl({value:'',disabled:false}, [Validators.required]),
+    color: new FormControl({value:'',disabled:false}),
     image: new FormControl('', [Validators.required]),
     });
 
-  constructor(private portfolioService:PortfolioService, private store: Store<fromAuth.State>, private route:ActivatedRoute, private router:Router) { }
+  constructor(private portfolioService:PortfolioService) { }
 
   ngOnInit() {
-    this.username=this.route.snapshot.children[0].paramMap.get('username')!
+    this.userLogged=localStorage.getItem('user')!
+    this.token=localStorage.getItem('AuthToken')!
    
   }
   
-
-
  onSubmit(){
-  this.jwtToken$.subscribe((token:any)=>{
-  
+
   const title= this.profileForm.controls.title.value!
   const subtitle= this.profileForm.controls.subtitle.value!
   const detail= this.profileForm.controls.detail.value!
   const color= '#'+this.colorCtr.value.hex
   const image= this.profileForm.controls.image.value!
  
-  this.portfolioService.createEducation(title,subtitle,detail,color,image,this.username,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}}).subscribe((education)=>{
+  this.portfolioService.createEducation(title,subtitle,detail,color,image,this.userLogged,{headers: {'Content-Type':'application/json','Authorization':`Bearer ${this.token}`}}).subscribe((education)=>{
     this.portfolioService.setEducation(education)
   })
- })
+}
  
-  }
-
-
 }

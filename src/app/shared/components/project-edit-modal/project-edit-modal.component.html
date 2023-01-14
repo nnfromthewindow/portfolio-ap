@@ -35,7 +35,7 @@
     <input matInput placeholder="Link" name="link" formControlName="image">
   </mat-form-field>
   <div mat-dialog-actions>
-    <button mat-button mat-dialog-close type="submit">Editar</button>
+    <button mat-raised-button color="primary" mat-dialog-close type="submit" [disabled]="!profileForm.valid">Editar</button>
   </div>
   </form>
   

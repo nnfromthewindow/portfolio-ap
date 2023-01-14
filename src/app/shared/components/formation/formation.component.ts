@@ -3,12 +3,10 @@ import anime from 'animejs';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
 import { EducationTextModalComponent } from '../education-text-modal/education-text-modal.component';
-import * as fromAuth from '../../../state/auth/auth.reducer'
-import { Store } from '@ngrx/store';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { ExperienceAddModalComponent } from '../experience-add-modal/experience-add-modal.component';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ExperienceEditModalComponent } from '../experience-edit-modal/experience-edit-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
@@ -18,33 +16,38 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class FormationComponent implements OnInit {
 
-  jwtToken$ = this.store.select(fromAuth.selectToken);
-  //user$ = this.store.select(fromAuth.selectUser);
   username!:string;
   experiences!:any[];
+  userLogged!:string;
+  token!:string;
+
   public experienceSubscription!: Subscription;
   public experienceEditSubscription!: Subscription;
 
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router, public authService:AuthService) {}
+  constructor(public dialog: MatDialog, private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute, public authService:AuthService) {}
 
   ngOnInit() {
-    this.username= location.pathname.substring(1,location.pathname.length)
-    this.portfolioService.getPortfolio(this.username).subscribe({next:(port:any)=>{
-        this.experiences=Object.values(port[6])
-        this.experiences= this.experiences[0]
 
-        this.experienceSubscription=this.portfolioService.getExperience().subscribe((resp:any)=>{
-          this.experiences.push(resp)
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event:any)=>{
+      var username=this.route.snapshot.children[0].paramMap.get('username')!
+      this.userLogged=localStorage.getItem('user')!
+      this.token=localStorage.getItem('AuthToken')!
+      this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+          this.experiences=Object.values(port[6])
+          this.experiences= this.experiences[0]
+        }})
+    })
+  
+      this.experienceSubscription=this.portfolioService.getExperience().subscribe((resp:any)=>{
+        this.experiences.push(resp)
+      })
+      this.experienceEditSubscription=this.portfolioService.getEditExperience().subscribe((resp:any)=>{
+        this.experiences.forEach((e,i)=>{
+          if(e.id==resp.id){
+            this.experiences[i]=resp
+          }
         })
-        this.experienceEditSubscription=this.portfolioService.getEditExperience().subscribe((resp:any)=>{
-          this.experiences.forEach((e,i)=>{
-            if(e.id==resp.id){
-              this.experiences[i]=resp
-            }
-          })
-        })
-
-      }})
+      })
 
 
   }
@@ -100,14 +103,13 @@ export class FormationComponent implements OnInit {
     });
   }
   openEditExperienceDialog(enterAnimationDuration: string, exitAnimationDuration: string, id:string): void {
-    this.router.navigateByUrl(`${this.username}/experience/${id}`)
+    this.authService.setEditId(id)
     this.dialog.open(ExperienceEditModalComponent, {
       width: '250px',
       height: '750px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
-    this.dialog.afterAllClosed.subscribe((close)=>this.router.navigateByUrl(this.username))
   }
 
   openTextDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -118,14 +120,13 @@ export class FormationComponent implements OnInit {
     });
   }
 
-  deleteExperience(id:string, username:string): void{
-    this.jwtToken$.subscribe((token:any)=>{
-    this.portfolioService.deleteExperience(id, username,{
-    headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
-  }).subscribe().unsubscribe()})
+  deleteExperience(id:string): void{
+  
+    this.portfolioService.deleteExperience(id, this.userLogged,{
+    headers: {'Content-Type':'application/json','Authorization':`Bearer ${this.token}`}
+  }).subscribe()
   this.experiences=this.experiences.filter((exp)=>{return  exp.id!==id})
 
-}
-
+  }
 
 }

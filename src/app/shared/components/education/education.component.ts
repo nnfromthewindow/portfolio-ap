@@ -3,11 +3,9 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
 import { EducationTextModalComponent } from '../education-text-modal/education-text-modal.component';
-import * as fromAuth from '../../../state/auth/auth.reducer'
-import { Store } from '@ngrx/store';
 import { PortfolioService } from 'src/app/services/portfolio.service';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { EducationEditModalComponent } from '../education-edit-modal/education-edit-modal.component';
 import { ThisReceiver } from '@angular/compiler';
 import { AuthService } from 'src/app/services/auth.service';
@@ -19,35 +17,45 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./education.component.css']
 })
 export class EducationComponent implements OnInit {
- 
-  jwtToken$ = this.store.select(fromAuth.selectToken);
+
   username!:string;
-  //user$ = this.store.select(fromAuth.selectUser);
+  userLogged!:string;
+  token!:string;
+
   education!:any[];
   public educationSubscription!: Subscription;
   public educationEditSubscription!: Subscription;
 
-  constructor(public dialog: MatDialog, private store: Store<fromAuth.State>, private portfolioService:PortfolioService, private router:Router, private route:ActivatedRoute, public authService:AuthService) {}
+  constructor(public dialog: MatDialog, private portfolioService:PortfolioService, private router:Router, public authService:AuthService, private route:ActivatedRoute) {}
 
   ngOnInit() {
-    this.username= location.pathname.substring(1,location.pathname.length)
-    this.portfolioService.getPortfolio(this.username).subscribe({next:(port:any)=>{
-        this.education=Object.values(port[5]) 
-        this.education= this.education[0]
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event:any)=>{
+    var username=this.route.snapshot.children[0].paramMap.get('username')!
+   this.userLogged=localStorage.getItem('user')!
+   this.token=localStorage.getItem('AuthToken')!
+   this.portfolioService.getPortfolio(username).subscribe({next:(port:any)=>{
+    this.education=Object.values(port[5]) 
+    this.education= this.education[0]
 
-        this.educationSubscription=this.portfolioService.getEducation().subscribe((resp:any)=>{
-          this.education.push(resp)
-        })
+    this.educationSubscription=this.portfolioService.getEducation().subscribe((resp:any)=>{
+      this.education.push(resp)
+    })
 
-        this.educationEditSubscription=this.portfolioService.getEditEducation().subscribe((resp:any)=>{
-          this.education.forEach((e,i)=>{
-            if(e.id==resp.id){
-              this.education[i]=resp
-            }
-          })
-        })
-      
-      }})
+    this.educationEditSubscription=this.portfolioService.getEditEducation().subscribe((resp:any)=>{
+      this.education.forEach((e,i)=>{
+        if(e.id==resp.id){
+          this.education[i]=resp
+        }
+      })
+    })
+  
+  }})
+  
+  })
+
+
+
+    
 
 
   }
@@ -73,23 +81,22 @@ export class EducationComponent implements OnInit {
     });
   }
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id:string): void {
-    this.router.navigateByUrl(`${this.username}/education/${id}`)
+    this.authService.setEditId(id);
     this.dialog.open(EducationEditModalComponent, {
       width: '250px',
       height: '750px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
-    this.dialog.afterAllClosed.subscribe((close)=>this.router.navigateByUrl(this.username))
   }
  
   ///////////////////////////////////////
 
-  deleteEducation(id:string, username:string): void{
-    this.jwtToken$.subscribe((token:any)=>{
-    this.portfolioService.deleteEducation(id, username,{
-    headers: {'Content-Type':'application/json','Authorization':`Bearer ${token}`}
-  }).subscribe().unsubscribe()})
+  deleteEducation(id:string): void{
+
+    this.portfolioService.deleteEducation(id, this.userLogged,{
+    headers: {'Content-Type':'application/json','Authorization':`Bearer ${this.token}`}
+  }).subscribe()
   this.education=this.education.filter((educ)=>{return  educ.id!==id})
 
 }

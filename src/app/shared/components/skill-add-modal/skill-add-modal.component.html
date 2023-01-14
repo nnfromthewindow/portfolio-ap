@@ -15,7 +15,7 @@
             cdkTextareaAutosize
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="3"  formControlName="percentaje"></textarea>
+            cdkAutosizeMaxRows="3"  formControlName="percentaje" type="number"></textarea>
 </mat-form-field>
 <h2>Icono de FontAwesome</h2>
 <mat-form-field appearance="fill">
@@ -33,6 +33,6 @@
   <ngx-mat-color-picker #picker [touchUi]="touchUi" [color]="color"></ngx-mat-color-picker>
 </mat-form-field>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close type="submit">Agregar</button>
+  <button mat-raised-button color="primary" mat-dialog-close type="submit"  [disabled]="!profileForm.valid">Agregar</button>
 </div>
 </form>

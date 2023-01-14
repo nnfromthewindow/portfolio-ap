@@ -12,6 +12,7 @@ export class PortfolioService implements OnInit{
 
   portfolioURL = environment.apiURL;
 
+  public portfolioSubject = new Subject();
   public bannerSubject = new Subject();
   public avatarSubject = new Subject();
   public welcomeSubject = new Subject();
@@ -37,6 +38,14 @@ export class PortfolioService implements OnInit{
   public getPortfolio(username:string): Observable<Object>{
     return this.httpClient.get(this.portfolioURL+'/'+username)
   }
+
+  setPortfolioSubject(portfolio:any){
+    this.portfolioSubject.next(portfolio)
+  }
+  
+  getPortfolioSubject(){
+    return this.portfolioSubject
+  }  
 
 ////  METODOS POST //////
 public createNetwork(title:any, icon:any, link:any, username:any, httpOptions:any): Observable<any>{
