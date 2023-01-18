@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //apiURL: "http://localhost:8080"
-  apiURL: "https://engaged-range-374821.rj.r.appspot.com/"
+  apiURL: "http://localhost:8080"
+  //apiURL: "https://engaged-range-374821.rj.r.appspot.com/"
 };
 
 /*
