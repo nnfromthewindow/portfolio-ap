@@ -19,9 +19,10 @@
   display: flex;
   flex-direction: column;
   height: 20rem;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 0 auto;
   width: 13rem;
+  padding: 1rem;
 }
 .skills-container {
   display: flex;
@@ -44,6 +45,9 @@
 }
 .skill-progress {
   margin: auto;
+}
+.skill-card-down{
+text-align: center;
 }
 .add-btn__container{
   display: flex;
@@ -69,13 +73,14 @@ mat-progress-spinner{
   margin-top: 2rem;
 }
 .percentaje{
-  bottom: 4.5rem;
+  bottom: 61px;
   color: white;
   font-size: 1.8em;
   position: relative;
   text-align: center;
 
 }
+
 
 /*    DRAG AND DROP   */
 

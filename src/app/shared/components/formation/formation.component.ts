@@ -37,7 +37,7 @@ export class FormationComponent implements OnInit {
           this.experiences= this.experiences[0]
         }})
     })
-  
+
       this.experienceSubscription=this.portfolioService.getExperience().subscribe((resp:any)=>{
         this.experiences.push(resp)
       })
@@ -48,9 +48,11 @@ export class FormationComponent implements OnInit {
           }
         })
       })
-
+      this.overItem()
+      this.overImage()
 
   }
+
 
   overItem() {
     anime({
@@ -67,9 +69,9 @@ export class FormationComponent implements OnInit {
       ],
       easing: 'easeOutQuad',
       duration: 2500,
-      loop: false,
+      loop: true,
       direction: 'alternate',
-    });
+    }).play;
   }
   overImage() {
     anime({
@@ -86,9 +88,9 @@ export class FormationComponent implements OnInit {
       ],
       easing: 'easeOutQuad',
       duration: 2500,
-      loop: false,
+      loop: true,
       direction: 'alternate',
-    });
+    }).play;
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -121,7 +123,7 @@ export class FormationComponent implements OnInit {
   }
 
   deleteExperience(id:string): void{
-  
+
     this.portfolioService.deleteExperience(id, this.userLogged,{
     headers: {'Content-Type':'application/json','Authorization':`Bearer ${this.token}`}
   }).subscribe()

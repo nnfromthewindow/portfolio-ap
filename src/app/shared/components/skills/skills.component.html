@@ -2,20 +2,23 @@
   <h2 class="skills-title" data-aos="fade-right">Skills</h2>
   <div class="skills-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!(authService.isLoggedIn$ | async)" >
     <div class="skills-card" data-aos="zoom-in" *ngFor="let skill of skills" >
+      <div class="skill-card-up">
+        <mat-progress-spinner class="spinner-container"
+        class="example-margin"
+        [color]="color"
+        [mode]="mode"
+        [value]="skill.percentaje">
 
-      <mat-progress-spinner class="spinner-container"
-      class="example-margin"
-      [color]="color"
-      [mode]="mode"
-      [value]="skill.percentaje">
-
-  </mat-progress-spinner>
-  <div class="percentaje">
-    <span>{{skill.percentaje}}%</span>
-  </div>
-      <div class="skill-icon" ><i class={{skill.icon}} [ngStyle]="{'color':skill.color}"></i></div>
-      <div class="skill-name">
-        <h3>{{skill.title}}</h3>
+        </mat-progress-spinner>
+        <div class="percentaje">
+        <span>{{skill.percentaje}}%</span>
+        </div>
+      </div>
+      <div class="skill-card-down">
+        <div class="skill-icon" ><i class={{skill.icon}} [ngStyle]="{'color':skill.color}"></i></div>
+        <div class="skill-name">
+          <h3>{{skill.title}}</h3>
+        </div>
       </div>
       <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
         <app-edit-icon (click)="openSkillEditDialog('3000ms', '1500ms',skill.id)"></app-edit-icon>
@@ -25,20 +28,23 @@
   </div>
   <div class="skills-container" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="(authService.isLoggedIn$ | async)" >
     <div class="skills-card" data-aos="zoom-in" *ngFor="let skill of skills" cdkDrag>
+      <div class="skill-card-up">
+        <mat-progress-spinner class="spinner-container"
+        class="example-margin"
+        [color]="color"
+        [mode]="mode"
+        [value]="skill.percentaje">
 
-      <mat-progress-spinner class="spinner-container"
-      class="example-margin"
-      [color]="color"
-      [mode]="mode"
-      [value]="skill.percentaje">
-
-  </mat-progress-spinner>
-  <div class="percentaje">
-    <span>{{skill.percentaje}}%</span>
-  </div>
-      <div class="skill-icon" ><i class={{skill.icon}} [ngStyle]="{'color':skill.color}"></i></div>
-      <div class="skill-name">
-        <h3>{{skill.title}}</h3>
+        </mat-progress-spinner>
+        <div class="percentaje">
+        <span>{{skill.percentaje}}%</span>
+        </div>
+      </div>
+      <div class="skill-card-down">
+        <div class="skill-icon" ><i class={{skill.icon}} [ngStyle]="{'color':skill.color}"></i></div>
+        <div class="skill-name">
+          <h3>{{skill.title}}</h3>
+        </div>
       </div>
       <div class="admin-buttons__container" *ngIf="authService.isLoggedIn$ | async">
         <app-edit-icon (click)="openSkillEditDialog('3000ms', '1500ms',skill.id)"></app-edit-icon>

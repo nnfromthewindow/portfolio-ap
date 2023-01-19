@@ -104,6 +104,11 @@
   margin-bottom: 3rem;
   width: 15rem;
 }
+app-edit-icon{
+  top: 5rem;
+  position: relative;
+  right: 4rem;
+}
 
 /*    DRAG AND DROP   */
 
@@ -155,6 +160,7 @@
   }
   .blob-text__descript p {
     font-size: 1.1em;
+    width: 9rem;
   }
   }
 @media only screen and (max-width: 412px) {
